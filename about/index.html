@@ -328,49 +328,6 @@
   <div class="markdown-body">
     
   </div>
-  
-  <div name="我是墙" id="recent-posts">
-  <!-- id=>type  recent-posts=>name    -->
-  <div name="我是画框">
-    <div name="我是纸">
-      <!--这里通过js挂载githubcalendar，也就是画画-->
-		  <div class="recent-post-item" style="width:100%;height:auto;padding:10px;">
-		  <!--这个是画框，顾名思义就是借用文章样式给加个框-->
-		  <!--这个是loading的样式，可自行调整-->
-		  <div
-			id="github_loading"
-			style="width:10%;height:100%;margin:0 auto;display: block"
-		  >
-			<svg
-			  xmlns="http://www.w3.org/2000/svg"
-			  xmlns:xlink="http://www.w3.org/1999/xlink"
-			  viewBox="0 0 50 50"
-			  style="enable-background:new 0 0 50 50"
-			  xml:space="preserve"
-			>
-			  <path
-				fill="#d0d0d0"
-				d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"
-				transform="rotate(275.098 25 25)"
-			  >
-				<animateTransform
-				  attributeType="xml"
-				  attributeName="transform"
-				  type="rotate"
-				  from="0 25 25"
-				  to="360 25 25"
-				  dur="0.6s"
-				  repeatCount="indefinite"
-				></animateTransform>
-			  </path>
-			</svg>
-		  </div>
-	  <!--这个是github_containner容器，也就是纸-->
-	  <div id="github_container"></div>
-	</div>
-    </div>
-  </div>
-</div>
 
   
 </article>
@@ -418,43 +375,6 @@
   <footer class="text-center mt-5 py-3">
   <div class="footer-content">
      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <br> <br> <p> 若果你 未觉荒谬 被传闻谈论的疯子挽着手 </p> 
-	<!--《添加网站运行时间 -->
-<br/>
-
-<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
-<script>
-var now = new Date(); 
-
-function createtime() {
-    //此处修改你的建站时间或者网站上线时间
-    var grt = new Date('08/27/2021 8:00:00');
-    now.setTime(now.getTime() + 250);
-    days = (now - grt) / 1000 / 60 / 60 / 24;
-
-    dnum = Math.floor(days);
-    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum);
-    hnum = Math.floor(hours);
-    if (String(hnum).length == 1) {
-        hnum = "0" + hnum;
-    }
-    minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
-    mnum = Math.floor(minutes);
-    if (String(mnum).length == 1) {
-        mnum = "0" + mnum;
-    }
-    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
-    snum = Math.round(seconds);
-    if (String(snum).length == 1) {
-        snum = "0" + snum;
-    }
-    document.getElementById("timeDate").innerHTML = " 本小站已夹缝生存了 " + dnum + " 天 ";
-    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
-}
-setInterval("createtime()", 250);
-</script>
-
-<!-- 添加网站运行时间》-->
-
   </div>
   
   <div class="statistics">
