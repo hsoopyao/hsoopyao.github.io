@@ -192,6 +192,14 @@
                     统计
                   </a>
                 
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/links/">
+                    
+                    友链
+                  </a>
+                
               </div>
             </li>
           
@@ -213,23 +221,7 @@
                   
                   <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/">
                     
-                    xxx
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/">
-                    
-                    xxx
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" href="/links/">
-                    
-                    xxx
+                    待开发
                   </a>
                 
               </div>
@@ -284,7 +276,33 @@
                 
 
 <article class="page-content">
-  
+  <!DOCTYPE html> <html> <head>     <meta charset="utf-8">     <title>ECharts</title>     <!-- 引入 echarts.js -->
+</head> <body>     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->     <div id="main" style="width: 600px;height:400px;"></div>     <script type="text/javascript">         // 基于准备好的dom，初始化echarts实例         
+import * as echarts from 'echarts';
+
+<p>// 基于准备好的dom，初始化echarts实例<br>var myChart = echarts.init(document.getElementById(‘main’));<br>// 绘制图表<br>myChart.setOption({<br>    title: {<br>        text: ‘ECharts 入门示例’<br>    },<br>    tooltip: {},<br>    xAxis: {<br>        data: [‘衬衫’, ‘羊毛衫’, ‘雪纺衫’, ‘裤子’, ‘高跟鞋’, ‘袜子’]<br>    },<br>    yAxis: {},<br>    series: [{<br>        name: ‘销量’,<br>        type: ‘bar’,<br>        data: [5, 20, 36, 10, 10, 20]<br>    }]<br>});             }]         };          // 使用刚指定的配置项和数据显示图表。<br>myChart.setOption(option);     </script> <!-- hexo injector body_end start -->
+  <script data-pjax src="https://cdn.jsdelivr.net/gh/Zfour/hexo-github-calendar@1.21/hexo_githubcalendar.js"></script>
+  <script data-pjax>
+        function GithubCalendarConfig(){
+            var git_githubapiurl ="https://python-gitee-calendar-api.vercel.app/api?hsoopyao";
+            var git_color =['#ebedf0', '#fdcdec', '#fc9bd9', '#fa6ac5', '#f838b2', '#f5089f', '#c4067e', '#92055e', '#540336', '#48022f', '#30021f'];
+            var git_user ="hsoopyao";
+            var parent_div_git = document.getElementById('recent-posts');
+            var git_div_html = '<div class="recent-post-item" style="width:100%;height:auto;padding:10px;"><div id="github_loading" style="width:10%;height:100%;margin:0 auto;display: block"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  viewBox="0 0 50 50" style="enable-background:new 0 0 50 50" xml:space="preserve"><path fill="#d0d0d0" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z" transform="rotate(275.098 25 25)"><animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"></animateTransform></path></svg></div><div id="github_container"></div></div>';
+            if(parent_div_git && location.pathname =='/'){
+                console.log('已挂载github calendar')
+                // parent_div_git.innerHTML=git_div_html+parent_div_git.innerHTML // 无报错，但不影响使用(支持pjax跳转)
+                parent_div_git.insertAdjacentHTML("afterbegin",git_div_html) // 有报错，但不影响使用(支持pjax跳转)
+            };
+            GithubCalendar(git_githubapiurl,git_color,git_user)
+        }
+        if(document.getElementById('recent-posts')){
+            GithubCalendarConfig()
+        }
+    </script>
+    <style>#github_container{min-height:280px}@media screen and (max-width:650px) {#github_container{background-image:;min-height:0px}}</style>
+    <style></style><!-- hexo injector body_end end --></body> </html></p>
+
 
   
 </article>
@@ -454,26 +472,5 @@
 <script  src="/js/boot.js" ></script>
 
 
-<!-- hexo injector body_end start -->
-  <script data-pjax src="https://cdn.jsdelivr.net/gh/Zfour/hexo-github-calendar@1.21/hexo_githubcalendar.js"></script>
-  <script data-pjax>
-        function GithubCalendarConfig(){
-            var git_githubapiurl ="https://python-gitee-calendar-api.vercel.app/api?hsoopyao";
-            var git_color =['#ebedf0', '#fdcdec', '#fc9bd9', '#fa6ac5', '#f838b2', '#f5089f', '#c4067e', '#92055e', '#540336', '#48022f', '#30021f'];
-            var git_user ="hsoopyao";
-            var parent_div_git = document.getElementById('recent-posts');
-            var git_div_html = '<div class="recent-post-item" style="width:100%;height:auto;padding:10px;"><div id="github_loading" style="width:10%;height:100%;margin:0 auto;display: block"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  viewBox="0 0 50 50" style="enable-background:new 0 0 50 50" xml:space="preserve"><path fill="#d0d0d0" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z" transform="rotate(275.098 25 25)"><animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"></animateTransform></path></svg></div><div id="github_container"></div></div>';
-            if(parent_div_git && location.pathname =='/'){
-                console.log('已挂载github calendar')
-                // parent_div_git.innerHTML=git_div_html+parent_div_git.innerHTML // 无报错，但不影响使用(支持pjax跳转)
-                parent_div_git.insertAdjacentHTML("afterbegin",git_div_html) // 有报错，但不影响使用(支持pjax跳转)
-            };
-            GithubCalendar(git_githubapiurl,git_color,git_user)
-        }
-        if(document.getElementById('recent-posts')){
-            GithubCalendarConfig()
-        }
-    </script>
-    <style>#github_container{min-height:280px}@media screen and (max-width:650px) {#github_container{background-image:;min-height:0px}}</style>
-    <style></style><!-- hexo injector body_end end --></body>
+</body>
 </html>
