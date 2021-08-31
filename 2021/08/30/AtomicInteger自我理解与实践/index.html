@@ -18,7 +18,7 @@
   <meta name="author" content="hspro-yao">
   <meta name="keywords" content="">
   
-  <title>Hello World | hspro-yao&#39;s blog</title>
+  <title>AtomicInteger自我理解与实践 | hspro-yao&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -265,7 +265,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Hello World">
+            <span class="h2" id="subtitle" title="AtomicInteger自我理解与实践">
               
             </span>
 
@@ -275,8 +275,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-08-26 19:35" pubdate>
-        2021年8月26日 晚上
+      <time datetime="2021-08-30 18:51" pubdate>
+        2021年8月30日 晚上
       </time>
     </span>
   
@@ -287,7 +287,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      75 字
+      926 字
     </span>
   
 
@@ -297,7 +297,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      10
        分钟
     </span>
   
@@ -335,34 +335,116 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Hello World</h1>
+            <h1 style="display: none">AtomicInteger自我理解与实践</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：1985年10月26日 下午
+                  本文最后更新于：2021年8月31日 下午
                 
               </p>
             
             <div class="markdown-body">
-              <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure>
+              <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>记录在工作中遇到的情况:</p>
+<ul>
+<li>直播间中统计观看直播的人数 一开始傻傻的用<code>Integer</code>来实现 结果被<strong>汉叔</strong>说用<code>AtomicInteger</code>原子整型</li>
+<li>我才发现我大学学的多线程只是皮毛，导致实践时根本就没考虑到高并发的情况 想都没想就之间用了Integer实现了。。。</li>
+</ul>
+<p>案发现场：</p>
+<p><img src="/2021/08/30/AtomicInteger%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3%E4%B8%8E%E5%AE%9E%E8%B7%B5/image-20210831161544159.png" srcset="/img/loading.gif" lazyload alt="不忍直视"></p>
+<h1 id="AtomicInteger-原子整型"><a href="#AtomicInteger-原子整型" class="headerlink" title="AtomicInteger 原子整型"></a>AtomicInteger 原子整型</h1><div class="note note-success">
+            <p>原子整型在<code>java.util.concurrent.atomic</code>包下</p><p><code>AtomicInteger</code>是可以自动更新int值，有关原子变量属性的描述，一般用于用字递增<strong>计数器</strong>等应用程序中</p><p>这说明在高并发的情况下是能保证计数器不会出现不正确的情况</p>
+          </div>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure>
+<h2 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h2><blockquote>
+<p>首先先了解什么是原子性</p>
+<p>学过数据库都知道事务有四大特性（ACID）</p>
+<ul>
+<li>原子性</li>
+<li>持久性</li>
+<li>隔离性</li>
+<li>一致性</li>
+</ul>
+<p>其中原子性是指<strong>一个操作是不可中断的，要么全部成功，要么全部失败。</strong></p>
+<p>通俗的讲就是一场篮球比赛，输了就整队输了，赢了就是整队赢了，不可能存在输的队伍中有获胜的一个人</p>
+</blockquote>
+<div class="note note-info">
+            <p>让我们通过例子来看看反例 - [举个栗子]</p>
+          </div>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IntegerTest</span> </span>&#123;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> InterruptedException </span>&#123;<br>        <span class="hljs-keyword">new</span> Thread(<span class="hljs-keyword">new</span> Increment(),<span class="hljs-string">&quot;黄牛&quot;</span>).start();<br>        <span class="hljs-keyword">new</span> Thread(<span class="hljs-keyword">new</span> Increment(),<span class="hljs-string">&quot;狂热粉丝&quot;</span>).start();<br>    &#125;<br><br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Increment</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Runnable</span></span>&#123;<br><br>    <span class="hljs-keyword">static</span> Integer count = <span class="hljs-number">0</span>;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">while</span> (count &lt;= <span class="hljs-number">50</span>)&#123;<br>            System.out.println(<span class="hljs-string">&quot;当前直播间人数: &quot;</span> + (count++) + <span class="hljs-string">&quot; 人&quot;</span>);<br>            <span class="hljs-keyword">try</span> &#123;<br>                TimeUnit.SECONDS.sleep(<span class="hljs-number">1</span>);<br>            &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>                e.printStackTrace();<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>实验结果：</strong></p>
+<p><img src="/2021/08/30/AtomicInteger%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3%E4%B8%8E%E5%AE%9E%E8%B7%B5/image-20210831165521914.png" srcset="/img/loading.gif" lazyload alt="测试结果"></p>
+<p>发现当两个线程同时进入直播间的时候，Integer认为是同一个人，实际上是3个人但只显示了2个人，这就不符合逻辑了。这时候就拿出神器<code>AtomicInteger</code>！！！</p>
+<h2 id="简单看源码"><a href="#简单看源码" class="headerlink" title="简单看源码"></a>简单看源码</h2><ul>
+<li><p>通过大致浏览源码发现<code>AtomicInteger</code>底层是使用<code>Unsafe</code>类实现的，当我们点进<code>Unsafe</code>类中发现发放都是Native本地方法，涉及到了C部分**[溜了溜了]**</p>
+</li>
+<li><p>还发现有一个<code>private volatile int value</code>，<code>volatile</code>我仅知道是用来修饰变量标识原子属性**[留下了没有技术的眼泪]**</p>
+</li>
+<li><p>还有用到反射获取AtomicInteger的属性value<img src="/2021/08/30/AtomicInteger%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3%E4%B8%8E%E5%AE%9E%E8%B7%B5/image-20210831170434897.png" srcset="/img/loading.gif" lazyload alt="源码"></p>
+</li>
+<li><p>接下来就是提供了两个构造方法</p>
+<ul>
+<li>一个是无参构造，初始值为0</li>
+<li>一个是有参构造，初始值由我们自行传参决定</li>
+</ul>
+<p><img src="/2021/08/30/AtomicInteger%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3%E4%B8%8E%E5%AE%9E%E8%B7%B5/image-20210831170634705.png" srcset="/img/loading.gif" lazyload alt="源码"></p>
+</li>
+<li><p>然后就是各种getAndSet/getAndIncement/getAndAdd…总之就是三个单词拼拼拼。讲讲不一样的地方</p>
+<ul>
+<li><code>getAndIncemrnt()</code>和<code>incrementAndGet() </code><strong>前者是返回+1前的值，后者是返回更新后的值。</strong>通俗的讲就是<code>count++</code>与<code>++count</code>的意思嘛</li>
+<li><code>addAndGet(int delta)</code>和<code>incrementAndGet() </code><strong>前者是可以在指定加多少，后者是固定+1</strong></li>
+<li>其余都是一样的道理。。。</li>
+</ul>
+</li>
+<li><p><code>public final boolean compareAndSet(int expect, int update)</code>这是<strong>著名的CAS也就是乐观锁</strong>，两个参数一个是期望值，一个是更新值。如果当前值与期望值一样则更新成传入的update值，否则不更新。</p>
+</li>
+<li><p>还提供了<code>AutomicInteger</code>转基本类型的方法 <code>toString()/intValue()/doubleValue</code>…</p>
+</li>
+</ul>
+<div class="note note-info">
+            <p>那就使用<code>AtomicInteger</code>来解决上面的问题吧 [我还举个栗子]</p>
+          </div>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Increment</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Runnable</span></span>&#123;<br><br>    <span class="hljs-keyword">static</span> AtomicInteger count = <span class="hljs-keyword">new</span> AtomicInteger();<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">while</span> (count.get() &lt;= <span class="hljs-number">30</span>)&#123;<br>            System.out.println(<span class="hljs-string">&quot;当前直播间人数: &quot;</span> + (count.incrementAndGet()) + <span class="hljs-string">&quot; 人&quot;</span>);<br>            <span class="hljs-keyword">try</span> &#123;<br>                TimeUnit.SECONDS.sleep(<span class="hljs-number">1</span>);<br>            &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>                e.printStackTrace();<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>实践结果：</strong></p>
+<p><img src="/2021/08/30/AtomicInteger%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3%E4%B8%8E%E5%AE%9E%E8%B7%B5/image-20210831172549964.png" srcset="/img/loading.gif" lazyload alt="结果"></p>
+<p>怎么顺序反了…但解决了相同数字的问题！！</p>
+<div class="note note-danger">
+            <p>我还发现会超出我设置的直播人数</p><p><img src="/2021/08/30/AtomicInteger%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3%E4%B8%8E%E5%AE%9E%E8%B7%B5/image-20210831172809800.png" srcset="/img/loading.gif" lazyload alt="发现问题"></p><p>无论设置多少，总会超出一到两个…<strong>还得再研究研究</strong> </p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//todo AtomicInteger超数量问题</span><br></code></pre></td></tr></table></figure>
+          </div>
+
+
+
+<blockquote>
+<p>最后来句名言 共勉</p>
+</blockquote>
+<p><img src="/2021/08/30/AtomicInteger%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3%E4%B8%8E%E5%AE%9E%E8%B7%B5/image-20210831173053847.png" srcset="/img/loading.gif" lazyload alt="汉叔语录"></p>
 
             </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
                 
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Java/">Java</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%8E%9F%E5%AD%90%E6%95%B4%E5%9E%8B/">原子整型</a>
+                    
+                  </div>
                 
               </div>
               
@@ -377,15 +459,15 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/08/30/AtomicInteger%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3%E4%B8%8E%E5%AE%9E%E8%B7%B5/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">AtomicInteger自我理解与实践</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2021/08/26/hello-world/">
+                        <span class="hidden-mobile">Hello World</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
