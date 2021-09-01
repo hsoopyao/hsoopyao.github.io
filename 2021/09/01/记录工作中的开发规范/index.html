@@ -18,7 +18,7 @@
   <meta name="author" content="hspro-yao">
   <meta name="keywords" content="">
   
-  <title>AtomicInteger自我理解与实践 | hspro-yao&#39;s blog</title>
+  <title>记录工作中的开发规范 | hspro-yao&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -265,7 +265,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="AtomicInteger自我理解与实践">
+            <span class="h2" id="subtitle" title="记录工作中的开发规范">
               
             </span>
 
@@ -275,8 +275,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-08-30 18:51" pubdate>
-        2021年8月30日 晚上
+      <time datetime="2021-09-01 17:13" pubdate>
+        2021年9月1日 下午
       </time>
     </span>
   
@@ -287,7 +287,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      926 字
+      889 字
     </span>
   
 
@@ -297,7 +297,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      10
+      13
        分钟
     </span>
   
@@ -335,116 +335,88 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">AtomicInteger自我理解与实践</h1>
+            <h1 style="display: none">记录工作中的开发规范</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年8月31日 下午
+                  本文最后更新于：2021年9月1日 晚上
                 
               </p>
             
             <div class="markdown-body">
-              <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>记录在工作中遇到的情况:</p>
+              <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>记录在工作中提到的<strong>开发规范</strong>：</p>
 <ul>
-<li>直播间中统计观看直播的人数 一开始傻傻的用<code>Integer</code>来实现 结果被<strong>汉叔</strong>说用<code>AtomicInteger</code>原子整型</li>
-<li>我才发现我大学学的多线程只是皮毛，导致实践时根本就没考虑到高并发的情况 想都没想就之间用了Integer实现了。。。</li>
+<li>在负责项目接口实现与前端进行对接的时候，出现了很多bug，改了好几天也长了记性</li>
+<li>在对接的过程中还有别人的建议，是时候记录一下，规范自己以后的开发模式</li>
 </ul>
-<p>案发现场：</p>
-<p><img src="/2021/08/30/AtomicInteger%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3%E4%B8%8E%E5%AE%9E%E8%B7%B5/image-20210831161544159.png" srcset="/img/loading.gif" lazyload alt="不忍直视"></p>
-<h1 id="AtomicInteger-原子整型"><a href="#AtomicInteger-原子整型" class="headerlink" title="AtomicInteger 原子整型"></a>AtomicInteger 原子整型</h1><div class="note note-success">
-            <p>原子整型在<code>java.util.concurrent.atomic</code>包下</p><p><code>AtomicInteger</code>是可以自动更新int值，有关原子变量属性的描述，一般用于用字递增<strong>计数器</strong>等应用程序中</p><p>这说明在高并发的情况下是能保证计数器不会出现不正确的情况</p>
-          </div>
-
-
-
-<h2 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h2><blockquote>
-<p>首先先了解什么是原子性</p>
-<p>学过数据库都知道事务有四大特性（ACID）</p>
-<ul>
-<li>原子性</li>
-<li>持久性</li>
-<li>隔离性</li>
-<li>一致性</li>
-</ul>
-<p>其中原子性是指<strong>一个操作是不可中断的，要么全部成功，要么全部失败。</strong></p>
-<p>通俗的讲就是一场篮球比赛，输了就整队输了，赢了就是整队赢了，不可能存在输的队伍中有获胜的一个人</p>
+<h1 id="正片开始"><a href="#正片开始" class="headerlink" title="正片开始"></a>正片开始</h1><h2 id="接口返回统一数据格式"><a href="#接口返回统一数据格式" class="headerlink" title="接口返回统一数据格式"></a>接口返回统一数据格式</h2><blockquote>
+<p>现在是前后端分离的时代，在编写后端开发时要返回统一数据格式(一般都是json字符串)，这样才能更好的查看返回的结果</p>
 </blockquote>
-<div class="note note-info">
-            <p>让我们通过例子来看看反例 - [举个栗子]</p>
-          </div>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IntegerTest</span> </span>&#123;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> InterruptedException </span>&#123;<br>        <span class="hljs-keyword">new</span> Thread(<span class="hljs-keyword">new</span> Increment(),<span class="hljs-string">&quot;黄牛&quot;</span>).start();<br>        <span class="hljs-keyword">new</span> Thread(<span class="hljs-keyword">new</span> Increment(),<span class="hljs-string">&quot;狂热粉丝&quot;</span>).start();<br>    &#125;<br><br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Increment</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Runnable</span></span>&#123;<br><br>    <span class="hljs-keyword">static</span> Integer count = <span class="hljs-number">0</span>;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">while</span> (count &lt;= <span class="hljs-number">50</span>)&#123;<br>            System.out.println(<span class="hljs-string">&quot;当前直播间人数: &quot;</span> + (count++) + <span class="hljs-string">&quot; 人&quot;</span>);<br>            <span class="hljs-keyword">try</span> &#123;<br>                TimeUnit.SECONDS.sleep(<span class="hljs-number">1</span>);<br>            &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>                e.printStackTrace();<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p><strong>实验结果：</strong></p>
-<p><img src="/2021/08/30/AtomicInteger%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3%E4%B8%8E%E5%AE%9E%E8%B7%B5/image-20210831165521914.png" srcset="/img/loading.gif" lazyload alt="测试结果"></p>
-<p>发现当两个线程同时进入直播间的时候，Integer认为是同一个人，实际上是3个人但只显示了2个人，这就不符合逻辑了。这时候就拿出神器<code>AtomicInteger</code>！！！</p>
-<h2 id="简单看源码"><a href="#简单看源码" class="headerlink" title="简单看源码"></a>简单看源码</h2><ul>
-<li><p>通过大致浏览源码发现<code>AtomicInteger</code>底层是使用<code>Unsafe</code>类实现的，当我们点进<code>Unsafe</code>类中发现发放都是Native本地方法，涉及到了C部分**[溜了溜了]**</p>
-</li>
-<li><p>还发现有一个<code>private volatile int value</code>，<code>volatile</code>我仅知道是用来修饰变量标识原子属性**[留下了没有技术的眼泪]**</p>
-</li>
-<li><p>还有用到反射获取AtomicInteger的属性value<img src="/2021/08/30/AtomicInteger%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3%E4%B8%8E%E5%AE%9E%E8%B7%B5/image-20210831170434897.png" srcset="/img/loading.gif" lazyload alt="源码"></p>
-</li>
-<li><p>接下来就是提供了两个构造方法</p>
+<p>一般包含：</p>
 <ul>
-<li>一个是无参构造，初始值为0</li>
-<li>一个是有参构造，初始值由我们自行传参决定</li>
-</ul>
-<p><img src="/2021/08/30/AtomicInteger%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3%E4%B8%8E%E5%AE%9E%E8%B7%B5/image-20210831170634705.png" srcset="/img/loading.gif" lazyload alt="源码"></p>
-</li>
-<li><p>然后就是各种getAndSet/getAndIncement/getAndAdd…总之就是三个单词拼拼拼。讲讲不一样的地方</p>
-<ul>
-<li><code>getAndIncemrnt()</code>和<code>incrementAndGet() </code><strong>前者是返回+1前的值，后者是返回更新后的值。</strong>通俗的讲就是<code>count++</code>与<code>++count</code>的意思嘛</li>
-<li><code>addAndGet(int delta)</code>和<code>incrementAndGet() </code><strong>前者是可以在指定加多少，后者是固定+1</strong></li>
-<li>其余都是一样的道理。。。</li>
-</ul>
-</li>
-<li><p><code>public final boolean compareAndSet(int expect, int update)</code>这是<strong>著名的CAS也就是乐观锁</strong>，两个参数一个是期望值，一个是更新值。如果当前值与期望值一样则更新成传入的update值，否则不更新。</p>
-</li>
-<li><p>还提供了<code>AutomicInteger</code>转基本类型的方法 <code>toString()/intValue()/doubleValue</code>…</p>
-</li>
+<li>信息 Message</li>
+<li>状态码 Code</li>
+<li>结果 Result/Data</li>
+<li>时间戳 Timestamp</li>
 </ul>
 <div class="note note-info">
-            <p>那就使用<code>AtomicInteger</code>来解决上面的问题吧 [我还举个栗子]</p>
+            <p>代码示例 </p>
           </div>
 
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Increment</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Runnable</span></span>&#123;<br><br>    <span class="hljs-keyword">static</span> AtomicInteger count = <span class="hljs-keyword">new</span> AtomicInteger();<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">while</span> (count.get() &lt;= <span class="hljs-number">30</span>)&#123;<br>            System.out.println(<span class="hljs-string">&quot;当前直播间人数: &quot;</span> + (count.incrementAndGet()) + <span class="hljs-string">&quot; 人&quot;</span>);<br>            <span class="hljs-keyword">try</span> &#123;<br>                TimeUnit.SECONDS.sleep(<span class="hljs-number">1</span>);<br>            &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>                e.printStackTrace();<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Result</span>&lt;<span class="hljs-title">T</span>&gt; <span class="hljs-keyword">implements</span> <span class="hljs-title">Serializable</span> </span>&#123;<br>    <br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">long</span> serialVersionUID = <span class="hljs-number">1L</span>;<br>    <br>     <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 返回处理消息</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;返回处理消息&quot;)</span><br>    <span class="hljs-keyword">private</span> String message = <span class="hljs-string">&quot;操作成功！&quot;</span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 返回代码</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;返回代码&quot;)</span><br>    <span class="hljs-keyword">private</span> Integer code = <span class="hljs-number">0</span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 返回数据对象 data</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;返回数据对象&quot;)</span><br>    <span class="hljs-keyword">private</span> T result;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 时间戳</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@ApiModelProperty(value = &quot;时间戳&quot;)</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">long</span> timestamp = System.currentTimeMillis();<br>    <br>     <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;T&gt; <span class="hljs-function">Result&lt;T&gt; <span class="hljs-title">OK</span><span class="hljs-params">()</span> </span>&#123;<br>        Result&lt;T&gt; r = <span class="hljs-keyword">new</span> Result&lt;T&gt;();<br>        r.setSuccess(<span class="hljs-keyword">true</span>);<br>        r.setCode(CommonConstant.SC_OK_200);<br>        r.setMessage(<span class="hljs-string">&quot;成功&quot;</span>);<br>        <span class="hljs-keyword">return</span> r;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;T&gt; <span class="hljs-function">Result&lt;T&gt; <span class="hljs-title">OK</span><span class="hljs-params">(T data)</span> </span>&#123;<br>        Result&lt;T&gt; r = <span class="hljs-keyword">new</span> Result&lt;T&gt;();<br>        r.setSuccess(<span class="hljs-keyword">true</span>);<br>        r.setCode(CommonConstant.SC_OK_200);<br>        r.setResult(data);<br>        <span class="hljs-keyword">return</span> r;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;T&gt; <span class="hljs-function">Result&lt;T&gt; <span class="hljs-title">OK</span><span class="hljs-params">(String msg, T data)</span> </span>&#123;<br>        Result&lt;T&gt; r = <span class="hljs-keyword">new</span> Result&lt;T&gt;();<br>        r.setSuccess(<span class="hljs-keyword">true</span>);<br>        r.setCode(CommonConstant.SC_OK_200);<br>        r.setMessage(msg);<br>        r.setResult(data);<br>        <span class="hljs-keyword">return</span> r;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Result&lt;Object&gt; <span class="hljs-title">error</span><span class="hljs-params">(String msg)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> error(CommonConstant.SC_INTERNAL_SERVER_ERROR_500, msg);<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Result&lt;Object&gt; <span class="hljs-title">error</span><span class="hljs-params">(<span class="hljs-keyword">int</span> code, String msg)</span> </span>&#123;<br>        Result&lt;Object&gt; r = <span class="hljs-keyword">new</span> Result&lt;Object&gt;();<br>        r.setCode(code);<br>        r.setMessage(msg);<br>        r.setSuccess(<span class="hljs-keyword">false</span>);<br>        <span class="hljs-keyword">return</span> r;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Result&lt;T&gt; <span class="hljs-title">error500</span><span class="hljs-params">(String message)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.message = message;<br>        <span class="hljs-keyword">this</span>.code = CommonConstant.SC_INTERNAL_SERVER_ERROR_500;<br>        <span class="hljs-keyword">this</span>.success = <span class="hljs-keyword">false</span>;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p><strong>实践结果：</strong></p>
-<p><img src="/2021/08/30/AtomicInteger%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3%E4%B8%8E%E5%AE%9E%E8%B7%B5/image-20210831172549964.png" srcset="/img/loading.gif" lazyload alt="结果"></p>
-<p>怎么顺序反了…但解决了相同数字的问题！！</p>
-<div class="note note-danger">
-            <p>我还发现会超出我设置的直播人数</p><p><img src="/2021/08/30/AtomicInteger%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3%E4%B8%8E%E5%AE%9E%E8%B7%B5/image-20210831172809800.png" srcset="/img/loading.gif" lazyload alt="发现问题"></p><p>无论设置多少，总会超出一到两个…<strong>还得再研究研究</strong> </p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//todo AtomicInteger超数量问题</span><br></code></pre></td></tr></table></figure>
+<div class="note note-danget">
+            <p>其中的常量需要自行定义 eg：<code>public static final Integer SC_OK_200 = 200;</code></p>
           </div>
 
-
-
+<p><img src="/2021/09/01/%E8%AE%B0%E5%BD%95%E5%B7%A5%E4%BD%9C%E4%B8%AD%E7%9A%84%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/image-20210901173505326.png" srcset="/img/loading.gif" lazyload alt="返回结果"></p>
+<p>我之前在学校写的项目简直没有规范可言 $%^&amp;*^##@!# 最近在准备毕设和负责项目才接触到 TAT</p>
+<h2 id="查询提供自定义排序"><a href="#查询提供自定义排序" class="headerlink" title="查询提供自定义排序"></a>查询提供自定义排序</h2><p>案发现场：</p>
+<p><img src="/2021/09/01/%E8%AE%B0%E5%BD%95%E5%B7%A5%E4%BD%9C%E4%B8%AD%E7%9A%84%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/image-20210901174317864.png" srcset="/img/loading.gif" lazyload alt="不忍直视"></p>
+<p>​             **因为项目是集成了Jeecg boot所以我认为他有默认的排序/// ^ /// 而且不能修改SQL语句 **</p>
+<p>实现后进一步建议：</p>
+<p><img src="/2021/09/01/%E8%AE%B0%E5%BD%95%E5%B7%A5%E4%BD%9C%E4%B8%AD%E7%9A%84%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/image-20210901173947766.png" srcset="/img/loading.gif" lazyload alt="建议"></p>
 <blockquote>
-<p>最后来句名言 共勉</p>
+<p>一般分页查询都有两个固定的参数</p>
+<ul>
+<li>pageSize 页面大小</li>
+<li>pageNo 当前页数</li>
+</ul>
 </blockquote>
-<p><img src="/2021/08/30/AtomicInteger%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3%E4%B8%8E%E5%AE%9E%E8%B7%B5/image-20210831173053847.png" srcset="/img/loading.gif" lazyload alt="汉叔语录"></p>
+<p>现在就多加一个字段<code>orderby</code>来控制排序的顺序和要排序的字段</p>
+<div class="note note-info">
+            <p>代码示例</p>
+          </div>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> Result&lt;?&gt; list(OpendayLive opendayLive,<br>                                   <span class="hljs-meta">@RequestParam(name = &quot;pageNo&quot;, defaultValue = &quot;1&quot;)</span> Integer pageNo,<br>                                   <span class="hljs-meta">@RequestParam(name = &quot;pageSize&quot;, defaultValue = &quot;10&quot;)</span> Integer pageSize,<br>                                   <span class="hljs-meta">@RequestParam(name = &quot;orderby&quot;,defaultValue = &quot;&quot;)</span> String orderby,<br>                                   HttpServletRequest req) &#123;<br>        QueryWrapper&lt;OpendayLive&gt; queryWrapper = QueryGenerator.initQueryWrapper(opendayLive, req.getParameterMap());<br>        Page&lt;OpendayLive&gt; page = <span class="hljs-keyword">new</span> Page&lt;OpendayLive&gt;(pageNo, pageSize);<br>    	<span class="hljs-comment">//判断orderby是否为空</span><br>        <span class="hljs-keyword">if</span> (!StrUtil.isBlank(orderby))&#123;<br>            String[] orderBy = orderby.split(<span class="hljs-string">&quot; &quot;</span>);<br>            String param = orderBy[<span class="hljs-number">1</span>];<br>            <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;asc&quot;</span>.equals(param) || <span class="hljs-string">&quot;ASC&quot;</span>.equals(param))&#123;<br>                queryWrapper.orderByAsc(orderBy[<span class="hljs-number">0</span>]);<br>            &#125;<span class="hljs-keyword">else</span> &#123;<br>                queryWrapper.orderByDesc(orderBy[<span class="hljs-number">0</span>]);<br>            &#125;<br>        &#125;<br>        IPage&lt;OpendayLive&gt; pageList = opendayLiveService.page(page, queryWrapper);<br>        <span class="hljs-keyword">return</span> Result.OK(pageList);<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>个人感觉怪怪的，有好想法可以告诉我。。。但可以基本实现自定义排序了！！</p>
+<h2 id="返回正确的状态码"><a href="#返回正确的状态码" class="headerlink" title="返回正确的状态码"></a>返回正确的状态码</h2><p>又一案发现场：</p>
+<p><img src="/2021/09/01/%E8%AE%B0%E5%BD%95%E5%B7%A5%E4%BD%9C%E4%B8%AD%E7%9A%84%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/image-20210901180048905.png" srcset="/img/loading.gif" lazyload alt="建议建议"></p>
+<p>这是我还没搞懂返回统一的数据结构时埋下的坑，，破案了 填坑了</p>
+<p><strong>500是表示服务器错误！！没有查找数据是正确执行了方法，只是空</strong></p>
+<p><img src="/2021/09/01/%E8%AE%B0%E5%BD%95%E5%B7%A5%E4%BD%9C%E4%B8%AD%E7%9A%84%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/image-20210901180208016.png" srcset="/img/loading.gif" lazyload alt="埋坑现场"></p>
+<p>导致前端按照500去判断了。。。</p>
+<div class="note note-info">
+            <p>填坑</p>
+          </div>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> Result&lt;?&gt; get() &#123;<br>        QueryWrapper&lt;OpendayLiveNotice&gt; wrapper = <span class="hljs-keyword">new</span> QueryWrapper&lt;&gt;();<br>        OpendayLiveNotice opendayLiveNotice = opendayLiveNoticeService.getOne(wrapper);<br>        <span class="hljs-keyword">if</span> (opendayLiveNotice == <span class="hljs-keyword">null</span>) &#123;<br>            <span class="hljs-keyword">return</span> Result.ok(<span class="hljs-string">&quot;未找到对应数据&quot;</span>);<br>        &#125;<br>        <span class="hljs-keyword">return</span> Result.OK(opendayLiveNotice);<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>实习还在继续，，，</p>
 
             </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
                 
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
-                    
-                      <a class="hover-with-bg" href="/categories/Java/%E5%B9%B6%E5%8F%91/">并发</a>
-                    
-                  </div>
-                
                 
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Java/">Java</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E5%8E%9F%E5%AD%90%E6%95%B4%E5%9E%8B/">原子整型</a>
+                      <a class="hover-with-bg" href="/tags/%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/">开发规范</a>
                     
                   </div>
                 
@@ -461,18 +433,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/09/01/%E8%AE%B0%E5%BD%95%E5%B7%A5%E4%BD%9C%E4%B8%AD%E7%9A%84%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">记录工作中的开发规范</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/08/26/hello-world/">
-                        <span class="hidden-mobile">Hello World</span>
+                      <a href="/2021/08/30/AtomicInteger%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3%E4%B8%8E%E5%AE%9E%E8%B7%B5/">
+                        <span class="hidden-mobile">AtomicInteger自我理解与实践</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
