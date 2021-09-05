@@ -18,7 +18,7 @@
   <meta name="author" content="hspro-yao">
   <meta name="keywords" content="">
   
-  <title>Nginx | hspro-yao&#39;s blog</title>
+  <title>SpringEvent使用 | hspro-yao&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -265,7 +265,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Nginx">
+            <span class="h2" id="subtitle" title="SpringEvent使用">
               
             </span>
 
@@ -275,8 +275,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-09-02 19:20" pubdate>
-        2021年9月2日 晚上
+      <time datetime="2021-09-05 14:25" pubdate>
+        2021年9月5日 下午
       </time>
     </span>
   
@@ -287,7 +287,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      749 字
+      719 字
     </span>
   
 
@@ -297,7 +297,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8
+      9
        分钟
     </span>
   
@@ -335,70 +335,84 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Nginx</h1>
+            <h1 style="display: none">SpringEvent使用</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年9月2日 晚上
+                  本文最后更新于：2021年9月5日 下午
                 
               </p>
             
             <div class="markdown-body">
-              <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>今天在调式中遇到了代理问题，然后叫汉叔过来看看问题，结果发现我对Nginx的代理以及配置文件还不是很了解，随后汉叔发我一条连接，打开一看是关于Nginx配置文件的详解，要好好学习了啊！！</p>
-<p>案发现场：</p>
-<p><img src="/2021/09/02/Nginx/image-20210902192344157.png" srcset="/img/loading.gif" lazyload alt="证据在此"></p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/137146854">这里提供了原文链接 可戳 (本文也会参照一些)</a></p>
-<p>上文主要还是对<strong>location</strong>的介绍</p>
-<h1 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h1><p>Ngin是一个高性能的HTTP和反向代理服务器，最常见的用途是将其设置未代理服务器。我们学习还是从配置文件中开始！！</p>
-<h2 id="nginx-conf"><a href="#nginx-conf" class="headerlink" title="nginx.conf"></a>nginx.conf</h2><p>从配置文件中可以发现</p>
+              <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>场景：</p>
+</blockquote>
 <ul>
-<li>upstream块 <strong>可以有块</strong></li>
-<li>http块<ul>
-<li>server块 <strong>可以有多个</strong></li>
-<li>location块 <strong>可以有多个</strong></li>
+<li>每个直播间有一个专属的<strong>会话Id(session Id)<strong>，当开始直播的时候会给在线的用户广播会话Id（这里我们使用的是</strong>websocket</strong>）</li>
+<li>这时就有一个问题，当时离线的用户登录的时候，就无法即时获得直播间的会话Id，我们应该在该用户上线的时候发送对应的会话Id给用户**(监听到用户登录连接时，给对应用户发送会话id，发送就用到websocket)**</li>
 </ul>
-</li>
-</ul>
+<p>而监听机制汉叔就说可以用到<strong>SpringEvent（事件监听机制）</strong></p>
+<p>之前没有听说过SpringEvent，所以要学习一下以及学会使用的场景，学会举一反三。</p>
+<h1 id="SpringEvent"><a href="#SpringEvent" class="headerlink" title="SpringEvent"></a>SpringEvent</h1><blockquote>
+<p>Spring 官方文档翻译如下 ：</p>
+<p>ApplicationContext 通过 ApplicationEvent 类和 ApplicationListener 接口进行事件处理。 如果将实现 ApplicationListener 接口的 bean 注入到上下文中，则每次使用 ApplicationContext 发布 ApplicationEvent 时，都会通知该 bean。 本质上，这是标准的<strong>观察者设计模式</strong>。</p>
+</blockquote>
+<p>自定义事件中，继承ApplicationEvent</p>
+<p>其中有字段<code>source</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">    * Create a new &#123;<span class="hljs-doctag">@code</span> ApplicationEvent&#125;.</span><br><span class="hljs-comment">    *</span><br><span class="hljs-comment">    * <span class="hljs-doctag">@param</span> source the object on which the event initially occurred or with</span><br><span class="hljs-comment">    *               which the event is associated (never &#123;<span class="hljs-doctag">@code</span> null&#125;)</span><br><span class="hljs-comment">    * 事件最初发生的对象或与事件相关联的对象 永远都不能为null(可以理解为上下文)</span><br><span class="hljs-comment">    */</span><br>   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ConnectCommandEvent</span><span class="hljs-params">(Object source)</span> </span>&#123;<br>       <span class="hljs-keyword">super</span>(source);<br>   &#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><blockquote>
+<p>步骤</p>
+</blockquote>
+<ol>
+<li>自定义事件，继承ApplicationEvent</li>
+<li>自定义监听器，通过注解@EventListener</li>
+<li>编写业务，引入发布者ApplicationEventPublisher</li>
+</ol>
+<blockquote>
+<p>使用场景</p>
+</blockquote>
+<p>监听用户订阅事件，当有用户订阅时，输出对应的信息</p>
 <div class="note note-info">
-            <p>举一个完整栗子</p>
+            <p>代码实现</p>
           </div>
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs conf">upstream name &#123;<br>	server 服务名 weight=权重s<br>	keepalive 连接时长<br>&#125;<br><br>#代理服务器<br>server&#123;<br>	listen #代理服务器监听的端口<br>	server_name #表示监听到之后需要转到哪里去<br>	<br>	#匹配到的路径<br>	location /api/ &#123;<br>		proxy_pass #代理的地址 相当于一个转发 即localhost:8080/api/这个请求会被转发到指定的proxy_pass的路径<br>	&#125;<br>	<br>	location / &#123;<br>		root #里面配置了root这时表示当匹配这个请求的路径时，将会在这个文件夹内寻找相应的文件<br>		index #当没有指定主页时，默认会选择这个指定的文件，它可以有多个，并按顺序来加载，如果第一个不存在，则找第二个，依此类推<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="Location"><a href="#Location" class="headerlink" title="Location"></a>Location</h2><p>location指令的功能是用来匹配不同的url请求，进而对请求做不同的处理和响应</p>
 <blockquote>
-<p>location语法</p>
+<p>自定义事件</p>
 </blockquote>
-<p>匹配URL类型，有四种参数可选，当然也可以不带参数。<code>location [ = | ~ | ~* | ^~ ] uri &#123; … &#125;</code></p>
-<ol>
-<li><p><code>“=”</code> 精确匹配，<strong>内容要同表达式完全一直才匹配成功</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs conf">location = /app/&#123;<br>	...<br>&#125;<br>#只匹配 http://localhost:8080/app/<br></code></pre></td></tr></table></figure></li>
-<li><p><code>&quot;~&quot;</code> 执行正则匹配，<strong>区分大小写</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs conf">location ~ /App/&#123;<br>	...<br>&#125;<br>#只匹配http://localhost:8080/App/<br>#http://localhost:8080/app/ [匹配失败]<br></code></pre></td></tr></table></figure></li>
-<li><p><code>&quot;~*&quot;</code> 执行正则匹配，<strong>不区分大小写</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs conf">location ~* /App/ &#123;<br>	...<br>&#125;<br>#http://localhost:8080/App/ [匹配成功]<br>#http://localhost:8080/app/ [匹配成功]<br></code></pre></td></tr></table></figure></li>
-<li><p><code>&quot;^~&quot;</code> 表示普通字符串匹配上以后不再进行正则匹配</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs conf">location ^~ /index/ &#123;<br>	...<br>&#125;<br>#http://localhost:8080/index/ [匹配成功]<br>#http://localhost:8080/index/test [匹配成功]<br>#http://localhost:8080/test/index [匹配失败]<br></code></pre></td></tr></table></figure></li>
-<li><p>不加任何规则时，默认是大小写敏感的，前缀匹配，相当于加了<code>&quot;~&quot;</code>与<code>&quot;^~&quot;</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs conf">location /index/ &#123;<br>	...<br>&#125;<br>#http://localhost:8080/index [匹配成功]<br>#http://localhost:8080/Index [匹配失败]<br>#http://localhost:8080/index/index.page [匹配成功]<br>#http://localhost:8080/test/index [匹配失败]<br></code></pre></td></tr></table></figure></li>
-<li><p><code>&quot;@&quot;</code> nginx内部跳转</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs conf">location /index/ &#123;<br>  error_page 404 @index_error;<br>&#125;<br>location @index_error &#123;<br>  .....<br>&#125;<br>#以 /index/ 开头的请求，如果链接的状态为 404。则会匹配到 @index_error 这条规则上。<br></code></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="修饰符优先级"><a href="#修饰符优先级" class="headerlink" title="修饰符优先级"></a>修饰符优先级</h2><ol>
-<li>=</li>
-<li>无</li>
-<li>^~</li>
-<li>~或～*</li>
-<li>(无)</li>
-</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Getter</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SubscriptCommandEvent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ApplicationEvent</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> String username;<br><br>    <span class="hljs-keyword">private</span> String subscribe;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * Create a new &#123;<span class="hljs-doctag">@code</span> ApplicationEvent&#125;.</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> source the object on which the event initially occurred or with</span><br><span class="hljs-comment">     *               which the event is associated (never &#123;<span class="hljs-doctag">@code</span> null&#125;)</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">SubscriptCommandEvent</span><span class="hljs-params">(Object source,String username,String subscribe)</span> </span>&#123;<br>        <span class="hljs-keyword">super</span>(source);<br>        <span class="hljs-keyword">this</span>.username = username;<br>        <span class="hljs-keyword">this</span>.subscribe = subscribe;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> SubscriptCommandEvent <span class="hljs-title">getInstance</span><span class="hljs-params">(Object source,String username,String subscribe)</span></span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SubscriptCommandEvent(source, username,subscribe);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
 <blockquote>
-<p>当然这是理论上的东西，还是需要实践才可以</p>
-<p>我后面再补 因为够钟下班了！！</p>
+<p>自定义监听器</p>
 </blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Sl4j</span><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ListenerService</span></span>&#123;<br>    <span class="hljs-meta">@EventListener</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">listenConnect</span><span class="hljs-params">(SubscriptCommandEvent commandEvent)</span></span>&#123;<br>        log.info(<span class="hljs-string">&quot;client &#123;&#125; subscript &#123;&#125; channel&quot;</span>,commandEvent.getUsername(),commandEvent.getSubscribe());<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>左边会有一个电台的标识</p>
+<p><img src="/2021/09/05/SpringEvent%E4%BD%BF%E7%94%A8/image-20210905151416507.png" srcset="/img/loading.gif" lazyload alt="idea识别到监听器"></p>
+<blockquote>
+<p>编写业务层</p>
+<p><strong>ApplicationEventPublisher</strong>是ApplicationContext的父接口之一。这接口的作用是：Interface that encapsulates event publication functionality.</p>
+<p>　　<strong>功能就是发布事件，也就是把某个事件告诉的所有与这个事件相关的监听器。</strong></p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Sl4j</span><br><span class="hljs-meta">@Service</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SubscriptService</span></span>&#123;<br>    <br>    <span class="hljs-comment">//发布者</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> ApplicationEventPublisher publisher;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">CoupleService</span><span class="hljs-params">(ApplicationEventPublisher publisher)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.publisher = publisher;<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">connection</span><span class="hljs-params">(String username,String subscript)</span></span>&#123;<br>        <span class="hljs-comment">//参数source是与事件相关联的对象，就是类本身this</span><br>        publisher.publishEvent(ConnectCommandEvent.getInstance(<span class="hljs-keyword">this</span>,username,subscript));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>左边会有一个耳机的样式</p>
+<p><img src="/2021/09/05/SpringEvent%E4%BD%BF%E7%94%A8/image-20210905151316706.png" srcset="/img/loading.gif" lazyload alt="idea识别到监听器"></p>
+<blockquote>
+<p>测试</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RestController</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestController</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> CoupleService coupleService;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">TestController</span><span class="hljs-params">(CoupleService coupleService)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.coupleService = coupleService;<br>    &#125;<br><br>    <span class="hljs-meta">@GetMapping(value = &quot;/&#123;username&#125;&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">subscript</span><span class="hljs-params">(<span class="hljs-meta">@PathVariable</span> String username)</span></span>&#123;<br>        coupleService.connection(username,<span class="hljs-string">&quot;RunningMan&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>执行<code>localhost:8080/lisi</code>查看控制台日志输出</p>
+<p><img src="/2021/09/05/SpringEvent%E4%BD%BF%E7%94%A8/image-20210905151743777.png" srcset="/img/loading.gif" lazyload alt="最后一行发现有订阅日志输出"></p>
 
             </div>
             <hr>
@@ -408,7 +422,9 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Nginx/">Nginx</a>
+                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Java/SpringEvent/">SpringEvent</a>
                     
                   </div>
                 
@@ -416,7 +432,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Nginx/">Nginx</a>
+                      <a class="hover-with-bg" href="/tags/SpringEvent/">SpringEvent</a>
                     
                   </div>
                 
@@ -433,18 +449,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/09/05/SpringEvent%E4%BD%BF%E7%94%A8/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">SpringEvent使用</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/09/01/%E8%AE%B0%E5%BD%95%E5%B7%A5%E4%BD%9C%E4%B8%AD%E7%9A%84%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/">
-                        <span class="hidden-mobile">记录工作中的开发规范</span>
+                      <a href="/2021/09/02/Nginx/">
+                        <span class="hidden-mobile">Nginx</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
