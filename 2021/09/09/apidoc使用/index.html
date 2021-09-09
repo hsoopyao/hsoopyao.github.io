@@ -1,0 +1,842 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/blogging.png">
+  <link rel="icon" href="/img/blogging.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="记录我的成长历程~">
+  <meta name="author" content="hspro-yao">
+  <meta name="keywords" content="">
+  
+  <title>apidoc使用 | hspro-yao&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/toubudaziji.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/gundongtiao.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/shubiao.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"www.openumind.top","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"UHPRzDGHJ12bMNq3b9w01zw4-gzGzoHsz","app_key":"ONGsBbk9viW3RjlEszXSbkzL","server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>hspro-yao's blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" target="_blank" rel="noopener" href="https://gitee.com/peanut_study">
+                <i class="iconfont icon-gitee-fill"></i>
+                Gitee
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" target="_blank" rel="noopener" href="https://github.com/hsoopyao">
+                <i class="iconfont icon-github-fill"></i>
+                Github
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-switch-fill"></i>
+                Else
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/message/">
+                    
+                    留言板
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/updateLog/">
+                    
+                    博客更新日志
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/statistics/">
+                    
+                    统计
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/links/">
+                    
+                    友链
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-exp-fill"></i>
+                Tools
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/">
+                    
+                    待开发
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="apidoc使用">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-09-09 17:59" pubdate>
+        2021年9月9日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      21
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">apidoc使用</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年9月9日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
+<li>公司项目用到了apiDoc这个生成API文档的工具</li>
+<li>汉叔说对比Swagger来说比较灵活，如果修改一个返回值在对应的类中修改，执行一行命令即可更新</li>
+</ul>
+<p>老规矩的案发现场：&gt;&gt;&gt;<a target="_blank" rel="noopener" href="https://blog.csdn.net/soslinken/article/details/50468896">图中链接</a></p>
+<p><img src="/2021/09/09/apidoc%E4%BD%BF%E7%94%A8/image-20210909180432008.png" srcset="/img/loading.gif" lazyload alt="还原现场"></p>
+<h1 id="apiDoc快速上手"><a href="#apiDoc快速上手" class="headerlink" title="apiDoc快速上手"></a>apiDoc快速上手</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>通过<code>npm</code>命令进行下载安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs linux">npm install apidoc -g<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h2><blockquote>
+<p>找到一个现成项目或者新建一个项目</p>
+</blockquote>
+<p><strong>我们项目是在一个子模块中新建一个apidoc的文件夹，在里面写一个类叫xxxDoc，然后开始写注释</strong></p>
+<p>我看网上很多人都是在方法上面写apidoc的注释，用一个类来集中写比较好~</p>
+<div class="note note-info">
+            <p>来，上栗子</p>
+          </div>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@api</span> &#123;POST&#125; /user/list 个人用户信息列表</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiGroup</span> 用户管理</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiVersion</span> 0.0.1</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiDescription</span> 查询用户列表</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiParam</span> &#123;String&#125; pageNo 当前页码</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiParam</span> &#123;String&#125; pageSize 页面大小</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiParam</span> &#123;String&#125; [name] 查询用户名</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiParam</span> &#123;String&#125; [orderby] 排序字段</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiParam</span> &#123;String=desc,asc&#125; [orderType=asc] 升序降序</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiParamExample</span> &#123;json&#125; 请求样例：</span><br><span class="hljs-comment"> * &#123;</span><br><span class="hljs-comment"> *     &quot;name&quot;: &quot;admin&quot;,</span><br><span class="hljs-comment"> *     &quot;pageNo&quot;: 1,</span><br><span class="hljs-comment"> *     &quot;pageSize&quot;: 1，</span><br><span class="hljs-comment"> *     &quot;orderBy&quot;: &quot;name&quot;,</span><br><span class="hljs-comment"> *     &quot;orderType&quot;: &quot;desc&quot;</span><br><span class="hljs-comment"> * &#125;</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiSuccess</span> (200) &#123;String&#125; msg 返回描述</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiSuccess</span> (200) &#123;String&#125; code 状态码</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiSuccess</span> (200) &#123;Object&#125; data 返回数据</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiSuccess</span> (200) &#123;Number&#125; data.pageNo 页码</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiSuccess</span> (200) &#123;Number&#125; data.pageSize 每页记录数</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiSuccess</span> (200) &#123;Number&#125; data.totalPage 总页数</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiSuccess</span> (200) &#123;Number&#125; data.total 总记录数</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiSuccess</span> (200) &#123;Array&#125; data.list 资源数据列表</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiSuccess</span> (200) &#123;Array&#125; data.list.userId 用户Id</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiSuccess</span> (200) &#123;Array&#125; data.list.username 用户名</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiSuccess</span> (200) &#123;Array&#125; data.list.age 年龄</span><br><span class="hljs-comment"> * &#123;</span><br><span class="hljs-comment"> *     &quot;code&quot;: &quot;200&quot;,</span><br><span class="hljs-comment"> *     &quot;msg&quot;: &quot;SUCCESS&quot;,</span><br><span class="hljs-comment"> *     &quot;data&quot;: &#123;</span><br><span class="hljs-comment"> *         &quot;total&quot;: 3,</span><br><span class="hljs-comment"> *         &quot;pageNo&quot;: 1,</span><br><span class="hljs-comment"> *         &quot;pageSize&quot;: 1,</span><br><span class="hljs-comment"> *         &quot;list&quot;: [</span><br><span class="hljs-comment"> *             &#123;</span><br><span class="hljs-comment"> *                 &quot;username&quot;: &quot;admin&quot;,</span><br><span class="hljs-comment"> *                 &quot;id&quot;: &quot;001&quot;,</span><br><span class="hljs-comment"> *                 &quot;age&quot;: &quot;12&quot;</span><br><span class="hljs-comment"> *             &#125;</span><br><span class="hljs-comment"> *         ]</span><br><span class="hljs-comment"> *     &#125;</span><br><span class="hljs-comment"> * &#125;</span><br><span class="hljs-comment"> */</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>让我们来一一解释一下其中的注释：</p>
+<ol>
+<li><p>@api</p>
+<blockquote>
+<p>@api {method} path [title]</p>
+<p>用来指明方法名、请求地址以及标题[标题是可选的]</p>
+</blockquote>
+</li>
+<li><p>@apiGroup</p>
+<blockquote>
+<p>@apiGroup name</p>
+<p>将方法进行分组</p>
+</blockquote>
+</li>
+<li><p>@apiVersion</p>
+<blockquote>
+<p>@apiVersion version</p>
+<p>用于指定文档块的版本号</p>
+</blockquote>
+</li>
+<li><p>@apiDescription</p>
+<blockquote>
+<p>@apiDescription text</p>
+<p>用于描述文档块</p>
+</blockquote>
+</li>
+<li><p>@apiParam</p>
+<blockquote>
+<p>@apiParam [(group)] [{type}] [field=defaultValue] [description]</p>
+<p>其中type可以指定变量大小 {String{..5}}最多5个字符的字符串 / {String{2..5}}表示2-5个字符串</p>
+<p>{type=allowedValues}指定变量的可选值 {number=1,2,3,99}number值可以是1.2.3.99四个值其中一个</p>
+</blockquote>
+</li>
+<li><p>@apiParamExample</p>
+<blockquote>
+<p>@apiParamExample [{type}] [title]  </p>
+<p>​                                    example</p>
+<p>用于展示请求参数的样式</p>
+</blockquote>
+</li>
+<li><p>@apiSuccess</p>
+<blockquote>
+<p>@apiSuccess [(group)] [{type}] field [descpription]</p>
+<p>请求成功后返回的参数</p>
+</blockquote>
+</li>
+<li><p>@apiSuccessExample</p>
+<blockquote>
+<p>@apiSuccessExample [{type}] [title]  </p>
+<p>​                                    example</p>
+<p>和@apiParamExample差不多，用来展示栗子</p>
+</blockquote>
+</li>
+<li><p>@apiHeader</p>
+<blockquote>
+<p>@apiHeader [(group)] [{type}] [field=defaultValue] [description]</p>
+<p>用于定义API-Header请求头</p>
+<p><strong>可以提取成公用的，因为每个api请求都有请求头</strong></p>
+</blockquote>
+</li>
+<li><p>@apiHeaderExample</p>
+<blockquote>
+<p>@apiHeaderExample [{type}] [title]  </p>
+<p>​                                         example</p>
+<p>用于展示apiHeader的栗子</p>
+</blockquote>
+</li>
+<li><p>@apiDefine</p>
+<blockquote>
+<p>@apiDefine name [title] [description]</p>
+<p>该注解用于定义一个内嵌的文档块，一般同@apiUse来搭配使用</p>
+<p>如果说@apiDefine是定义，那么@apiUse就是引用</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">    * <span class="hljs-doctag">@apiDefine</span> auth</span><br><span class="hljs-comment">    * <span class="hljs-doctag">@apiHeader</span> &#123;String&#125; authorization 鉴权信息：为Basic + &quot;空格&quot; +  &#123;token&#125;</span><br><span class="hljs-comment">    * <span class="hljs-doctag">@apiHeaderExample</span> &#123;json&#125; 请求头例子:</span><br><span class="hljs-comment">    *     &#123;</span><br><span class="hljs-comment">    *         &quot;Authorization&quot;: &quot;Basic xxxxxxxxxxxxxxxxx&quot;</span><br><span class="hljs-comment">    *     &#125;</span><br><span class="hljs-comment">    */</span><br>    <br><span class="hljs-comment">/**</span><br><span class="hljs-comment">    * <span class="hljs-doctag">@api</span> &#123;POST&#125; /org/root 获取根组织</span><br><span class="hljs-comment">    * <span class="hljs-doctag">@apiGroup</span> 组织信息</span><br><span class="hljs-comment">    * <span class="hljs-doctag">@apiName</span> org-root</span><br><span class="hljs-comment">    * <span class="hljs-doctag">@apiVersion</span> 1.0.0</span><br><span class="hljs-comment">    * <span class="hljs-doctag">@apiDescription</span> 获取根组织接口用来获取组织的根节点</span><br><span class="hljs-comment">    * <span class="hljs-doctag">@apiUse</span> auth</span><br><span class="hljs-comment">    */</span><br></code></pre></td></tr></table></figure></li>
+</ol>
+<p>以上列出来的都是项目上用到的，因此特地学习一下，还有一些还没列出来，可以根据<a target="_blank" rel="noopener" href="https://apidocjs.com/">apidoc的官网来学习</a>更多</p>
+<p><strong>配置apidoc.json</strong></p>
+<blockquote>
+<p>每次导出接口文档都必须要让apidoc读取到apidoc.json文件(如果未添加配置文件，导出报错)，你可以在你项目的根目录下添加apidoc.json文件，这个文件主要包含一些项目的描述信息，比如标题、简短的描述、版本等，你也可以加入一些可选的配置项，比如页眉、页脚、模板等。</p>
+</blockquote>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;这是一个美观大方的api文档&quot;</span>,<br>    <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-string">&quot;0.1.0&quot;</span>,<br>    <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;这是一个美观大方的api文档&quot;</span>,<br>    <span class="hljs-attr">&quot;title&quot;</span>: <span class="hljs-string">&quot;这里是title&quot;</span>,<br>    <span class="hljs-attr">&quot;url&quot;</span>: <span class="hljs-string">&quot;https://127.0.0.1/onlookers-bbs/&quot;</span><br>    <span class="hljs-string">&quot;header&quot;</span>: &#123;<br>    	<span class="hljs-attr">&quot;title&quot;</span>:<span class="hljs-string">&quot;header&quot;</span>,<br>    	<span class="hljs-attr">&quot;filename&quot;</span>:<span class="hljs-string">&quot;header.md&quot;</span><br>	&#125;,<br>	<span class="hljs-attr">&quot;footer&quot;</span>: &#123;<br>        <span class="hljs-attr">&quot;title&quot;</span>:<span class="hljs-string">&quot;footer&quot;</span>,<br>    	<span class="hljs-attr">&quot;filename&quot;</span>:<span class="hljs-string">&quot;footer.md&quot;</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>其中header.md/footer.md需要自行定义！</strong></p>
+<p>以下摘抄<a target="_blank" rel="noopener" href="https://apidocjs.com/#install">官网</a></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">name</td>
+<td align="left">您的项目名称。<br>如果<code>apidoc.json</code>该字段不存在，则 apiDoc 尝试从 中确定值<code>package.json</code></td>
+</tr>
+<tr>
+<td align="left">version</td>
+<td align="left">您的项目的版本。<br>如果<code>apidoc.json</code>该字段不存在，则 apiDoc 尝试从 中确定值<code>package.json</code>。</td>
+</tr>
+<tr>
+<td align="left">description</td>
+<td align="left">介绍您的项目。<br>如果<code>apidoc.json</code>该字段不存在，则 apiDoc 尝试从 中确定值<code>package.json</code>。</td>
+</tr>
+<tr>
+<td align="left">title</td>
+<td align="left">浏览器标题文本</td>
+</tr>
+<tr>
+<td align="left">url</td>
+<td align="left">api 路径（端点）的前缀 e.g. <code>https://api.github.com/v1</code></td>
+</tr>
+<tr>
+<td align="left">sampleUrl</td>
+<td align="left">如果设置为 URL，将显示用于测试 api 方法（发送请求）的表单。如果设置为<code>true</code>，则表单将可见，并且将使用与当前文档相同的 URL。如果设置为<code>false</code>或未定义，则不会生成任何表单。请参阅<a target="_blank" rel="noopener" href="https://apidocjs.com/#param-api-sample-request">@apiSampleRequest</a>以更好地控制此表单的生成位置和方式</td>
+</tr>
+<tr>
+<td align="left">header</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">title</td>
+<td align="left">Navigation text for the included header.md file. (watch <a target="_blank" rel="noopener" href="https://apidocjs.com/#headerfooter">Header / Footer</a>)</td>
+</tr>
+<tr>
+<td align="left">filename</td>
+<td align="left">Filename (markdown-file) for the included header.md file.</td>
+</tr>
+<tr>
+<td align="left">footer</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">title</td>
+<td align="left">Navigation text for the included footer.md file.</td>
+</tr>
+<tr>
+<td align="left">filename</td>
+<td align="left">Filename (markdown-file) for the included footer.md file.</td>
+</tr>
+<tr>
+<td align="left">order</td>
+<td align="left">A list of api-names / group-names for ordering the output. Not defined names are automatically displayed last. <code>&quot;order&quot;: [  &quot;Error&quot;,  &quot;Define&quot;,  &quot;PostTitleAndError&quot;,  &quot;PostError&quot; ]</code></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">template</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">forceLanguage</td>
+<td align="left">String</td>
+<td align="left">禁用浏览器语言自动检测并设置特定的语言环境 Example: <code>de</code>, <code>en</code>. View available locales <a target="_blank" rel="noopener" href="https://github.com/apidoc/apidoc/tree/master/template/locales">here</a>.</td>
+</tr>
+<tr>
+<td align="left">withCompare</td>
+<td align="left">Boolean</td>
+<td align="left">可以比较旧版的api的版本号. 默认值: <code>true</code></td>
+</tr>
+<tr>
+<td align="left">withGenerator</td>
+<td align="left">Boolean</td>
+<td align="left">在页脚输出生成器的信息. 默认值: <code>true</code></td>
+</tr>
+<tr>
+<td align="left">jQueryAjaxSetup</td>
+<td align="left">Object</td>
+<td align="left">Set <a target="_blank" rel="noopener" href="http://api.jquery.com/jquery.ajaxsetup/">default values</a> for Ajax requests.</td>
+</tr>
+<tr>
+<td align="left">aloneDisplay</td>
+<td align="left">Boolean</td>
+<td align="left">单击菜单标题时，仅在页面上显示该内容. 默认值: <code>false</code></td>
+</tr>
+</tbody></table>
+<h2 id="执行命令生成文档"><a href="#执行命令生成文档" class="headerlink" title="执行命令生成文档"></a>执行命令生成文档</h2><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">apidoc -i 项目根目录/ -o 文档生成位置/<br></code></pre></td></tr></table></figure>
+
+<p>最后会在你指定的文档生成一个apidoc的文档</p>
+<p><img src="/2021/09/09/apidoc%E4%BD%BF%E7%94%A8/image-20210909192935007.png" srcset="/img/loading.gif" lazyload alt="apidoc文档结构"></p>
+<p>双击打开<code>index.html</code>就可以看到最终的生成的文档啦！！</p>
+<p>文档长什么样子要靠自己去实践才能看到网页的样式！！</p>
+<p><strong>完结撒花！！</strong></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/apidoc/">apidoc</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/API%E6%96%87%E6%A1%A3/">API文档</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/09/05/SpringEvent%E4%BD%BF%E7%94%A8/">
+                        <span class="hidden-mobile">SpringEvent使用</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"UHPRzDGHJ12bMNq3b9w01zw4-gzGzoHsz","appKey":"ONGsBbk9viW3RjlEszXSbkzL","placeholder":"以匿名方式评论 快来说点什么吧!(๑•̀ㅂ•́)و✧","path":"window.location.pathname","avatar":"retro","meta":["nick","mail"],"pageSize":10,"lang":"zh-CN","highlight":true,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[]},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <br> <br> <p> 若果你 未觉荒谬 被传闻谈论的疯子挽着手 </p> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/caidai.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<!-- hexo injector body_end start -->
+  <script data-pjax src="https://cdn.jsdelivr.net/gh/Zfour/hexo-github-calendar@1.21/hexo_githubcalendar.js"></script>
+  <script data-pjax>
+        function GithubCalendarConfig(){
+            var git_githubapiurl ="https://python-gitee-calendar-api.vercel.app/api?hsoopyao";
+            var git_color =['#ebedf0', '#fdcdec', '#fc9bd9', '#fa6ac5', '#f838b2', '#f5089f', '#c4067e', '#92055e', '#540336', '#48022f', '#30021f'];
+            var git_user ="hsoopyao";
+            var parent_div_git = document.getElementById('recent-posts');
+            var git_div_html = '<div class="recent-post-item" style="width:100%;height:auto;padding:10px;"><div id="github_loading" style="width:10%;height:100%;margin:0 auto;display: block"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  viewBox="0 0 50 50" style="enable-background:new 0 0 50 50" xml:space="preserve"><path fill="#d0d0d0" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z" transform="rotate(275.098 25 25)"><animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"></animateTransform></path></svg></div><div id="github_container"></div></div>';
+            if(parent_div_git && location.pathname =='/about/'){
+                console.log('已挂载github calendar')
+                // parent_div_git.innerHTML=git_div_html+parent_div_git.innerHTML // 无报错，但不影响使用(支持pjax跳转)
+                parent_div_git.insertAdjacentHTML("afterbegin",git_div_html) // 有报错，但不影响使用(支持pjax跳转)
+            };
+            GithubCalendar(git_githubapiurl,git_color,git_user)
+        }
+        if(document.getElementById('recent-posts')){
+            GithubCalendarConfig()
+        }
+    </script>
+    <style>#github_container{min-height:280px}@media screen and (max-width:650px) {#github_container{background-image:;min-height:0px}}</style>
+    <style></style><!-- hexo injector body_end end --></body>
+</html>
