@@ -124,23 +124,31 @@
           
           
           
-            <li class="nav-item">
-              <a class="nav-link" target="_blank" rel="noopener" href="https://gitee.com/peanut_study">
-                <i class="iconfont icon-gitee-fill"></i>
-                Gitee
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-plan"></i>
+                project
               </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" target="_blank" rel="noopener" href="https://github.com/hsoopyao">
-                <i class="iconfont icon-github-fill"></i>
-                Github
-              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://gitee.com/peanut_study">
+                    <i class="iconfont icon-gitee-fill"></i>
+                    Gitee
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://github.com/hsoopyao">
+                    <i class="iconfont icon-github-fill"></i>
+                    Github
+                  </a>
+                
+              </div>
             </li>
           
         
@@ -174,6 +182,14 @@
                   <a class="dropdown-item" href="/message/">
                     
                     留言板
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/talking/">
+                    
+                    心情说说
                   </a>
                 
                   
@@ -251,7 +267,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="talking">
+            <span class="h2" id="subtitle" title="心情说说">
               
             </span>
 
@@ -279,6 +295,7 @@
   <head>
   <script src="https://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 </head>
+
   <body>
 
 <script type="text/javascript" src="https://unpkg.com/artitalk"></script>
@@ -289,8 +306,6 @@
         appKey: 'PnmWLYCSwLT8kT9zEVVaUHJY'
     })
 </script>
-
-
 
   <!-- hexo injector body_end start -->
   <script data-pjax src="https://cdn.jsdelivr.net/gh/Zfour/hexo-github-calendar@1.21/hexo_githubcalendar.js"></script>
@@ -314,6 +329,7 @@
     </script>
     <style>#github_container{min-height:280px}@media screen and (max-width:650px) {#github_container{background-image:;min-height:0px}}</style>
     <style></style><!-- hexo injector body_end end --></body>
+
 
 
   
