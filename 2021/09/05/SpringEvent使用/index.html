@@ -30,7 +30,17 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/a11y-dark.min.css" />
+      
+        
+          
+          
+          
+        
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-tomorrow.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.min.css" />
+      
     
   
 
@@ -291,7 +301,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      719 字
+      712 字
     </span>
   
 
@@ -363,7 +373,16 @@
 </blockquote>
 <p>自定义事件中，继承ApplicationEvent</p>
 <p>其中有字段<code>source</code></p>
-<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">    * Create a new &#123;<span class="hljs-doctag">@code</span> ApplicationEvent&#125;.</span><br><span class="hljs-comment">    *</span><br><span class="hljs-comment">    * <span class="hljs-doctag">@param</span> source the object on which the event initially occurred or with</span><br><span class="hljs-comment">    *               which the event is associated (never &#123;<span class="hljs-doctag">@code</span> null&#125;)</span><br><span class="hljs-comment">    * 事件最初发生的对象或与事件相关联的对象 永远都不能为null(可以理解为上下文)</span><br><span class="hljs-comment">    */</span><br>   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ConnectCommandEvent</span><span class="hljs-params">(Object source)</span> </span>&#123;<br>       <span class="hljs-keyword">super</span>(source);<br>   &#125;<br></code></pre></div></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
+    * Create a new &#123;@code ApplicationEvent&#125;.
+    *
+    * @param source the object on which the event initially occurred or with
+    *               which the event is associated (never &#123;@code null&#125;)
+    * 事件最初发生的对象或与事件相关联的对象 永远都不能为null(可以理解为上下文)
+    */</span>
+   <span class="token keyword">public</span> <span class="token class-name">ConnectCommandEvent</span><span class="token punctuation">(</span><span class="token class-name">Object</span> source<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+       <span class="token keyword">super</span><span class="token punctuation">(</span>source<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 
 
@@ -388,14 +407,43 @@
 <blockquote>
 <p>自定义事件</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@Getter</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SubscriptCommandEvent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ApplicationEvent</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> String username;<br><br>    <span class="hljs-keyword">private</span> String subscribe;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * Create a new &#123;<span class="hljs-doctag">@code</span> ApplicationEvent&#125;.</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> source the object on which the event initially occurred or with</span><br><span class="hljs-comment">     *               which the event is associated (never &#123;<span class="hljs-doctag">@code</span> null&#125;)</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">SubscriptCommandEvent</span><span class="hljs-params">(Object source,String username,String subscribe)</span> </span>&#123;<br>        <span class="hljs-keyword">super</span>(source);<br>        <span class="hljs-keyword">this</span>.username = username;<br>        <span class="hljs-keyword">this</span>.subscribe = subscribe;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> SubscriptCommandEvent <span class="hljs-title">getInstance</span><span class="hljs-params">(Object source,String username,String subscribe)</span></span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SubscriptCommandEvent(source, username,subscribe);<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Getter</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SubscriptCommandEvent</span> <span class="token keyword">extends</span> <span class="token class-name">ApplicationEvent</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">private</span> <span class="token class-name">String</span> username<span class="token punctuation">;</span>
+
+    <span class="token keyword">private</span> <span class="token class-name">String</span> subscribe<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * Create a new &#123;@code ApplicationEvent&#125;.
+     *
+     * @param source the object on which the event initially occurred or with
+     *               which the event is associated (never &#123;@code null&#125;)
+     */</span>
+    <span class="token keyword">public</span> <span class="token class-name">SubscriptCommandEvent</span><span class="token punctuation">(</span><span class="token class-name">Object</span> source<span class="token punctuation">,</span><span class="token class-name">String</span> username<span class="token punctuation">,</span><span class="token class-name">String</span> subscribe<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span>source<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>username <span class="token operator">=</span> username<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>subscribe <span class="token operator">=</span> subscribe<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">SubscriptCommandEvent</span> <span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token class-name">Object</span> source<span class="token punctuation">,</span><span class="token class-name">String</span> username<span class="token punctuation">,</span><span class="token class-name">String</span> subscribe<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">SubscriptCommandEvent</span><span class="token punctuation">(</span>source<span class="token punctuation">,</span> username<span class="token punctuation">,</span>subscribe<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 
 
 <blockquote>
 <p>自定义监听器</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@Sl4j</span><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ListenerService</span></span>&#123;<br>    <span class="hljs-meta">@EventListener</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">listenConnect</span><span class="hljs-params">(SubscriptCommandEvent commandEvent)</span></span>&#123;<br>        log.info(<span class="hljs-string">&quot;client &#123;&#125; subscript &#123;&#125; channel&quot;</span>,commandEvent.getUsername(),commandEvent.getSubscribe());<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Sl4j</span>
+<span class="token annotation punctuation">@Component</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ListenerService</span><span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@EventListener</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">listenConnect</span><span class="token punctuation">(</span><span class="token class-name">SubscriptCommandEvent</span> commandEvent<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"client &#123;&#125; subscript &#123;&#125; channel"</span><span class="token punctuation">,</span>commandEvent<span class="token punctuation">.</span><span class="token function">getUsername</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>commandEvent<span class="token punctuation">.</span><span class="token function">getSubscribe</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>左边会有一个电台的标识</p>
 <p><img src="/2021/09/05/SpringEvent%E4%BD%BF%E7%94%A8/image-20210905151416507.png" srcset="/img/loading.gif" lazyload alt="idea识别到监听器"></p>
@@ -404,14 +452,42 @@
 <p><strong>ApplicationEventPublisher</strong>是ApplicationContext的父接口之一。这接口的作用是：Interface that encapsulates event publication functionality.</p>
 <p>　　<strong>功能就是发布事件，也就是把某个事件告诉的所有与这个事件相关的监听器。</strong></p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@Sl4j</span><br><span class="hljs-meta">@Service</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SubscriptService</span></span>&#123;<br>    <br>    <span class="hljs-comment">//发布者</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> ApplicationEventPublisher publisher;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">CoupleService</span><span class="hljs-params">(ApplicationEventPublisher publisher)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.publisher = publisher;<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">connection</span><span class="hljs-params">(String username,String subscript)</span></span>&#123;<br>        <span class="hljs-comment">//参数source是与事件相关联的对象，就是类本身this</span><br>        publisher.publishEvent(ConnectCommandEvent.getInstance(<span class="hljs-keyword">this</span>,username,subscript));<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Sl4j</span>
+<span class="token annotation punctuation">@Service</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SubscriptService</span><span class="token punctuation">&#123;</span>
+    
+    <span class="token comment">//发布者</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">ApplicationEventPublisher</span> publisher<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">CoupleService</span><span class="token punctuation">(</span><span class="token class-name">ApplicationEventPublisher</span> publisher<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>publisher <span class="token operator">=</span> publisher<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">connection</span><span class="token punctuation">(</span><span class="token class-name">String</span> username<span class="token punctuation">,</span><span class="token class-name">String</span> subscript<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token comment">//参数source是与事件相关联的对象，就是类本身this</span>
+        publisher<span class="token punctuation">.</span><span class="token function">publishEvent</span><span class="token punctuation">(</span><span class="token class-name">ConnectCommandEvent</span><span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span>username<span class="token punctuation">,</span>subscript<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>左边会有一个耳机的样式</p>
 <p><img src="/2021/09/05/SpringEvent%E4%BD%BF%E7%94%A8/image-20210905151316706.png" srcset="/img/loading.gif" lazyload alt="idea识别到监听器"></p>
 <blockquote>
 <p>测试</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@RestController</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestController</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> CoupleService coupleService;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">TestController</span><span class="hljs-params">(CoupleService coupleService)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.coupleService = coupleService;<br>    &#125;<br><br>    <span class="hljs-meta">@GetMapping(value = &quot;/&#123;username&#125;&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">subscript</span><span class="hljs-params">(<span class="hljs-meta">@PathVariable</span> String username)</span></span>&#123;<br>        coupleService.connection(username,<span class="hljs-string">&quot;RunningMan&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@RestController</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestController</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">private</span> <span class="token class-name">CoupleService</span> coupleService<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">TestController</span><span class="token punctuation">(</span><span class="token class-name">CoupleService</span> coupleService<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>coupleService <span class="token operator">=</span> coupleService<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"/&#123;username&#125;"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">subscript</span><span class="token punctuation">(</span><span class="token annotation punctuation">@PathVariable</span> <span class="token class-name">String</span> username<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        coupleService<span class="token punctuation">.</span><span class="token function">connection</span><span class="token punctuation">(</span>username<span class="token punctuation">,</span><span class="token string">"RunningMan"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 
 
@@ -620,6 +696,8 @@
 
 
 
+  
+    
   
 
 

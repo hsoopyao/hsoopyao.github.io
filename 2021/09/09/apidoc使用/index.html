@@ -30,7 +30,17 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/a11y-dark.min.css" />
+      
+        
+          
+          
+          
+        
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-tomorrow.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.min.css" />
+      
     
   
 
@@ -291,7 +301,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.6k 字
+      1.5k 字
     </span>
   
 
@@ -301,7 +311,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      22
+      20
        分钟
     </span>
   
@@ -355,7 +365,7 @@
 <p>老规矩的案发现场：&gt;&gt;&gt;<a target="_blank" rel="noopener" href="https://blog.csdn.net/soslinken/article/details/50468896">图中链接</a></p>
 <p><img src="/2021/09/09/apidoc%E4%BD%BF%E7%94%A8/image-20210909180432008.png" srcset="/img/loading.gif" lazyload alt="还原现场"></p>
 <h1 id="apiDoc快速上手"><a href="#apiDoc快速上手" class="headerlink" title="apiDoc快速上手"></a>apiDoc快速上手</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>通过<code>npm</code>命令进行下载安装</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs linux">npm install apidoc -g<br></code></pre></div></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-linux" data-language="linux"><code class="language-linux">npm install apidoc -g<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 
 
 
@@ -368,7 +378,52 @@
             <p>来，上栗子</p>
           </div>
 
-<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@api</span> &#123;POST&#125; /user/list 个人用户信息列表</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiGroup</span> 用户管理</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiVersion</span> 0.0.1</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiDescription</span> 查询用户列表</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiParam</span> &#123;String&#125; pageNo 当前页码</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiParam</span> &#123;String&#125; pageSize 页面大小</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiParam</span> &#123;String&#125; [name] 查询用户名</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiParam</span> &#123;String&#125; [orderby] 排序字段</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiParam</span> &#123;String=desc,asc&#125; [orderType=asc] 升序降序</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiParamExample</span> &#123;json&#125; 请求样例：</span><br><span class="hljs-comment"> * &#123;</span><br><span class="hljs-comment"> *     &quot;name&quot;: &quot;admin&quot;,</span><br><span class="hljs-comment"> *     &quot;pageNo&quot;: 1,</span><br><span class="hljs-comment"> *     &quot;pageSize&quot;: 1，</span><br><span class="hljs-comment"> *     &quot;orderBy&quot;: &quot;name&quot;,</span><br><span class="hljs-comment"> *     &quot;orderType&quot;: &quot;desc&quot;</span><br><span class="hljs-comment"> * &#125;</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiSuccess</span> (200) &#123;String&#125; msg 返回描述</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiSuccess</span> (200) &#123;String&#125; code 状态码</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiSuccess</span> (200) &#123;Object&#125; data 返回数据</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiSuccess</span> (200) &#123;Number&#125; data.pageNo 页码</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiSuccess</span> (200) &#123;Number&#125; data.pageSize 每页记录数</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiSuccess</span> (200) &#123;Number&#125; data.totalPage 总页数</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiSuccess</span> (200) &#123;Number&#125; data.total 总记录数</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiSuccess</span> (200) &#123;Array&#125; data.list 资源数据列表</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiSuccess</span> (200) &#123;Array&#125; data.list.userId 用户Id</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiSuccess</span> (200) &#123;Array&#125; data.list.username 用户名</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@apiSuccess</span> (200) &#123;Array&#125; data.list.age 年龄</span><br><span class="hljs-comment"> * &#123;</span><br><span class="hljs-comment"> *     &quot;code&quot;: &quot;200&quot;,</span><br><span class="hljs-comment"> *     &quot;msg&quot;: &quot;SUCCESS&quot;,</span><br><span class="hljs-comment"> *     &quot;data&quot;: &#123;</span><br><span class="hljs-comment"> *         &quot;total&quot;: 3,</span><br><span class="hljs-comment"> *         &quot;pageNo&quot;: 1,</span><br><span class="hljs-comment"> *         &quot;pageSize&quot;: 1,</span><br><span class="hljs-comment"> *         &quot;list&quot;: [</span><br><span class="hljs-comment"> *             &#123;</span><br><span class="hljs-comment"> *                 &quot;username&quot;: &quot;admin&quot;,</span><br><span class="hljs-comment"> *                 &quot;id&quot;: &quot;001&quot;,</span><br><span class="hljs-comment"> *                 &quot;age&quot;: &quot;12&quot;</span><br><span class="hljs-comment"> *             &#125;</span><br><span class="hljs-comment"> *         ]</span><br><span class="hljs-comment"> *     &#125;</span><br><span class="hljs-comment"> * &#125;</span><br><span class="hljs-comment"> */</span><br></code></pre></div></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
+ * @api &#123;POST&#125; /user/list 个人用户信息列表
+ * @apiGroup 用户管理
+ * @apiVersion 0.0.1
+ * @apiDescription 查询用户列表
+ * @apiParam &#123;String&#125; pageNo 当前页码
+ * @apiParam &#123;String&#125; pageSize 页面大小
+ * @apiParam &#123;String&#125; [name] 查询用户名
+ * @apiParam &#123;String&#125; [orderby] 排序字段
+ * @apiParam &#123;String=desc,asc&#125; [orderType=asc] 升序降序
+ * @apiParamExample &#123;json&#125; 请求样例：
+ * &#123;
+ *     "name": "admin",
+ *     "pageNo": 1,
+ *     "pageSize": 1，
+ *     "orderBy": "name",
+ *     "orderType": "desc"
+ * &#125;
+ * @apiSuccess (200) &#123;String&#125; msg 返回描述
+ * @apiSuccess (200) &#123;String&#125; code 状态码
+ * @apiSuccess (200) &#123;Object&#125; data 返回数据
+ * @apiSuccess (200) &#123;Number&#125; data.pageNo 页码
+ * @apiSuccess (200) &#123;Number&#125; data.pageSize 每页记录数
+ * @apiSuccess (200) &#123;Number&#125; data.totalPage 总页数
+ * @apiSuccess (200) &#123;Number&#125; data.total 总记录数
+ * @apiSuccess (200) &#123;Array&#125; data.list 资源数据列表
+ * @apiSuccess (200) &#123;Array&#125; data.list.userId 用户Id
+ * @apiSuccess (200) &#123;Array&#125; data.list.username 用户名
+ * @apiSuccess (200) &#123;Array&#125; data.list.age 年龄
+ * &#123;
+ *     "code": "200",
+ *     "msg": "SUCCESS",
+ *     "data": &#123;
+ *         "total": 3,
+ *         "pageNo": 1,
+ *         "pageSize": 1,
+ *         "list": [
+ *             &#123;
+ *                 "username": "admin",
+ *                 "id": "001",
+ *                 "age": "12"
+ *             &#125;
+ *         ]
+ *     &#125;
+ * &#125;
+ */</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 
 
@@ -378,22 +433,26 @@
 <blockquote>
 <p>用来指明方法名、请求地址以及标题[标题是可选的]</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">//语法：</span><br><span class="hljs-meta">@api</span> &#123;method&#125; path [title]<br></code></pre></div></td></tr></table></figure></li>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//语法：</span>
+<span class="token annotation punctuation">@api</span> <span class="token punctuation">&#123;</span>method<span class="token punctuation">&#125;</span> path <span class="token punctuation">[</span>title<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></li>
 <li><p>@apiGroup</p>
 <blockquote>
 <p>将方法进行分组</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">//语法：</span><br><span class="hljs-meta">@apiGroup</span> name<br></code></pre></div></td></tr></table></figure></li>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//语法：</span>
+<span class="token annotation punctuation">@apiGroup</span> name<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></li>
 <li><p>@apiVersion</p>
 <blockquote>
 <p>用于指定文档块的版本号</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">//语法：</span><br><span class="hljs-meta">@apiVersion</span> version<br></code></pre></div></td></tr></table></figure></li>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//语法：</span>
+<span class="token annotation punctuation">@apiVersion</span> version<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></li>
 <li><p>@apiDescription</p>
 <blockquote>
 <p>用于描述文档块</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">//语法：</span><br><span class="hljs-meta">@apiDescription</span> text<br></code></pre></div></td></tr></table></figure></li>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//语法：</span>
+<span class="token annotation punctuation">@apiDescription</span> text<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></li>
 <li><p>@apiParam</p>
 <blockquote>
 <p>其中type可以指定变量大小</p>
@@ -401,42 +460,72 @@
 <p>{String{2..5}}表示2-5个字符串</p>
 <p>{type=allowedValues}指定变量的可选值 {number=1,2,3,99}number值可以是1.2.3.99四个值其中一个</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">//语法：</span><br><span class="hljs-meta">@apiParam</span> [(group)] [&#123;type&#125;] [field=defaultValue] [description]<br></code></pre></div></td></tr></table></figure></li>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//语法：</span>
+<span class="token annotation punctuation">@apiParam</span> <span class="token punctuation">[</span><span class="token punctuation">(</span>group<span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token punctuation">&#123;</span>type<span class="token punctuation">&#125;</span><span class="token punctuation">]</span> <span class="token punctuation">[</span>field<span class="token operator">=</span>defaultValue<span class="token punctuation">]</span> <span class="token punctuation">[</span>description<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></li>
 <li><p>@apiParamExample</p>
 <blockquote>
 <p>用于展示请求参数的样式</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">//语法：</span><br><span class="hljs-meta">@apiParamExample</span> [&#123;type&#125;] [title]  <br><br>						example<br></code></pre></div></td></tr></table></figure></li>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//语法：</span>
+<span class="token annotation punctuation">@apiParamExample</span> <span class="token punctuation">[</span><span class="token punctuation">&#123;</span>type<span class="token punctuation">&#125;</span><span class="token punctuation">]</span> <span class="token punctuation">[</span>title<span class="token punctuation">]</span>  
+
+						example<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></li>
 <li><p>@apiSuccess</p>
 <blockquote>
 <p>请求成功后返回的参数</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">//语法：</span><br><span class="hljs-meta">@apiSuccess</span> [(group)] [&#123;type&#125;] field [descpription]<br></code></pre></div></td></tr></table></figure></li>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//语法：</span>
+<span class="token annotation punctuation">@apiSuccess</span> <span class="token punctuation">[</span><span class="token punctuation">(</span>group<span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token punctuation">&#123;</span>type<span class="token punctuation">&#125;</span><span class="token punctuation">]</span> field <span class="token punctuation">[</span>descpription<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></li>
 <li><p>@apiSuccessExample</p>
 <blockquote>
 <p>和@apiParamExample差不多，用来展示栗子</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">//语法：</span><br><span class="hljs-meta">@apiSuccessExample</span> [&#123;type&#125;] [title]  <br><br>							example<br></code></pre></div></td></tr></table></figure></li>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//语法：</span>
+<span class="token annotation punctuation">@apiSuccessExample</span> <span class="token punctuation">[</span><span class="token punctuation">&#123;</span>type<span class="token punctuation">&#125;</span><span class="token punctuation">]</span> <span class="token punctuation">[</span>title<span class="token punctuation">]</span>  
+
+							example<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></li>
 <li><p>@apiHeader</p>
 <blockquote>
 <p>用于定义API-Header请求头</p>
 <p><strong>可以提取成公用的，因为每个api请求都有请求头</strong></p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">//语法：</span><br><span class="hljs-meta">@apiHeader</span> [(group)] [&#123;type&#125;] [field=defaultValue] [description]<br></code></pre></div></td></tr></table></figure></li>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//语法：</span>
+<span class="token annotation punctuation">@apiHeader</span> <span class="token punctuation">[</span><span class="token punctuation">(</span>group<span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token punctuation">&#123;</span>type<span class="token punctuation">&#125;</span><span class="token punctuation">]</span> <span class="token punctuation">[</span>field<span class="token operator">=</span>defaultValue<span class="token punctuation">]</span> <span class="token punctuation">[</span>description<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></li>
 <li><p>@apiHeaderExample</p>
 <blockquote>
 <p>用于展示apiHeader的栗子</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">//语法：</span><br><span class="hljs-meta">@apiHeaderExample</span> [&#123;type&#125;] [title]  <br><br>   				  example<br></code></pre></div></td></tr></table></figure></li>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//语法：</span>
+<span class="token annotation punctuation">@apiHeaderExample</span> <span class="token punctuation">[</span><span class="token punctuation">&#123;</span>type<span class="token punctuation">&#125;</span><span class="token punctuation">]</span> <span class="token punctuation">[</span>title<span class="token punctuation">]</span>  
+
+   				  example<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></li>
 <li><p>@apiDefine</p>
 <blockquote>
 <p>该注解用于定义一个内嵌的文档块，一般同@apiUse来搭配使用</p>
 <p>如果说@apiDefine是定义，那么@apiUse就是引用</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">//语法：</span><br><span class="hljs-meta">@apiDefine</span> name [title] [description]<br></code></pre></div></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//语法：</span>
+<span class="token annotation punctuation">@apiDefine</span> name <span class="token punctuation">[</span>title<span class="token punctuation">]</span> <span class="token punctuation">[</span>description<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
 
 <div class="note note-info">
-            <figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><br><span class="hljs-comment">/**</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@apiDefine</span> auth</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@apiHeader</span> &#123;String&#125; authorization 鉴权信息：为Basic + &quot;空格&quot; +  &#123;token&#125;</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@apiHeaderExample</span> &#123;json&#125; 请求头例子:</span><br><span class="hljs-comment">     *     &#123;</span><br><span class="hljs-comment">     *         &quot;Authorization&quot;: &quot;Basic xxxxxxxxxxxxxxxxx&quot;</span><br><span class="hljs-comment">     *     &#125;</span><br><span class="hljs-comment">     */</span><br><br> <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@api</span> &#123;POST&#125; /org/root 获取根组织</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@apiGroup</span> 组织信息</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@apiName</span> org-root</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@apiVersion</span> 1.0.0</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@apiDescription</span> 获取根组织接口用来获取组织的根节点</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@apiUse</span> auth</span><br><span class="hljs-comment">     */</span><br></code></pre></div></td></tr></table></figure>
+            <div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java">
+<span class="token comment">/**
+     * @apiDefine auth
+     * @apiHeader &#123;String&#125; authorization 鉴权信息：为Basic + "空格" +  &#123;token&#125;
+     * @apiHeaderExample &#123;json&#125; 请求头例子:
+     *     &#123;
+     *         "Authorization": "Basic xxxxxxxxxxxxxxxxx"
+     *     &#125;
+     */</span>
+
+ <span class="token comment">/**
+     * @api &#123;POST&#125; /org/root 获取根组织
+     * @apiGroup 组织信息
+     * @apiName org-root
+     * @apiVersion 1.0.0
+     * @apiDescription 获取根组织接口用来获取组织的根节点
+     * @apiUse auth
+     */</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
           </div></li>
 </ol>
 <p><strong>以上列出来的都是项目上用到的，因此特地学习一下，还有一些还没列出来，可以根据<a target="_blank" rel="noopener" href="https://apidocjs.com/">apidoc的官网来学习</a>更多</strong></p>
@@ -444,7 +533,24 @@
 <blockquote>
 <p>每次导出接口文档都必须要让apidoc读取到apidoc.json文件(如果未添加配置文件，导出报错)，你可以在你项目的根目录下添加apidoc.json文件，这个文件主要包含一些项目的描述信息，比如标题、简短的描述、版本等，你也可以加入一些可选的配置项，比如页眉、页脚、模板等。</p>
 </blockquote>
-<figure class="highlight json"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs json">&#123;<br>    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;这是一个美观大方的api文档&quot;</span>,<br>    <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-string">&quot;0.1.0&quot;</span>,<br>    <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;这是一个美观大方的api文档&quot;</span>,<br>    <span class="hljs-attr">&quot;title&quot;</span>: <span class="hljs-string">&quot;这里是title&quot;</span>,<br>    <span class="hljs-attr">&quot;url&quot;</span>: <span class="hljs-string">&quot;https://127.0.0.1/onlookers-bbs/&quot;</span><br>    <span class="hljs-string">&quot;header&quot;</span>: &#123;<br>    	<span class="hljs-attr">&quot;title&quot;</span>:<span class="hljs-string">&quot;header&quot;</span>,<br>    	<span class="hljs-attr">&quot;filename&quot;</span>:<span class="hljs-string">&quot;header.md&quot;</span><br>	&#125;,<br>	<span class="hljs-attr">&quot;footer&quot;</span>: &#123;<br>        <span class="hljs-attr">&quot;title&quot;</span>:<span class="hljs-string">&quot;footer&quot;</span>,<br>    	<span class="hljs-attr">&quot;filename&quot;</span>:<span class="hljs-string">&quot;footer.md&quot;</span><br>    &#125;,<br>	<span class="hljs-attr">&quot;order&quot;</span>:[<br>        <span class="hljs-comment">//分组输出顺序</span><br>    ]<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"这是一个美观大方的api文档"</span><span class="token punctuation">,</span>
+    <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"0.1.0"</span><span class="token punctuation">,</span>
+    <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"这是一个美观大方的api文档"</span><span class="token punctuation">,</span>
+    <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"这里是title"</span><span class="token punctuation">,</span>
+    <span class="token property">"url"</span><span class="token operator">:</span> <span class="token string">"https://127.0.0.1/onlookers-bbs/"</span>
+    <span class="token property">"header"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    	<span class="token property">"title"</span><span class="token operator">:</span><span class="token string">"header"</span><span class="token punctuation">,</span>
+    	<span class="token property">"filename"</span><span class="token operator">:</span><span class="token string">"header.md"</span>
+	<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+	<span class="token property">"footer"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"title"</span><span class="token operator">:</span><span class="token string">"footer"</span><span class="token punctuation">,</span>
+    	<span class="token property">"filename"</span><span class="token operator">:</span><span class="token string">"footer.md"</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+	<span class="token property">"order"</span><span class="token operator">:</span><span class="token punctuation">[</span>
+        <span class="token comment">//分组输出顺序</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p><strong>其中header.md/footer.md需要自行定义！</strong></p>
 <p>以下摘抄<a target="_blank" rel="noopener" href="https://apidocjs.com/#install">官网</a></p>
@@ -547,7 +653,7 @@
 <td align="left">单击菜单标题时，仅在页面上显示该内容. 默认值: <code>false</code></td>
 </tr>
 </tbody></table>
-<h2 id="执行命令生成文档"><a href="#执行命令生成文档" class="headerlink" title="执行命令生成文档"></a>执行命令生成文档</h2><figure class="highlight cmd"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs cmd">apidoc -i 项目根目录/ -o 文档生成位置/<br></code></pre></div></td></tr></table></figure>
+<h2 id="执行命令生成文档"><a href="#执行命令生成文档" class="headerlink" title="执行命令生成文档"></a>执行命令生成文档</h2><div class="code-wrapper"><pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">apidoc -i 项目根目录&#x2F; -o 文档生成位置&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 
 <p>最后会在你指定的文档生成一个apidoc的文档</p>
 <p><img src="/2021/09/09/apidoc%E4%BD%BF%E7%94%A8/image-20210909192935007.png" srcset="/img/loading.gif" lazyload alt="apidoc文档结构"></p>
@@ -755,6 +861,8 @@
 
 
 
+  
+    
   
 
 

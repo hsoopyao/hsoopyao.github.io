@@ -30,7 +30,17 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/a11y-dark.min.css" />
+      
+        
+          
+          
+          
+        
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-tomorrow.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.min.css" />
+      
     
   
 
@@ -291,7 +301,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      749 字
+      816 字
     </span>
   
 
@@ -301,7 +311,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8
+      10
        分钟
     </span>
   
@@ -367,7 +377,26 @@
             <p>举一个完整栗子</p>
           </div>
 
-<figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs conf">upstream name &#123;<br>	server 服务名 weight=权重s<br>	keepalive 连接时长<br>&#125;<br><br>#代理服务器<br>server&#123;<br>	listen #代理服务器监听的端口<br>	server_name #表示监听到之后需要转到哪里去<br>	<br>	#匹配到的路径<br>	location /api/ &#123;<br>		proxy_pass #代理的地址 相当于一个转发 即localhost:8080/api/这个请求会被转发到指定的proxy_pass的路径<br>	&#125;<br>	<br>	location / &#123;<br>		root #里面配置了root这时表示当匹配这个请求的路径时，将会在这个文件夹内寻找相应的文件<br>		index #当没有指定主页时，默认会选择这个指定的文件，它可以有多个，并按顺序来加载，如果第一个不存在，则找第二个，依此类推<br>	&#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<div class="code-wrapper"><pre class="line-numbers language-conf" data-language="conf"><code class="language-conf">upstream name &#123;
+	server 服务名 weight&#x3D;权重s
+	keepalive 连接时长
+&#125;
+
+#代理服务器
+server&#123;
+	listen #代理服务器监听的端口
+	server_name #表示监听到之后需要转到哪里去
+	
+	#匹配到的路径
+	location &#x2F;api&#x2F; &#123;
+		proxy_pass #代理的地址 相当于一个转发 即localhost:8080&#x2F;api&#x2F;这个请求会被转发到指定的proxy_pass的路径
+	&#125;
+	
+	location &#x2F; &#123;
+		root #里面配置了root这时表示当匹配这个请求的路径时，将会在这个文件夹内寻找相应的文件
+		index #当没有指定主页时，默认会选择这个指定的文件，它可以有多个，并按顺序来加载，如果第一个不存在，则找第二个，依此类推
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 
 
@@ -380,17 +409,45 @@
 <p>匹配URL类型，有四种参数可选，当然也可以不带参数。<code>location [ = | ~ | ~* | ^~ ] uri &#123; … &#125;</code></p>
 <ol>
 <li><p><code>“=”</code> 精确匹配，<strong>内容要同表达式完全一直才匹配成功</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs conf">location = /app/&#123;<br>	...<br>&#125;<br>#只匹配 http://localhost:8080/app/<br></code></pre></div></td></tr></table></figure></li>
+<div class="code-wrapper"><pre class="line-numbers language-conf" data-language="conf"><code class="language-conf">location &#x3D; &#x2F;app&#x2F;&#123;
+	...
+&#125;
+#只匹配 http:&#x2F;&#x2F;localhost:8080&#x2F;app&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></li>
 <li><p><code>&quot;~&quot;</code> 执行正则匹配，<strong>区分大小写</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs conf">location ~ /App/&#123;<br>	...<br>&#125;<br>#只匹配http://localhost:8080/App/<br>#http://localhost:8080/app/ [匹配失败]<br></code></pre></div></td></tr></table></figure></li>
+<div class="code-wrapper"><pre class="line-numbers language-conf" data-language="conf"><code class="language-conf">location ~ &#x2F;App&#x2F;&#123;
+	...
+&#125;
+#只匹配http:&#x2F;&#x2F;localhost:8080&#x2F;App&#x2F;
+#http:&#x2F;&#x2F;localhost:8080&#x2F;app&#x2F; [匹配失败]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
 <li><p><code>&quot;~*&quot;</code> 执行正则匹配，<strong>不区分大小写</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs conf">location ~* /App/ &#123;<br>	...<br>&#125;<br>#http://localhost:8080/App/ [匹配成功]<br>#http://localhost:8080/app/ [匹配成功]<br></code></pre></div></td></tr></table></figure></li>
+<div class="code-wrapper"><pre class="line-numbers language-conf" data-language="conf"><code class="language-conf">location ~* &#x2F;App&#x2F; &#123;
+	...
+&#125;
+#http:&#x2F;&#x2F;localhost:8080&#x2F;App&#x2F; [匹配成功]
+#http:&#x2F;&#x2F;localhost:8080&#x2F;app&#x2F; [匹配成功]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
 <li><p><code>&quot;^~&quot;</code> 表示普通字符串匹配上以后不再进行正则匹配</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs conf">location ^~ /index/ &#123;<br>	...<br>&#125;<br>#http://localhost:8080/index/ [匹配成功]<br>#http://localhost:8080/index/test [匹配成功]<br>#http://localhost:8080/test/index [匹配失败]<br></code></pre></div></td></tr></table></figure></li>
+<div class="code-wrapper"><pre class="line-numbers language-conf" data-language="conf"><code class="language-conf">location ^~ &#x2F;index&#x2F; &#123;
+	...
+&#125;
+#http:&#x2F;&#x2F;localhost:8080&#x2F;index&#x2F; [匹配成功]
+#http:&#x2F;&#x2F;localhost:8080&#x2F;index&#x2F;test [匹配成功]
+#http:&#x2F;&#x2F;localhost:8080&#x2F;test&#x2F;index [匹配失败]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
 <li><p>不加任何规则时，默认是大小写敏感的，前缀匹配，相当于加了<code>&quot;~&quot;</code>与<code>&quot;^~&quot;</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs conf">location /index/ &#123;<br>	...<br>&#125;<br>#http://localhost:8080/index [匹配成功]<br>#http://localhost:8080/Index [匹配失败]<br>#http://localhost:8080/index/index.page [匹配成功]<br>#http://localhost:8080/test/index [匹配失败]<br></code></pre></div></td></tr></table></figure></li>
+<div class="code-wrapper"><pre class="line-numbers language-conf" data-language="conf"><code class="language-conf">location &#x2F;index&#x2F; &#123;
+	...
+&#125;
+#http:&#x2F;&#x2F;localhost:8080&#x2F;index [匹配成功]
+#http:&#x2F;&#x2F;localhost:8080&#x2F;Index [匹配失败]
+#http:&#x2F;&#x2F;localhost:8080&#x2F;index&#x2F;index.page [匹配成功]
+#http:&#x2F;&#x2F;localhost:8080&#x2F;test&#x2F;index [匹配失败]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
 <li><p><code>&quot;@&quot;</code> nginx内部跳转</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs conf">location /index/ &#123;<br>  error_page 404 @index_error;<br>&#125;<br>location @index_error &#123;<br>  .....<br>&#125;<br>#以 /index/ 开头的请求，如果链接的状态为 404。则会匹配到 @index_error 这条规则上。<br></code></pre></div></td></tr></table></figure></li>
+<div class="code-wrapper"><pre class="line-numbers language-conf" data-language="conf"><code class="language-conf">location &#x2F;index&#x2F; &#123;
+  error_page 404 @index_error;
+&#125;
+location @index_error &#123;
+  .....
+&#125;
+#以 &#x2F;index&#x2F; 开头的请求，如果链接的状态为 404。则会匹配到 @index_error 这条规则上。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
 </ol>
 <h2 id="修饰符优先级"><a href="#修饰符优先级" class="headerlink" title="修饰符优先级"></a>修饰符优先级</h2><ol>
 <li>=</li>
@@ -604,6 +661,8 @@
 
 
 
+  
+    
   
 
 
