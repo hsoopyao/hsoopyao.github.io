@@ -1,0 +1,994 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/blogging.png">
+  <link rel="icon" href="/img/blogging.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#5e5e5f">
+  <meta name="description" content="公司里听到最多的技术就是websocket了 汉叔总在电话中说这个可以用websocket技术来实现….">
+  <meta name="author" content="hspro-yao">
+  <meta name="keywords" content="">
+  
+  <title>📲WebSocket+stomp实践 | hspro-yao&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      
+        
+          
+          
+          
+        
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-tomorrow.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.min.css" />
+      
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/toubudaziji.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/gundongtiao.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/shubiao.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"www.openumind.top","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"UHPRzDGHJ12bMNq3b9w01zw4-gzGzoHsz","app_key":"ONGsBbk9viW3RjlEszXSbkzL","server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>hspro-yao's blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-plan"></i>
+                project
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://gitee.com/peanut_study">
+                    <i class="iconfont icon-gitee-fill"></i>
+                    Gitee
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://github.com/hsoopyao">
+                    <i class="iconfont icon-github-fill"></i>
+                    Github
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-switch-fill"></i>
+                Else
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/message/">
+                    
+                    留言板
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/talking/">
+                    
+                    心情说说
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/updateLog/">
+                    
+                    博客更新日志
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/statistics/">
+                    
+                    统计
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/links/">
+                    
+                    友链
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-exp-fill"></i>
+                Tools
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/">
+                    
+                    待开发
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://cdn.pixabay.com/photo/2021/09/07/07/11/game-console-6603120_960_720.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="📲WebSocket+stomp实践">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-09-17 15:46" pubdate>
+        2021年9月17日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      25
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">📲WebSocket+stomp实践</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年9月17日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p>公司里听到最多的技术就是<strong>websocket</strong>了 汉叔总在电话中说这个可以用websocket技术来实现….</p>
+<span id="more"></span>
+
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
+<li>来到公司实习的第一个项目最让我头疼的技术要我选择一个，websocket当仁不让！曾经让我熬夜搞懂这个技术(留下了没有技术的泪水😢</li>
+<li>websocket主要是用来通信，底层是发布订阅这个模式也就是观察者模式</li>
+<li>在项目里websocket是用来实现直播弹幕的功能的 现在项目基本结束可以来温故知新</li>
+</ul>
+<h1 id="浅谈WebSocket"><a href="#浅谈WebSocket" class="headerlink" title="浅谈WebSocket"></a>浅谈WebSocket</h1><blockquote>
+<p>WebSocket是在HTML5基础上单个TCP连接上进行全双工通讯的协议，只要浏览器和服务器进行一次握手，就可以建立一条快速通道，两者就可以实现数据互传了，就是打破了传统的http协议的无状态传输（只能浏览器请求，服务端响应），websocket全双工通讯，就是浏览器和服务器进行一次握手，浏览器可以随时给服务器发送信息，服务器也可以随时主动发送信息给浏览器了。</p>
+</blockquote>
+<h1 id="stomp协议"><a href="#stomp协议" class="headerlink" title="stomp协议"></a>stomp协议</h1><p>我们先来了解stomp是什么。</p>
+<blockquote>
+<p>STOMP即Simple (or Streaming) Text Orientated Messaging Protocol，简单(流)文本定向消息协议，它提供了一个可互操作的连接格式，允许STOMP客户端与任意STOMP消息代理（Broker）进行交互。STOMP协议由于设计简单，易于开发客户端，因此在多种语言和多种平台上得到广泛地应用。</p>
+</blockquote>
+<p>emmm主要的实现原来还须自行百度，我偏实用型一点。。。</p>
+<h1 id="SpringBoot-WebSocket-stomp"><a href="#SpringBoot-WebSocket-stomp" class="headerlink" title="SpringBoot + WebSocket + stomp"></a>SpringBoot + WebSocket + stomp</h1><p>首先的首先导入依赖</p>
+<div class="code-wrapper"><pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-websocket<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+
+
+<p>WebSocket配置类</p>
+<ul>
+<li><code>addEndpoint</code>：设置连接websocket服务器的端点</li>
+<li><code>enableSimpleBroker</code>：用户可以通过订阅这两个消息代理来接受消息(可以把这两个消息代理想象成两条管道)</li>
+<li><code>setApplicationDestinationPrefixes</code>：以/app为前缀的会发送到服务器中</li>
+<li><code>setUserDestinationPrefix</code>：以/user为前缀的会发送到对应的客户端中</li>
+</ul>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Configuration</span>
+<span class="token comment">//开启使用stomp协议来传输信息</span>
+<span class="token annotation punctuation">@EnableWebSocketMessageBroker</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WebSocketConfig</span> <span class="token keyword">implements</span> <span class="token class-name">WebSocketMessageBrokerConfigurer</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token comment">//注册stomp协议的端点(endpoint)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">registerStompEndpoints</span><span class="token punctuation">(</span><span class="token class-name">StompEndpointRegistry</span> registry<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">//注册一个stomp协议的访问端点，并指定使用sockJS协议以及支持跨域</span>
+        <span class="token comment">//通过localhost:port/websocket 进行连接websocket</span>
+        registry<span class="token punctuation">.</span><span class="token function">addEndpoint</span><span class="token punctuation">(</span><span class="token string">"/websocket"</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">setAllowedOrigins</span><span class="token punctuation">(</span><span class="token string">"*"</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">withSockJS</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token comment">//配置消息代理</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">configureMessageBroker</span><span class="token punctuation">(</span><span class="token class-name">MessageBrokerRegistry</span> registry<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">//客户端订阅路径前缀（基于内存的STOMP消息代理）</span>
+        registry<span class="token punctuation">.</span><span class="token function">enableSimpleBroker</span><span class="token punctuation">(</span><span class="token string">"/topic"</span><span class="token punctuation">,</span><span class="token string">"/all"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">//用户发送消息到服务器的前缀</span>
+        registry<span class="token punctuation">.</span><span class="token function">setApplicationDestinationPrefixes</span><span class="token punctuation">(</span><span class="token string">"/app"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">//客户端对客户端之间的通信的前缀(即一对一)</span>
+        registry<span class="token punctuation">.</span><span class="token function">setUserDestinationPrefix</span><span class="token punctuation">(</span><span class="token string">"/user"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h1 id="题外话：WebSocket还可以配置拦截器"><a href="#题外话：WebSocket还可以配置拦截器" class="headerlink" title="题外话：WebSocket还可以配置拦截器"></a><strong>题外话：WebSocket还可以配置拦截器</strong></h1><ul>
+<li>实现ChannelInterceptor接口</li>
+<li><strong>这里集成了SpringEvent事件监听机制</strong></li>
+<li><code>preSend</code>：是在发送前的处理</li>
+<li><code>postSend</code>：是在发送时的处理<ul>
+<li>通过<code>MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);</code>来获取消息头的信息，可以获取到sessionId，command…</li>
+</ul>
+</li>
+</ul>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
+ * websocketChannel拦截器
+ * @author PeanuTuT
+ */</span>
+<span class="token annotation punctuation">@Slf4j</span>
+<span class="token annotation punctuation">@Component</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WebSocketChannelInterceptor</span> <span class="token keyword">implements</span> <span class="token class-name">ChannelInterceptor</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token comment">//这是SpringEvent的发送器</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">ApplicationEventPublisher</span> publisher<span class="token punctuation">;</span>
+
+    <span class="token comment">//通过构造器的方式注入 这里其实省略了@Autowired这个注解</span>
+    <span class="token keyword">public</span> <span class="token class-name">WebSocketChannelInterceptor</span><span class="token punctuation">(</span><span class="token class-name">ApplicationEventPublisher</span> publisher<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>publisher <span class="token operator">=</span> publisher<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token class-name">Message</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span></span> <span class="token function">preSend</span><span class="token punctuation">(</span><span class="token class-name">Message</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span></span> message<span class="token punctuation">,</span> <span class="token class-name">MessageChannel</span> channel<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">//获取信息头</span>
+        <span class="token class-name">StompHeaderAccessor</span> accessor <span class="token operator">=</span> <span class="token class-name">MessageHeaderAccessor</span><span class="token punctuation">.</span><span class="token function">getAccessor</span><span class="token punctuation">(</span>message<span class="token punctuation">,</span> <span class="token class-name">StompHeaderAccessor</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>accessor <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+            <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token class-name">String</span> sessionId <span class="token operator">=</span> accessor<span class="token punctuation">.</span><span class="token function">getSessionId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token class-name">StompCommand</span><span class="token punctuation">.</span>CONNECT<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>accessor<span class="token punctuation">.</span><span class="token function">getCommand</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+            log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"realtime client &#123;&#125; connection ..."</span><span class="token punctuation">,</span>sessionId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token class-name">StompCommand</span><span class="token punctuation">.</span>DISCONNECT<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>accessor<span class="token punctuation">.</span><span class="token function">getCommand</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+            log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"realtime client &#123;&#125; disconnection ..."</span><span class="token punctuation">,</span>sessionId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">return</span> message<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">postSend</span><span class="token punctuation">(</span><span class="token class-name">Message</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span></span> message<span class="token punctuation">,</span> <span class="token class-name">MessageChannel</span> channel<span class="token punctuation">,</span> <span class="token keyword">boolean</span> sent<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">StompHeaderAccessor</span> accessor <span class="token operator">=</span> <span class="token class-name">MessageHeaderAccessor</span><span class="token punctuation">.</span><span class="token function">getAccessor</span><span class="token punctuation">(</span>message<span class="token punctuation">,</span> <span class="token class-name">StompHeaderAccessor</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>accessor <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token class-name">String</span> sessionId <span class="token operator">=</span> accessor<span class="token punctuation">.</span><span class="token function">getSessionId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token class-name">StompCommand</span><span class="token punctuation">.</span>SUBSCRIBE<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>accessor<span class="token punctuation">.</span><span class="token function">getCommand</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+            <span class="token class-name">String</span> destination <span class="token operator">=</span> accessor<span class="token punctuation">.</span><span class="token function">getDestination</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"realtime client &#123;&#125; subscribe &#123;&#125; ..."</span><span class="token punctuation">,</span>sessionId<span class="token punctuation">,</span>destination<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            publisher<span class="token punctuation">.</span><span class="token function">publishEvent</span><span class="token punctuation">(</span><span class="token class-name">ConnectEvent</span><span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span>sessionId<span class="token punctuation">,</span>destination<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>还需要在WebSocket配置类中配置拦截器</p>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Configuration</span>
+<span class="token annotation punctuation">@EnableWebSocketMessageBroker</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WebSocketConfig</span> <span class="token keyword">implements</span> <span class="token class-name">WebSocketMessageBrokerConfigurer</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">WebSocketChannelInterceptor</span> channelInterceptor<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">WebSocketConfig</span><span class="token punctuation">(</span><span class="token class-name">WebSocketChannelInterceptor</span> channelInterceptor<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>channelInterceptor <span class="token operator">=</span> channelInterceptor<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">configureClientInboundChannel</span><span class="token punctuation">(</span><span class="token class-name">ChannelRegistration</span> registration<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        registration<span class="token punctuation">.</span><span class="token function">interceptors</span><span class="token punctuation">(</span>channelInterceptor<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+
+
+<p><strong>好的 我们继续</strong></p>
+<p>发送消息实体</p>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Data</span>
+<span class="token annotation punctuation">@Builder</span>
+<span class="token annotation punctuation">@AllArgsConstructor</span>
+<span class="token annotation punctuation">@NoArgsConstructor</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RequestMessage</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">/**
+     * 发送者
+     */</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> sender<span class="token punctuation">;</span>
+    <span class="token comment">/**
+     * 发送内容
+     */</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> content<span class="token punctuation">;</span>
+    <span class="token comment">/**
+     * 消息类型
+     */</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> type<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+
+
+<p>Controller层</p>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Slf4j</span>
+<span class="token annotation punctuation">@Controller</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WebSocketController</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">SimpMessagingTemplate</span> messagingTemplate<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">WebSocketController</span><span class="token punctuation">(</span><span class="token class-name">SimpMessagingTemplate</span> messagingTemplate<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>messagingTemplate <span class="token operator">=</span> messagingTemplate<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@CrossOrigin</span>
+    <span class="token comment">//类似与@RequestMapping 对应的请求地址会映射到这个方法上来</span>
+    <span class="token annotation punctuation">@MessageMapping</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"/room/&#123;roomId&#125;"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">broadcast</span><span class="token punctuation">(</span><span class="token annotation punctuation">@DestinationVariable</span><span class="token punctuation">(</span><span class="token string">"roomId"</span><span class="token punctuation">)</span> <span class="token class-name">String</span> roomId<span class="token punctuation">,</span> <span class="token annotation punctuation">@Payload</span> <span class="token class-name">RequestMessage</span> requestMessage<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token comment">//发送的地址，发送到以/topic为前缀的通道里，只要有用户订阅这个通道就会收到信息</span>
+        <span class="token class-name">String</span> destination <span class="token operator">=</span> <span class="token string">"/topic/room/"</span> <span class="token operator">+</span> <span class="token class-name">HtmlUtils</span><span class="token punctuation">.</span><span class="token function">htmlEscape</span><span class="token punctuation">(</span>roomId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">//messagingTemplate相当于@SendTo注解</span>
+        messagingTemplate<span class="token punctuation">.</span><span class="token function">convertAndSend</span><span class="token punctuation">(</span>destination<span class="token punctuation">,</span>requestMessage<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+
+
+<p>单元测试一波</p>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Slf4j</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WebSocketDemoTest</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">int</span> port <span class="token operator">=</span> <span class="token number">8888</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">private</span> <span class="token class-name">WebSocketStompClient</span> stompClient<span class="token punctuation">;</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">WebSocketHttpHeaders</span> headers <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">WebSocketHttpHeaders</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">//构建消息</span>
+    <span class="token class-name">RequestMessage</span> testMessage <span class="token operator">=</span> <span class="token class-name">RequestMessage</span><span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sender</span><span class="token punctuation">(</span><span class="token string">"11111111111"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">content</span><span class="token punctuation">(</span><span class="token string">"这是一条弹幕"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">type</span><span class="token punctuation">(</span><span class="token string">"bullet"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">String</span>         line        <span class="token operator">=</span> <span class="token string">"\n---------------------------------------------------------------------\n"</span><span class="token punctuation">;</span>
+
+    <span class="token comment">//每个实例之前执行</span>
+    <span class="token annotation punctuation">@BeforeEach</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setup</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token comment">//transport:负载</span>
+        <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Transport</span><span class="token punctuation">></span></span>transports <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">WebSocketContainer</span> container <span class="token operator">=</span> <span class="token class-name">ContainerProvider</span><span class="token punctuation">.</span><span class="token function">getWebSocketContainer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        container<span class="token punctuation">.</span><span class="token function">setDefaultMaxBinaryMessageBufferSize</span><span class="token punctuation">(</span><span class="token number">1024</span> <span class="token operator">*</span> <span class="token number">1024</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        container<span class="token punctuation">.</span><span class="token function">setDefaultMaxTextMessageBufferSize</span><span class="token punctuation">(</span><span class="token number">1024</span> <span class="token operator">*</span> <span class="token number">1024</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        transports<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">WebSocketTransport</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">StandardWebSocketClient</span><span class="token punctuation">(</span>container<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">SockJsClient</span> sockJsClient <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SockJsClient</span><span class="token punctuation">(</span>transports<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>stompClient <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">WebSocketStompClient</span><span class="token punctuation">(</span>sockJsClient<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>stompClient<span class="token punctuation">.</span><span class="token function">setMessageConverter</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">MappingJackson2MessageConverter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">InterruptedException</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">final</span> <span class="token class-name">CountDownLatch</span> latch <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CountDownLatch</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">final</span> <span class="token class-name">AtomicReference</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Throwable</span><span class="token punctuation">></span></span> failure <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AtomicReference</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token class-name">StompSessionHandler</span> handler <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TestSessionHandler</span><span class="token punctuation">(</span>failure<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+
+            <span class="token annotation punctuation">@Override</span>
+            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterConnected</span><span class="token punctuation">(</span><span class="token keyword">final</span> <span class="token class-name">StompSession</span> session<span class="token punctuation">,</span> <span class="token class-name">StompHeaders</span> connectedHeaders<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token comment">// 订阅/topic/room/1</span>
+                session<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token string">"/topic/room/1"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">StompFrameHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                    <span class="token annotation punctuation">@Override</span>
+                    <span class="token keyword">public</span> <span class="token class-name">Type</span> <span class="token function">getPayloadType</span><span class="token punctuation">(</span><span class="token class-name">StompHeaders</span> headers<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                        <span class="token keyword">return</span> <span class="token class-name">RequestMessage</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">&#125;</span>
+
+                    <span class="token annotation punctuation">@Override</span>
+                    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">handleFrame</span><span class="token punctuation">(</span><span class="token class-name">StompHeaders</span> headers<span class="token punctuation">,</span> <span class="token class-name">Object</span> payload<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                        <span class="token comment">//接受消息</span>
+                        <span class="token class-name">RequestMessage</span> message <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">RequestMessage</span><span class="token punctuation">)</span> payload<span class="token punctuation">;</span>
+                        <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+                            log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"&#123;&#125;receive: &#123;&#125;&#123;&#125;"</span><span class="token punctuation">,</span> line<span class="token punctuation">,</span> message<span class="token punctuation">,</span> line<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Throwable</span> t<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                            failure<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>t<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">&#125;</span> <span class="token keyword">finally</span> <span class="token punctuation">&#123;</span>
+                            session<span class="token punctuation">.</span><span class="token function">disconnect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            latch<span class="token punctuation">.</span><span class="token function">countDown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">&#125;</span>
+                    <span class="token punctuation">&#125;</span>
+                <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+                    <span class="token comment">// 发布实时消息</span>
+                    session<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token string">"/app/room/1"</span><span class="token punctuation">,</span> testMessage<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Throwable</span> t<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                    failure<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>t<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    latch<span class="token punctuation">.</span><span class="token function">countDown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+		<span class="token comment">//连接websocket 开启双通道</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>stompClient<span class="token punctuation">.</span><span class="token function">connect</span><span class="token punctuation">(</span><span class="token string">"ws://localhost:&#123;port&#125;/websocket"</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>headers<span class="token punctuation">,</span> handler<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>port<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>latch<span class="token punctuation">.</span><span class="token function">await</span><span class="token punctuation">(</span><span class="token number">60</span><span class="token punctuation">,</span> <span class="token class-name">TimeUnit</span><span class="token punctuation">.</span>SECONDS<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>failure<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">AssertionError</span><span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">,</span> failure<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+            <span class="token function">fail</span><span class="token punctuation">(</span><span class="token string">"Greeting not received"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">class</span> <span class="token class-name">TestSessionHandler</span> <span class="token keyword">extends</span> <span class="token class-name">StompSessionHandlerAdapter</span> <span class="token punctuation">&#123;</span>
+
+        <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">AtomicReference</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Throwable</span><span class="token punctuation">></span></span> failure<span class="token punctuation">;</span>
+
+        <span class="token keyword">public</span> <span class="token class-name">TestSessionHandler</span><span class="token punctuation">(</span><span class="token class-name">AtomicReference</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Throwable</span><span class="token punctuation">></span></span> failure<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>failure <span class="token operator">=</span> failure<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token annotation punctuation">@Override</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">handleFrame</span><span class="token punctuation">(</span><span class="token class-name">StompHeaders</span> headers<span class="token punctuation">,</span> <span class="token class-name">Object</span> payload<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>failure<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Exception</span><span class="token punctuation">(</span>headers<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token annotation punctuation">@Override</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">handleException</span><span class="token punctuation">(</span><span class="token class-name">StompSession</span> s<span class="token punctuation">,</span> <span class="token class-name">StompCommand</span> c<span class="token punctuation">,</span> <span class="token class-name">StompHeaders</span> h<span class="token punctuation">,</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> p<span class="token punctuation">,</span> <span class="token class-name">Throwable</span> ex<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            log<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">,</span> ex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>failure<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>ex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token annotation punctuation">@Override</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">handleTransportError</span><span class="token punctuation">(</span><span class="token class-name">StompSession</span> session<span class="token punctuation">,</span> <span class="token class-name">Throwable</span> ex<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>failure<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>ex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+
+
+<div class="note note-info">
+            <p>那么大一段其实主要就是看怎么开启双通道进行消息通信，订阅了哪个通道，发布消息是哪个请求地址以及获取消息负载</p>
+          </div>
+
+<p><strong>主要信息</strong></p>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Override</span>
+            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterConnected</span><span class="token punctuation">(</span><span class="token keyword">final</span> <span class="token class-name">StompSession</span> session<span class="token punctuation">,</span> <span class="token class-name">StompHeaders</span> connectedHeaders<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token comment">// 订阅/topic/room/1</span>
+                session<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token string">"/topic/room/1"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">StompFrameHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                    <span class="token annotation punctuation">@Override</span>
+                    <span class="token keyword">public</span> <span class="token class-name">Type</span> <span class="token function">getPayloadType</span><span class="token punctuation">(</span><span class="token class-name">StompHeaders</span> headers<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                        <span class="token keyword">return</span> <span class="token class-name">RequestMessage</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">&#125;</span>
+
+                    <span class="token annotation punctuation">@Override</span>
+                    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">handleFrame</span><span class="token punctuation">(</span><span class="token class-name">StompHeaders</span> headers<span class="token punctuation">,</span> <span class="token class-name">Object</span> payload<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                        <span class="token comment">//接受消息</span>
+                        <span class="token class-name">RequestMessage</span> message <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">RequestMessage</span><span class="token punctuation">)</span> payload<span class="token punctuation">;</span>
+                        <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+                            log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"&#123;&#125;receive: &#123;&#125;&#123;&#125;"</span><span class="token punctuation">,</span> line<span class="token punctuation">,</span> message<span class="token punctuation">,</span> line<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Throwable</span> t<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                            failure<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>t<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">&#125;</span> <span class="token keyword">finally</span> <span class="token punctuation">&#123;</span>
+                            session<span class="token punctuation">.</span><span class="token function">disconnect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            latch<span class="token punctuation">.</span><span class="token function">countDown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">&#125;</span>
+                    <span class="token punctuation">&#125;</span>
+                <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+                    <span class="token comment">// 发布实时消息</span>
+                    session<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token string">"/app/room/1"</span><span class="token punctuation">,</span> testMessage<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Throwable</span> t<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                    failure<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>t<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    latch<span class="token punctuation">.</span><span class="token function">countDown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+		<span class="token comment">//连接websocket 开启双通道</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>stompClient<span class="token punctuation">.</span><span class="token function">connect</span><span class="token punctuation">(</span><span class="token string">"ws://localhost:&#123;port&#125;/websocket"</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>headers<span class="token punctuation">,</span> handler<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>port<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p><strong>跑一跑 我们就拿到了发送的消息</strong></p>
+<p><img src="/2021/09/17/websocket%E5%AE%9E%E8%B7%B5/image-20210917181534458.png" srcset="/img/loading.gif" lazyload alt="结果"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Java/WebSocket/">WebSocket</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Java/WebSocket/Spring-Boot/">Spring Boot</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Java/">Java</a>
+                    
+                      <a class="hover-with-bg" href="/tags/WebSocket%E9%80%9A%E4%BF%A1/">WebSocket通信</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/09/16/%E5%B0%81%E8%A3%85%E8%BF%87%E6%BB%A4%E8%BF%94%E5%9B%9E%E5%8F%82%E6%95%B0/">
+                        <span class="hidden-mobile">🎃封装过滤返回参数</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"UHPRzDGHJ12bMNq3b9w01zw4-gzGzoHsz","appKey":"ONGsBbk9viW3RjlEszXSbkzL","placeholder":"以匿名方式评论 快来说点什么吧!(๑•̀ㅂ•́)و✧","path":"window.location.pathname","avatar":"retro","meta":["nick","mail"],"pageSize":10,"lang":"zh-CN","highlight":true,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[]},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <br> <br> <p> 若果你 未觉荒谬 被传闻谈论的疯子挽着手 </p> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+    
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/caidai.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<!-- hexo injector body_end start -->
+  <script data-pjax src="https://cdn.jsdelivr.net/gh/Zfour/hexo-github-calendar@1.21/hexo_githubcalendar.js"></script>
+  <script data-pjax>
+        function GithubCalendarConfig(){
+            var git_githubapiurl ="https://python-gitee-calendar-api.vercel.app/api?peanut_study";
+            var git_color =['#ebedf0', '#fdcdec', '#fc9bd9', '#fa6ac5', '#f838b2', '#f5089f', '#c4067e', '#92055e', '#540336', '#48022f', '#30021f'];
+            var git_user ="peanut_study";
+            var parent_div_git = document.getElementById('recent-posts');
+            var git_div_html = '<div class="recent-post-item" style="width:100%;height:auto;padding:10px;"><div id="github_loading" style="width:10%;height:100%;margin:0 auto;display: block"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  viewBox="0 0 50 50" style="enable-background:new 0 0 50 50" xml:space="preserve"><path fill="#d0d0d0" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z" transform="rotate(275.098 25 25)"><animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"></animateTransform></path></svg></div><div id="github_container"></div></div>';
+            if(parent_div_git && location.pathname =='/about/'){
+                console.log('已挂载github calendar')
+                // parent_div_git.innerHTML=git_div_html+parent_div_git.innerHTML // 无报错，但不影响使用(支持pjax跳转)
+                parent_div_git.insertAdjacentHTML("afterbegin",git_div_html) // 有报错，但不影响使用(支持pjax跳转)
+            };
+            GithubCalendar(git_githubapiurl,git_color,git_user)
+        }
+        if(document.getElementById('recent-posts')){
+            GithubCalendarConfig()
+        }
+    </script>
+    <style>#github_container{min-height:280px}@media screen and (max-width:650px) {#github_container{background-image:;min-height:0px}}</style>
+    <style></style><!-- hexo injector body_end end --></body>
+</html>
