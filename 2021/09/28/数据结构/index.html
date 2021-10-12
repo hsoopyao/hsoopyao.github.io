@@ -14,13 +14,39 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#5e5e5f">
-  <meta name="description" content="记录我的成长历程~">
+  <meta name="description" content="程序设计 = 算法 + 数据结构">
   <meta name="author" content="hspro-yao">
   <meta name="keywords" content="">
   
-  <title>归档 | hspro-yao&#39;s blog</title>
+  <title>✔️数据结构 | hspro-yao&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      
+        
+          
+          
+          
+        
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-tomorrow.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.min.css" />
+      
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
 
 
 
@@ -54,7 +80,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -248,14 +274,59 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('/img/fl.png') no-repeat center center;
+         style="background: url('https://cdn.pixabay.com/photo/2021/09/23/20/07/living-room-6650775_960_720.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="归档">
+            <span class="h2" id="subtitle" title="✔️数据结构">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-09-28 09:13" pubdate>
+        2021年9月28日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      12
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
 
             
           </div>
@@ -268,46 +339,223 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 12 篇文章</p>
-  <hr>
-  
-  
-    
       
-      <p class="h5">2021</p>
-    
-    <a href="/2021/08/30/AtomicInteger%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3%E4%B8%8E%E5%AE%9E%E8%B7%B5/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">🌈AtomicInteger自我理解与实践</span>
-      <time style="float: right;">08-30</time>
-    </a>
-  
-    
-    <a href="/2021/08/26/hello-world/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Hello World</span>
-      <time style="float: right;">08-26</time>
-    </a>
-  
-</div>
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">✔️数据结构</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年9月28日 上午
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p>程序设计 = 算法 + 数据结构</p>
+<span id="more"></span>
 
 
 
-
-
-              </div>
-            </div>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
+<li>我一下子买了300+的书 包括了算法 数据结构 并发编程 深入了解jvm ….</li>
+<li>为了不看了忘 忘了看这种情况经常出现 我决定每天看完一章就做一次博客总结 加深自己的印象</li>
+</ul>
+<h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><p><strong>我看的书是程杰的大话数据结构</strong></p>
+<h2 id="基本概念和术语"><a href="#基本概念和术语" class="headerlink" title="基本概念和术语"></a>基本概念和术语</h2><h3 id="什么是数据"><a href="#什么是数据" class="headerlink" title="什么是数据?"></a>什么是数据?</h3><blockquote>
+<p>数据是描述客观事物的符号，是计算机中可以操作的对象，是能被计算机识别，并输入给计算机处理的符号集合</p>
+</blockquote>
+<p>我们这里所说的数据，其实就是符号，而且这些符号必须具备两个前提</p>
+<ol>
+<li>可以输入到计算机中</li>
+<li>能被计算机程序处理</li>
+</ol>
+<h3 id="数据元素"><a href="#数据元素" class="headerlink" title="数据元素"></a>数据元素</h3><blockquote>
+<p>数据元素是组成数据的，有一定意义的基本单位，在计算机中通常作为整体处理，也被称之为记录</p>
+</blockquote>
+<p>比如在教室类中，数据元素就是桌子，椅子，黑板</p>
+<p>又比如在人类中，数据元素就是人</p>
+<h3 id="数据项"><a href="#数据项" class="headerlink" title="数据项"></a>数据项</h3><blockquote>
+<p>一个数据元素可以由若干个数据项组成</p>
+</blockquote>
+<p>比如像人这样的数据元素，其数据项就有耳朵、眼睛、鼻子、嘴巴，手… 也可以是年龄、姓名、性别、电话号码📞…</p>
+<p><strong>数据项是数据不可分割的最小单位</strong></p>
+<h3 id="数据对象"><a href="#数据对象" class="headerlink" title="数据对象"></a>数据对象</h3><blockquote>
+<p>数据对象是性质相同的数据元素的集合，是数据的子集</p>
+</blockquote>
+<p>比如开发部门中每个人都是程序员，都坐在部门的办公室里。那么开发部就可以看出是数据对象，每个程序员是数据元素</p>
+<p><strong>既然数据对象是数据的子集，在实际应用中，处理的元素通常具有相同性质，在不产生混淆的情况下，我们都将数据对象简称为数据</strong></p>
+<h3 id="数据结构-1"><a href="#数据结构-1" class="headerlink" title="数据结构"></a>数据结构</h3><blockquote>
+<p>数据结构是互相之间存在一种或多种特定关系的数据元素的集合</p>
+</blockquote>
+<p>在计算机中，数据元素不是孤立、杂乱无章的，而是具有内在联系的数据集合。数据元素之间存在一种或者多种特定关系，也就是数据的组织形式</p>
+<p><strong>用一个图来表示数据对象，数据元素，数据项之间的关系</strong></p>
+<p><img src="/2021/09/28/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image-20210928095158143.png" srcset="/img/loading.gif" lazyload alt="三者之间的关系"></p>
+<h3 id="逻辑结构与物理结构"><a href="#逻辑结构与物理结构" class="headerlink" title="逻辑结构与物理结构"></a>逻辑结构与物理结构</h3><p><strong>我们把数据结构分为逻辑结构和物理结构</strong></p>
+<h4 id="逻辑结构"><a href="#逻辑结构" class="headerlink" title="逻辑结构"></a>逻辑结构</h4><blockquote>
+<p>逻辑结构是指数据对象中数据元素之间的互相关系</p>
+<p>主要分为以下4种</p>
+</blockquote>
+<ol>
+<li><p>集合结构</p>
+<blockquote>
+<p>集合结构中的数据元素除了同属于一个集合外，它们之间没有任何的关系</p>
+<p>各个元素都是在同一等级</p>
+</blockquote>
+<p><img src="/2021/09/28/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image-20210928093747222.png" srcset="/img/loading.gif" lazyload alt="集合结构"></p>
+</li>
+<li><p>线性结构</p>
+<blockquote>
+<p>线性结构中的数据元素之间是一对一的关系</p>
+</blockquote>
+<p><img src="/2021/09/28/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image-20210928093928151.png" srcset="/img/loading.gif" lazyload alt="线性结构"></p>
+</li>
+<li><p>树形结构</p>
+<blockquote>
+<p>树形结构中的数据元素之间的关系是一对多的层次关系</p>
+</blockquote>
+<p><img src="/2021/09/28/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image-20210928094153779.png" srcset="/img/loading.gif" lazyload alt="树形结构"></p>
+</li>
+<li><p>图形结构</p>
+<blockquote>
+<p>图形结构中的数据元素之间的关系是多对多的关系</p>
+</blockquote>
+<p><img src="/2021/09/28/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image-20210928094449408.png" srcset="/img/loading.gif" lazyload alt="图形结构"></p>
+</li>
+</ol>
+<h4 id="物理结构（存储结构）"><a href="#物理结构（存储结构）" class="headerlink" title="物理结构（存储结构）"></a>物理结构（存储结构）</h4><blockquote>
+<p>物理结构是指数据的逻辑结构在计算机中的存储形式</p>
+</blockquote>
+<p>数据的存储结构应正确反映数据元素之间的逻辑关系没数据元素的存储结构形式有两种：</p>
+<ol>
+<li><p>顺序存储结构</p>
+<blockquote>
+<p>顺序存储结构是把数据元素放在地址连续的存储单元里，其数据间的逻辑关系和物理关系是一致的</p>
+</blockquote>
+<p>例如数组，我创建了一个大小为5的整型数据的数组时，计算机就在内存中找了块空地，开辟了一个大小为5的连续空间，依次将数据摆放在数据中</p>
+</li>
+<li><p>链式存储结构</p>
+<blockquote>
+<p>链式存储结构是把数据元素存放在任意的存储单元里，这组存储单元可以是连续的，也可以是不连续的</p>
+<p>数据元素的存储关系不能反映其逻辑关系，因此需要用一个指针存放数据元素的地址</p>
+</blockquote>
+<p>如果我们对数组进行频繁的插入删除，耗时是非常大的</p>
+</li>
+</ol>
+<div class="note note-info">
+            <p>举个栗子：排队</p><p>顺序存储结构就像饭堂打饭排队，必须一个接着一个排队，位置是固定的，你离开的队列就必须重新排队</p><p>链式存储结构就像饭堂科技化了，有一个取号的机器，我取了号随便找了个位置坐下，叫到我的号我再去窗口打饭</p><p>指针就相当于是取号机器</p>
           </div>
+
+
+
+<p><strong>逻辑结构是面向问题的，而物理结构就是面向计算机的，其基本的目标就是将数据机器国际关系存储到计算机的内存中</strong></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">🗡️软件设计师知识点</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/09/22/%E9%9D%A2%E8%AF%95%E7%AE%97%E6%B3%95/">
+                        <span class="hidden-mobile">📋面试算法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"UHPRzDGHJ12bMNq3b9w01zw4-gzGzoHsz","appKey":"ONGsBbk9viW3RjlEszXSbkzL","placeholder":"以匿名方式评论 快来说点什么吧!(๑•̀ㅂ•́)و✧","path":"window.location.pathname","avatar":"retro","meta":["nick","mail"],"pageSize":10,"lang":"zh-CN","highlight":true,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[]},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
@@ -414,9 +662,15 @@
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
 
 
 

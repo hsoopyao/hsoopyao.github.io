@@ -1,0 +1,910 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/blogging.png">
+  <link rel="icon" href="/img/blogging.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#5e5e5f">
+  <meta name="description" content="记录我的成长历程~">
+  <meta name="author" content="hspro-yao">
+  <meta name="keywords" content="">
+  
+  <title>🗡️软件设计师知识点 | hspro-yao&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      
+        
+          
+          
+          
+        
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-tomorrow.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.min.css" />
+      
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/toubudaziji.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/gundongtiao.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/shubiao.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"www.openumind.top","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"UHPRzDGHJ12bMNq3b9w01zw4-gzGzoHsz","app_key":"ONGsBbk9viW3RjlEszXSbkzL","server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>hspro-yao's blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-plan"></i>
+                project
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://gitee.com/peanut_study">
+                    <i class="iconfont icon-gitee-fill"></i>
+                    Gitee
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://github.com/hsoopyao">
+                    <i class="iconfont icon-github-fill"></i>
+                    Github
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-switch-fill"></i>
+                Else
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/message/">
+                    
+                    留言板
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/talking/">
+                    
+                    心情说说
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/updateLog/">
+                    
+                    博客更新日志
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/statistics/">
+                    
+                    统计
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/links/">
+                    
+                    友链
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-exp-fill"></i>
+                Tools
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/">
+                    
+                    待开发
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://cdn.pixabay.com/photo/2020/10/21/18/07/laptop-5673901_960_720.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="🗡️软件设计师知识点">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-10-12 11:15" pubdate>
+        2021年10月12日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      27
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">🗡️软件设计师知识点</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年10月12日 下午
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h1 id="计算机组成与体系结构"><a href="#计算机组成与体系结构" class="headerlink" title="计算机组成与体系结构"></a>计算机组成与体系结构</h1><h2 id="机器语言"><a href="#机器语言" class="headerlink" title="机器语言"></a>机器语言</h2><p>一个数在计算机中的二进制表示形式，叫做这个数的机器数。机器数是带符号的，在计算机用机器数的<strong>最高位</strong>存放符号，正数为0，负数为1，<strong>计算机字长为8位</strong></p>
+<blockquote>
+<p>如：3转化为二进制则是 0000 0011 这个二进制就是机器数，是计算机看得懂的数字</p>
+</blockquote>
+<h3 id="原码、反码、补码、移码"><a href="#原码、反码、补码、移码" class="headerlink" title="原码、反码、补码、移码"></a>原码、反码、补码、移码</h3><p>对于一个数，计算机要使用一定的编码方式进行存储，<strong>原码、反码、补码</strong>是机器<strong>存储一个具体数字的编码方式</strong></p>
+<ul>
+<li><p>原码：用第一位表示符号，其余位表示值（十进制转二进制）</p>
+<ul>
+<li><blockquote>
+<p>[+1]原 = 0000 0001 其中最高位是符号位 这里是正数所以是0</p>
+<p>[-1]原 = 1000 0001 其中最高位是符号位 这是是负数所以是1</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>反码：正数的反码是其本身，负数的反码是在其原码的基础上，符号位不变，其余取反即可</p>
+<ul>
+<li><blockquote>
+<p>[+1] = [0000 0001]原 = [0111 1110]反</p>
+<p>[-1] = [1000 0001]原 = [1111 1110]反</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>补码：正数的补码是其本身，负数的补码是在其反码的基础上+1</p>
+<ul>
+<li><blockquote>
+<p>[+1] = [0000 0001]原 = [0111 1110]反 = [0111 1111]补</p>
+<p>[-1] = [1000 0001]原 = [1111 1110]反 = [1111 1111]补</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>移码：不管正负数，只要将其补码的符号位取反即可</p>
+<ul>
+<li><blockquote>
+<p>[+1] = [0000 0001]原 = [0111 1110]反 = [0111 1111]补 = [1111 1111]移</p>
+<p>[-1] = [1000 0001]原 = [1111 1110]反 = [1111 1111]补 = [0111 1111]移</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>正数三码（原码反码补码）合一</strong></p>
+<p><strong>例题：</strong></p>
+<ol>
+<li><p>计算机中常采用原码、反码、补码和移码表示数值，其中，±0编码相同的是()。</p>
+<p>A. 原码和补码</p>
+<p>B. 反码和补码</p>
+<p><strong>C.</strong> 补码和移码</p>
+<p>D. 原码和移码</p>
+</li>
+</ol>
+<p><strong>解析：</strong></p>
+<p>[+0] = [0000 0000]原 = [0000 0000]反 = <strong>[0000 0000]补 = [1000 0000]移</strong></p>
+<p>[-0] = [1000 0000]原 = [1111 1111]反 = <strong>[0000 0000]补 = [1000 0000]移</strong></p>
+<h2 id="科学计数法"><a href="#科学计数法" class="headerlink" title="科学计数法"></a>科学计数法</h2><p>科学记数法是一种记数的方法。把一个数表示成a与10的n次幂相乘的形式（1≤|a|&lt;10，a不为分数形式，n为整数），这种记数法叫做<strong>科学记数法。</strong></p>
+<p><strong>浮点数的结构：</strong></p>
+<table>
+<thead>
+<tr>
+<th>阶符±</th>
+<th>阶码e</th>
+<th>数符±</th>
+<th>尾数m</th>
+</tr>
+</thead>
+</table>
+<p>浮点数实际上就是二进制的科学计数法，阶码指科学计数法中的指数，尾数指科学计数法中小数点之后的部分。</p>
+<p>例如对于十进制的3.14×10²，“阶码”就是2，而“尾数”则是14。<br>同理对于二进制的1.00111010×10^1000，“阶码”就是1000，而“尾数”则是00111010。</p>
+<p><strong>阶码的值影响浮点数的范围，阶码的值越大，所表示的浮点数值范围越大</strong></p>
+<p><strong>尾数的值影响浮点数的范围，尾数的值越大，所表示的浮点数值精度越高</strong></p>
+<h2 id="Flynn分类法"><a href="#Flynn分类法" class="headerlink" title="Flynn分类法"></a>Flynn分类法</h2><table>
+<thead>
+<tr>
+<th>体系结构类型</th>
+<th>结构</th>
+<th>关键特性</th>
+<th>代表</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单指令流单数据流<strong>SISD</strong></td>
+<td>一个控制部分、一个处理器、一个主存模块</td>
+<td></td>
+<td>单处理器系统</td>
+</tr>
+<tr>
+<td>单指令流多数据流<strong>SIMD</strong></td>
+<td>一个控制部分、多个处理器、多个主存模块</td>
+<td>各处理器以异步的形式执行同一条指令</td>
+<td>并行处理机、阵列处理机、超级向量处理机</td>
+</tr>
+<tr>
+<td>多指令流单数据流<strong>MISD</strong></td>
+<td>多个控制部分、一个处理器、多个主存模块</td>
+<td>被证明不可能，至少是不实际</td>
+<td>目前没有，有文献认为流水线</td>
+</tr>
+<tr>
+<td>多指令流多数据流<strong>MIMD</strong></td>
+<td>多个控制部分、多个处理器、多个主存模块</td>
+<td>能够实现作业、任务、指令等各级全面并行</td>
+<td>多处理机系统、多计算机</td>
+</tr>
+</tbody></table>
+<h2 id="CISC与RISC"><a href="#CISC与RISC" class="headerlink" title="CISC与RISC"></a>CISC与RISC</h2><ul>
+<li><p>CISC：复杂指令集</p>
+<ul>
+<li>特点<ul>
+<li>指令数量多</li>
+<li>指令频率差别大，多寻址方式</li>
+<li>使用微码。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>RISC：精简指令集。</p>
+<ul>
+<li>特点<ul>
+<li>指令数量少</li>
+<li>操作寄存器</li>
+<li>单周期，少寻址方式</li>
+<li>多通用寄存器</li>
+<li>硬布线逻辑控制，适用于流水线。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="CPU组成（运算器和控制器）"><a href="#CPU组成（运算器和控制器）" class="headerlink" title="CPU组成（运算器和控制器）"></a>CPU组成（运算器和控制器）</h2><p>处理机主要由处理器、存储器、总线组成，总线包括 <strong>数据总线、地址总线、控制总线</strong></p>
+<blockquote>
+<p>CPU全称是中央控制处理单元，其组成部分分为两大部分</p>
+</blockquote>
+<ul>
+<li>运算器<ul>
+<li><strong>逻辑算术单元（ALU）：数据的算术运算和逻辑运算</strong></li>
+<li><strong>算术累加寄存器（AC）：通用寄存器，为ALU提供一个工作区，用于暂存数据</strong></li>
+<li>数据缓冲寄存器：写内存时，暂存指令或数据</li>
+<li>状态条件寄存器：存状态标志与控制标志（如进位、溢出等状态）<strong>存在争议，也可以是控制器的一部分！</strong></li>
+</ul>
+</li>
+<li>控制器<ul>
+<li><strong>程序计数器（AC）：用于存储下一条要执行的指令的地址</strong></li>
+<li><strong>指令寄存器（IR）：用于存储将要执行的指令（包括地址）</strong></li>
+<li>指令译码器：对指令的操作码字进行分析解释</li>
+<li>时序部件：提供时序控制信号</li>
+</ul>
+</li>
+</ul>
+<p><strong>例题：</strong></p>
+<ol>
+<li><p>以下属于CPU的算术逻辑单位的部件是()</p>
+<p>A. 程序计数器</p>
+<p><strong>B</strong>. 加法器</p>
+<p>C. 指令寄存器</p>
+<p>D. 指令译码器</p>
+</li>
+</ol>
+<p><strong>解析：</strong></p>
+<p>程序计数器、指令寄存器、指令译码器属于CPU中的控制器</p>
+<ol start="2">
+<li><p>计算机指令一般包括操作码和地址码两部分，为分析执行一条指令，其()</p>
+<p>A. 操作码应存入指令寄存器(IR)，地址码应存入程序计数器(PC)</p>
+<p>B. 操作码应存入程序计数器(PC)，地址码应存入指令寄存器(IR)</p>
+<p><strong>C</strong>. 操作码和地址码都应存入指令寄存器(IR)</p>
+<p>D. 操作码和地址码都应存入程序计数器(PC)</p>
+</li>
+</ol>
+<p><strong>解析：</strong></p>
+<p>程序计数器(PC)存放的是吓一跳即将要执行的指令的地址</p>
+<p>指令寄存器(IR)存放的是即将要执行的指令及其地址</p>
+<h2 id="Cache"><a href="#Cache" class="headerlink" title="Cache"></a>Cache</h2><p><strong>Cache位于CPU与主存之间</strong></p>
+<p>计算机中的存储系统采用分级存储体系的理论依据是<strong>程序访问的局部性</strong>(时间局部性，空间局部性)</p>
+<blockquote>
+<p>三级存储体系</p>
+<p>Cache – 主存（内存）  – 辅存（外存）</p>
+</blockquote>
+<p>寄存器是离CPU最近的部件，速度是最快的，其次就是Cache</p>
+<p><strong>主存与Cache之间的地址映射由硬件直接完成</strong>，与操作系统和程序员无关</p>
+<p><strong>主存与Cache之间的地址映射有三种形式：</strong></p>
+<ul>
+<li>直接相联映像（冲突率最高，电路简单）<ul>
+<li>例如将内存中的0号位只能存在页内地址的各个0号位，冲突高</li>
+</ul>
+</li>
+<li>全相联映像（冲突率最低，电路复杂）<ul>
+<li>例如内存中的0号位可以存在页内地址的各个位置，冲突低</li>
+</ul>
+</li>
+<li>组相联映像（冲突率与电路复杂度是上面两者折中）<ul>
+<li>例如内存中的0-5号位组成一个组，每个组可以存在页内地址的各个位置</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>冲突率 ： 直接相联映像 &gt; 组相联映像 &gt; 全相联映像</p>
+<p>电路复杂度： 全相联映像 &gt; 组相联映像 &gt;  直接相联映像</p>
+</blockquote>
+<h2 id="流水线"><a href="#流水线" class="headerlink" title="流水线"></a>流水线</h2><p><strong>流水线</strong>是指在程序执行时多条指令重叠进行操作的一种准并行处理实现技术。各种部件同时处理时针对不同指令而言的，它们可同时为多条指令的不同部分进行工作，以提高各部件的利用率和指令的平均执行速度。</p>
+<p><em><em>流水线指令运行时间的计算公式：一条指令执行的时间 + （执行次数 - 1）</em> 流水线周期(执行最长的时间)</em>*</p>
+<p><strong>例题：</strong></p>
+<p>若指令流水线把一条指令分为取指、分析和执行三部分的时间分别是T(取指)=2ns，T(分析)=4ns,T(执行)=1ns，则100条指令全部执行完毕需(<strong>403</strong>)ns.</p>
+<p><strong>解析：</strong></p>
+<p>一条指令的执行时间：2 + 4 + 1 = 7ns</p>
+<p>执行指令条数：100条</p>
+<p>流水线执行最长的时间：4ns</p>
+<p>则 **(2+4+1)+(100-1)<em>4 = 403ns</em>*</p>
+<p><strong>流水线的吞吐率公式：所执行的指令条数/流水线执行的时间</strong></p>
+<p><strong>最大吞吐率：流水线周期(执行最长的一段)的倒数</strong></p>
+<p><strong>例题：</strong></p>
+<p>某指令流水线由5段组成，各段所需要的时间如下图所示，连续输入100条指令时的吞吐率为(<strong>C</strong>)</p>
+<p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211012155229458.png" srcset="/img/loading.gif" lazyload alt="image-20211012155229458"></p>
+<p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211012155242299.png" srcset="/img/loading.gif" lazyload alt="image-20211012155242299"></p>
+<p><strong>解析：</strong></p>
+<p>执行指令数：100</p>
+<p>流水线执行的时间：（1+3+1+2+1）+ (100 - 1) * 3∆t = 305∆t</p>
+<p>吞吐率 = 100/305∆t</p>
+<p><strong>拓展：最大吞吐率为1/3∆t</strong></p>
+<h2 id="系统可靠性"><a href="#系统可靠性" class="headerlink" title="系统可靠性"></a>系统可靠性</h2><p>可靠性计算涉及到三种系统：</p>
+<ol>
+<li><p>串联系统</p>
+<p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211012161749470.png" srcset="/img/loading.gif" lazyload alt="image-20211012161749470"></p>
+<p><strong>计算方法：串联要可靠，得所有得R都可靠，即R1×R2×R3…×Rn</strong></p>
+</li>
+<li><p>并联系统</p>
+<p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211012162137837.png" srcset="/img/loading.gif" lazyload alt="image-20211012162137837"></p>
+<p><strong>计算方法：并联要可靠，只要有一个可靠就可以了，即R = 1 - (1 - R1) × (1 - R2) × (1 - R3)</strong></p>
+</li>
+<li><p>冗余系统(既有串联也有并联)</p>
+<p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211012162940473.png" srcset="/img/loading.gif" lazyload alt="image-20211012162940473"></p>
+<p><strong>计算方法：串联就相乘，并联就相减，即 R × ( 1 - (1 - R)^3 ) × (1 - (1 - R)^2)</strong></p>
+</li>
+</ol>
+<h2 id="校验码"><a href="#校验码" class="headerlink" title="校验码"></a>校验码</h2><p>常考的校验码有：</p>
+<ul>
+<li>奇偶校验码</li>
+<li>海明校验码<ul>
+<li><strong>海明码校验公式：2^R-1 ≥　K+R</strong>(R是校验位，K是数据位/信息位)</li>
+</ul>
+</li>
+<li>循环冗余校验码（CRC）<ul>
+<li>模2除法校验</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li><p>已知多项式和原报文，求CRC编码，如：使用多项式G(x)=x^5 + x^4 + x +1,对报文10100110进行CRC编码，则编码后的报文是什么？ <strong>11000</strong><br><strong>方法与步骤：</strong></p>
+<p>步骤1：对报文10100110，在末尾添加所给多项式的最高次阶个0，如本题为x^5，则添加5个0，变为：1010011000000。</p>
+<p>步骤2：由多项式G(x)=x^5 + x^4 + x +1，得其阶数为1的二进制编码为：110011。</p>
+<p>步骤3：步骤1中求得的1010011000000对步骤2中求得的110011进行模二除法，所得到的余数即为校验码，把校验码添加在原报文尾部即为所求的编码报文1010011011000，具体如下：<br><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211012171041239.png" srcset="/img/loading.gif" lazyload alt="image-20211012171041239"></p>
+</li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%BD%AF%E8%80%83/">软考</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88/">软件设计师</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/09/28/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                        <span class="hidden-mobile">✔️数据结构</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"UHPRzDGHJ12bMNq3b9w01zw4-gzGzoHsz","appKey":"ONGsBbk9viW3RjlEszXSbkzL","placeholder":"以匿名方式评论 快来说点什么吧!(๑•̀ㅂ•́)و✧","path":"window.location.pathname","avatar":"retro","meta":["nick","mail"],"pageSize":10,"lang":"zh-CN","highlight":true,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[]},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <br> <br> <p> 若果你 未觉荒谬 被传闻谈论的疯子挽着手 </p> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+    
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/caidai.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<!-- hexo injector body_end start -->
+  <script data-pjax src="https://cdn.jsdelivr.net/gh/Zfour/hexo-github-calendar@1.21/hexo_githubcalendar.js"></script>
+  <script data-pjax>
+        function GithubCalendarConfig(){
+            var git_githubapiurl ="https://python-gitee-calendar-api.vercel.app/api?peanut_study";
+            var git_color =['#ebedf0', '#fdcdec', '#fc9bd9', '#fa6ac5', '#f838b2', '#f5089f', '#c4067e', '#92055e', '#540336', '#48022f', '#30021f'];
+            var git_user ="peanut_study";
+            var parent_div_git = document.getElementById('recent-posts');
+            var git_div_html = '<div class="recent-post-item" style="width:100%;height:auto;padding:10px;"><div id="github_loading" style="width:10%;height:100%;margin:0 auto;display: block"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  viewBox="0 0 50 50" style="enable-background:new 0 0 50 50" xml:space="preserve"><path fill="#d0d0d0" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z" transform="rotate(275.098 25 25)"><animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"></animateTransform></path></svg></div><div id="github_container"></div></div>';
+            if(parent_div_git && location.pathname =='/about/'){
+                console.log('已挂载github calendar')
+                // parent_div_git.innerHTML=git_div_html+parent_div_git.innerHTML // 无报错，但不影响使用(支持pjax跳转)
+                parent_div_git.insertAdjacentHTML("afterbegin",git_div_html) // 有报错，但不影响使用(支持pjax跳转)
+            };
+            GithubCalendar(git_githubapiurl,git_color,git_user)
+        }
+        if(document.getElementById('recent-posts')){
+            GithubCalendarConfig()
+        }
+    </script>
+    <style>#github_container{min-height:280px}@media screen and (max-width:650px) {#github_container{background-image:;min-height:0px}}</style>
+    <style></style><!-- hexo injector body_end end --></body>
+</html>

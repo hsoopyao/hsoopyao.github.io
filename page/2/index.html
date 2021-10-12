@@ -18,7 +18,7 @@
   <meta name="author" content="hspro-yao">
   <meta name="keywords" content="">
   
-  <title>归档 | hspro-yao&#39;s blog</title>
+  <title>hspro-yao&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -54,7 +54,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 100vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -248,18 +248,22 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('/img/fl.png') no-repeat center center;
+         style="background: url('/img/darkmodepicture4.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="归档">
+            <span class="h2" id="subtitle" title="所爱隔山海，山海皆可平。">
               
             </span>
 
             
           </div>
 
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
           
         </div>
       </div>
@@ -270,36 +274,126 @@
     
       <div class="container nopadding-x-md">
         <div class="py-5" id="board"
-          >
+          style=margin-top:0>
           
           <div class="container">
             <div class="row">
               <div class="col-12 col-md-10 m-auto">
                 
 
-<div class="list-group">
-  <p class="h4">共计 12 篇文章</p>
-  <hr>
-  
-  
+
+  <div class="row mx-auto index-card">
     
-      
-      <p class="h5">2021</p>
     
-    <a href="/2021/08/30/AtomicInteger%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3%E4%B8%8E%E5%AE%9E%E8%B7%B5/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">🌈AtomicInteger自我理解与实践</span>
-      <time style="float: right;">08-30</time>
-    </a>
-  
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/08/30/AtomicInteger%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3%E4%B8%8E%E5%AE%9E%E8%B7%B5/" target="_self">
+          <img src="https://en.freejpg.com.ar/image-900/7d/7db5/F100029520-lights_of_different_colors_4k_background.jpg" srcset="/img/loading.gif" lazyload alt="🌈AtomicInteger自我理解与实践">
+        </a>
+      </div>
     
-    <a href="/2021/08/26/hello-world/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Hello World</span>
-      <time style="float: right;">08-26</time>
-    </a>
-  
-</div>
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/30/AtomicInteger%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3%E4%B8%8E%E5%AE%9E%E8%B7%B5/" target="_self">
+          🌈AtomicInteger自我理解与实践
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/30/AtomicInteger%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3%E4%B8%8E%E5%AE%9E%E8%B7%B5/" target="_self">
+          
+          
+            
+          
+          前言记录在工作中遇到的情况:
+
+直播间中统计观看直播的人数 一开始傻傻的用Integer来实现 结果被汉叔说用AtomicInteger原子整型
+我才发现我大学学的多线程只是皮毛，导致实践时根本就没考虑到高并发的情况 想都没想就之间用了Integer实现了。。。
+
+案发现场：
+
+AtomicInteger 原子整型
+            原子整型在java.util.concurrent.ato
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-30 18:51" pubdate>
+              2021-08-30
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Java/">Java</a>
+            
+              <a href="/categories/Java/%E5%B9%B6%E5%8F%91/">并发</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Java/">Java</a>
+            
+              <a href="/tags/%E5%8E%9F%E5%AD%90%E6%95%B4%E5%9E%8B/">原子整型</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/26/hello-world/" target="_self">
+          Hello World
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/26/hello-world/" target="_self">
+          
+          
+            
+          
+          Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
+Quick
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-26 19:35" pubdate>
+              2021-08-26
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
 
 
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    </span>
+  </nav>
 
 
 
