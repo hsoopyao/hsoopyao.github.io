@@ -301,7 +301,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      6.7k 字
+      7.4k 字
     </span>
   
 
@@ -311,7 +311,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      74
+      82
        分钟
     </span>
   
@@ -353,7 +353,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年10月18日 下午
+                  本文最后更新于：2021年10月19日 中午
                 
               </p>
             
@@ -998,7 +998,64 @@
 <p><strong>解析：</strong></p>
 <p>已知系统字长为32位，说明一个字可以表示32个物理块的使用情况</p>
 <p>m = (4096 + 1) / 32 = 128 余 1，所以这一位属于第129个字的第一位，+1是因为编号是从0开始的</p>
-<h1 id="数据库系统"><a href="#数据库系统" class="headerlink" title="数据库系统"></a>数据库系统</h1>
+<h1 id="数据库系统"><a href="#数据库系统" class="headerlink" title="数据库系统"></a>数据库系统</h1><h2 id="三级模式-两层映射"><a href="#三级模式-两层映射" class="headerlink" title="三级模式-两层映射"></a>三级模式-两层映射</h2><p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211019091456289.png" srcset="/img/loading.gif" lazyload alt="三级模式-两层映射"></p>
+<ul>
+<li><strong>外模式</strong>也称为用户模式，关注的是数据逻辑结构</li>
+<li><strong>内模式</strong>也称为存储模式，关注的是数据存储的物理结构</li>
+<li><strong>概念模式</strong>也称为模式</li>
+</ul>
+<h2 id="数据库设计过程"><a href="#数据库设计过程" class="headerlink" title="数据库设计过程"></a>数据库设计过程</h2><blockquote>
+<p>数据库设计过程及其产物</p>
+</blockquote>
+<ol>
+<li>需求分析<ul>
+<li>数据流图</li>
+<li>数据字典</li>
+<li>需求说明书</li>
+</ul>
+</li>
+<li>概念结构设计<ul>
+<li>ER模型</li>
+</ul>
+</li>
+<li>逻辑结构设计<ul>
+<li>关系模式</li>
+</ul>
+</li>
+<li>物理设计</li>
+</ol>
+<h2 id="ER模型"><a href="#ER模型" class="headerlink" title="ER模型"></a>ER模型</h2><p><strong>ER模型用于表示类与类之间的关系</strong></p>
+<p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211019093639555.png" srcset="/img/loading.gif" lazyload alt="ER图组件"></p>
+<p>联系转关系模式：</p>
+<ul>
+<li>1：1联系：可将联系合并至任意一端的实体关系模式中</li>
+<li>1：n联系：可将联系合并至n段实体关系模式中</li>
+<li>m：n联系：联系必须单独转成关系模式</li>
+<li>三个以上实体间的一个多元联系</li>
+</ul>
+<h2 id="关系代数"><a href="#关系代数" class="headerlink" title="关系代数"></a>关系代数</h2><ul>
+<li>交(∩)：R ∩ S，即将R与S中的相同的信息提取</li>
+<li>并(∪) ：R ∪ S，即将R与S中的信息合并</li>
+<li>差(-)：R - S，即删除R中存在S的记录</li>
+<li>笛卡尔积(×)：R × S，即将R中的每一条记录都与S中的记录相匹配</li>
+<li>投影(π)：投影运算是从关系的垂直方向进行运算</li>
+<li>选择(σ)：选择运算是从关系的水平方向进行运算</li>
+<li>自然连接(⋈)：相当于去重操作</li>
+</ul>
+<h2 id="规范化理论"><a href="#规范化理论" class="headerlink" title="规范化理论"></a>规范化理论</h2><p>候选键：唯一表示元组，且无冗余，可以有多个</p>
+<p>主键：在候选键中人选一个，有且只有一个</p>
+<p>外键：其他关系的主键</p>
+<p>✅ 图示法求候选键</p>
+<ol>
+<li>将详细的函数依赖关系，用”有向图”的方式表示</li>
+<li>找出入度为0的属性，并以该属性集合为起点，。尝试遍历有向图，若能正常遍历图中所有结点，则该属性即为关系模式的候选键</li>
+<li>若入度为0的属性集不能遍历图中所有节点，则需要尝试性将一些中间结点(既有入度也有出度)并入入度为0的属性集中，直至该集合能遍历所有结点，集合为候选键</li>
+</ol>
+<h2 id="范式"><a href="#范式" class="headerlink" title="范式"></a>范式</h2><p>🔢 第一范式(1NF)：在关系模式中，当且仅当所有域只包含原子值，即<strong>每个属性都是不可再分的数据项</strong>，则称关系模式R是第一范式</p>
+<p>🔢 第二范式(2NF)：当且仅当关系模式R是第一范式，且<strong>每一个非主属性完全依赖候选键</strong>(没有不完全依赖)时，则称关系模式R时第二范式</p>
+<p>🔢 第三范式(3NF)：当且仅当关系模式R是第二范式(2NF)，且<strong>R中没有非主属性传递依赖于候选键</strong>时，则称关系模式R是第三范式</p>
+<p>🔢 BC范式(BCNF)：设R是一个关系模式，F是它的依赖集，R属于BCNF当且仅当其F中每个依赖的决定因素必定包含R的某个候选码</p>
+
             </div>
             <hr>
             <div>
