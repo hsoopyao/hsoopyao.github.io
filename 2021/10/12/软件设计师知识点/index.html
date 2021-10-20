@@ -301,7 +301,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      7.4k 字
+      10.4k 字
     </span>
   
 
@@ -311,7 +311,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      82
+      115
        分钟
     </span>
   
@@ -353,7 +353,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年10月19日 中午
+                  本文最后更新于：2021年10月20日 下午
                 
               </p>
             
@@ -854,6 +854,67 @@
 </ul>
 </li>
 </ul>
+<h1 id="多媒体基础"><a href="#多媒体基础" class="headerlink" title="多媒体基础"></a>多媒体基础</h1><h2 id="音频相关概念"><a href="#音频相关概念" class="headerlink" title="音频相关概念"></a>音频相关概念</h2><p>人耳：20Hz - 20kHz（小于20Hz叫次声波，大于20kHz是超声波）</p>
+<p>乐器：20Hz - 20kHz</p>
+<p>说话：300 - 3400Hz</p>
+<p>采样：将音频转换为数字格式存到计算机中</p>
+<p>采样频率应为声音最高频率2倍，保证声音不失真</p>
+<h2 id="图像相关概念"><a href="#图像相关概念" class="headerlink" title="图像相关概念"></a>图像相关概念</h2><ul>
+<li>亮度</li>
+<li>色调</li>
+<li>饱和度</li>
+</ul>
+<h2 id="媒体的种类"><a href="#媒体的种类" class="headerlink" title="媒体的种类"></a>媒体的种类</h2><p>⭐ 感觉媒体：指直接作用于人的感觉器官，使人产生直接感觉的媒体。如：声音、图形、图像、动画等</p>
+<p>⭐ 表示媒体：指为了加工、处理和传输感觉媒体而认为研究、构造出来的一种媒体，常见的有各种变法方式，如文本编码、图像编码和声音编码等</p>
+<p>⭐⭐⭐ 显示媒体(表现媒体)：表示和获取信息的物理设备。如：输入显示媒体键盘、鼠标和麦克风等；输出显示媒体显示器、打印机和音箱等</p>
+<p>⭐ 存储媒体：存储诗句的物理设备，如磁盘、光盘和内存等</p>
+<p>⭐ 传输媒体：传输数据的物理载体，如电缆、光缆和交换设备等</p>
+<h2 id="多媒体计算问题"><a href="#多媒体计算问题" class="headerlink" title="多媒体计算问题"></a>多媒体计算问题</h2><p>✅ 图像容量计算</p>
+<table>
+<thead>
+<tr>
+<th>条件</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>知道像素，位数</td>
+<td>每个像素为16位，图像为640*480像素，求容量：640 * 480 * 16 / 8 = 614400B</td>
+</tr>
+<tr>
+<td>知道像素，色数</td>
+<td>640 * 480 像素，256色的图像，求容量： 640 * 480 * log<del>2</del>(256) / 8 = 304200B</td>
+</tr>
+</tbody></table>
+<p>✅ 音频容量计算 容量 = <strong>采样频率(Hz) * 量化 / 采样位数(位) * 声道数 / 8</strong> (单位是b则不需要/8)</p>
+<p>✅ 视频容量计算 容量 = <strong>每帧图像容量(Byte) * 每秒帧数 * 时间 + 音频容量 * 时间</strong></p>
+<p>👉<strong>例题：</strong></p>
+<p>某数码相机内置128MB的存储空间，拍摄分辨率设定为1600 * 1200像素，颜色深度为24位，若不采用压缩存储技术，使用内部存储器最多可以存储(<strong>D</strong>)张照片</p>
+<p>A. 12        B. 22        C. 13        <strong>D</strong>. 23</p>
+<p><strong>解析：</strong></p>
+<p>每张照片的容量 = 1600 * 1200 * 24 / 8 = 5760000B</p>
+<p>转换为MB ：5760000 / 1024 / 1024 = 5.493MB</p>
+<p>用相机内置容量除以每张照片的容量 ：128 / 5.493 = 23.3</p>
+<p>CD上声音的采样频为44.1kHz，样本精度为16bit，双声道立体声，那么其未经压缩的数据传输速率为(<strong>C</strong>)</p>
+<p>A. 88.2kb/s        B. 705.6kb/s        <strong>C</strong>. 1411.2kb/s        D. 1536.0kb/s</p>
+<p><strong>解析：</strong></p>
+<p>44.1 * 16 * 2 = 1411.2kb/s</p>
+<p>若视频图像每帧的数据量为6.4MB，帧速率为30帧/秒，则显示10秒的视频信息，其原始数据量为(<strong>D</strong>)MB</p>
+<p>A. 64        B. 192        C. 640        <strong>D.</strong> 1920</p>
+<p><strong>解析：</strong></p>
+<p>6.4 * 30 * 10 = 1920</p>
+<p><strong>K是存储数据单位 1K = 1204</strong></p>
+<p><strong>k是传输数据单位 1K = 1000</strong></p>
+<h2 id="数据压缩技术"><a href="#数据压缩技术" class="headerlink" title="数据压缩技术"></a>数据压缩技术</h2><ul>
+<li>空间冗余</li>
+<li>时间冗余</li>
+<li>视觉冗余</li>
+<li>信息熵冗余</li>
+<li>结构冗余</li>
+<li>知识冗余</li>
+</ul>
+<h2 id="有损压缩和无损压缩"><a href="#有损压缩和无损压缩" class="headerlink" title="有损压缩和无损压缩"></a>有损压缩和无损压缩</h2><p>无损压缩编码法，也称为冗余压缩法或熵编码法</p>
+<p>有损压缩编码法，也称为熵压缩法</p>
 <h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><h2 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h2><blockquote>
 <p>进程的概念</p>
 </blockquote>
@@ -1045,17 +1106,315 @@
 <h2 id="规范化理论"><a href="#规范化理论" class="headerlink" title="规范化理论"></a>规范化理论</h2><p>候选键：唯一表示元组，且无冗余，可以有多个</p>
 <p>主键：在候选键中人选一个，有且只有一个</p>
 <p>外键：其他关系的主键</p>
-<p>✅ 图示法求候选键</p>
+<h3 id="候选键"><a href="#候选键" class="headerlink" title="候选键"></a>候选键</h3><p>✅ 图示法求候选键</p>
 <ol>
 <li>将详细的函数依赖关系，用”有向图”的方式表示</li>
 <li>找出入度为0的属性，并以该属性集合为起点，。尝试遍历有向图，若能正常遍历图中所有结点，则该属性即为关系模式的候选键</li>
 <li>若入度为0的属性集不能遍历图中所有节点，则需要尝试性将一些中间结点(既有入度也有出度)并入入度为0的属性集中，直至该集合能遍历所有结点，集合为候选键</li>
 </ol>
+<p>👉 <strong>例题：</strong></p>
+<p>关系R(A,B,C)满足下列函数依赖：F{ B -&gt; C , B -&gt; A, A -&gt; BC}，关系R的候选关键字为(<strong>B</strong>)</p>
+<p>A. AB        <strong>B.</strong> A和B        C. A和BC        D. AC和AB</p>
+<p><strong>解析：</strong></p>
+<p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211020143059532.png" srcset="/img/loading.gif" lazyload alt="图解"></p>
+<p>图中没有入度为0的属性，所以尝试将中间结点(该题的中间结点时A和B)看是否能遍历所有的结点</p>
+<p>其中A选项与B选项不同的是：</p>
+<ul>
+<li>AB说明AB一起能够遍历整个图</li>
+<li>B选项说明的是A/B/A和B都可以遍历整个图</li>
+</ul>
+<h3 id="模式分解"><a href="#模式分解" class="headerlink" title="模式分解"></a>模式分解</h3><p><strong>无损联接分解</strong>：指将一个关系模式分解成若干个关系模式后，通过自然联接和投影等运算仍能还原到原来的关系模式</p>
+<p>✅ 公式法：**(适用于两个分解关系模式)**</p>
+<p><strong>R1∩R2 -&gt; (R1 - R2)</strong></p>
+<p><strong>R1∩R2 -&gt; (R2 - R1)</strong></p>
+<p>✅ 表格法</p>
+<p>将关系模式用表格的形式画出来</p>
+<p>👉<strong>例题：</strong></p>
+<p>设R = ABC，F = {A -&gt; B}，则分解p1 = {R1(AB)，R2(AC)}与分解p2 = {R1(AB)，R3(BC)}是否都为无损分解？</p>
+<p><strong>解析：</strong></p>
+<p>对于<strong>p1 = {R1(AB)，R2(AC)}</strong></p>
+<ol>
+<li><p>R1 ∩ R2 = A</p>
+</li>
+<li><p>R1 - R2 = B</p>
+</li>
+<li><p>R2 - R1 = C</p>
+</li>
+</ol>
+<p>即推出 <strong>A -&gt; B 或 A -&gt; C</strong> 所以是无损分解</p>
+<p>对于<strong>p2 = {R1(AB)，R3(BC)}</strong></p>
+<ol>
+<li><p>R1 ∩ R2 = B</p>
+</li>
+<li><p>R1 - R2 = A</p>
+</li>
+<li><p>R2 - R1 = C</p>
+</li>
+</ol>
+<p>即推出 <strong>B -&gt; A 或 B -&gt; C</strong> 所以是有损分解</p>
+<p><strong>表格法：</strong></p>
+<p>对于<strong>p1 = {R1(AB)，R2(AC)}</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>R1</td>
+<td>√</td>
+<td>√</td>
+<td></td>
+</tr>
+<tr>
+<td>R2</td>
+<td>√</td>
+<td></td>
+<td>√</td>
+</tr>
+</tbody></table>
+<p>由题可知 A -&gt; B，所以R2中的B也可以通过A推出来，当所有属性都打勾说明可以还原</p>
 <h2 id="范式"><a href="#范式" class="headerlink" title="范式"></a>范式</h2><p>🔢 第一范式(1NF)：在关系模式中，当且仅当所有域只包含原子值，即<strong>每个属性都是不可再分的数据项</strong>，则称关系模式R是第一范式</p>
 <p>🔢 第二范式(2NF)：当且仅当关系模式R是第一范式，且<strong>每一个非主属性完全依赖候选键</strong>(没有不完全依赖)时，则称关系模式R时第二范式</p>
 <p>🔢 第三范式(3NF)：当且仅当关系模式R是第二范式(2NF)，且<strong>R中没有非主属性传递依赖于候选键</strong>时，则称关系模式R是第三范式</p>
 <p>🔢 BC范式(BCNF)：设R是一个关系模式，F是它的依赖集，R属于BCNF当且仅当其F中每个依赖的决定因素必定包含R的某个候选码</p>
-
+<h1 id="计算机网络与信息安全"><a href="#计算机网络与信息安全" class="headerlink" title="计算机网络与信息安全"></a>计算机网络与信息安全</h1><h2 id="OSI-RM七层模型"><a href="#OSI-RM七层模型" class="headerlink" title="OSI/RM七层模型"></a>OSI/RM七层模型</h2><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>主要功能</th>
+<th>主要设备及协议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>应用层</td>
+<td>实现具体的应用功能</td>
+<td></td>
+</tr>
+<tr>
+<td>表示层</td>
+<td>数据的结构与表示、加密、压缩</td>
+<td></td>
+</tr>
+<tr>
+<td>会话层</td>
+<td>确立、管理和终止会话</td>
+<td></td>
+</tr>
+<tr>
+<td>传输层</td>
+<td>端对端的连接</td>
+<td>TCP/UDP</td>
+</tr>
+<tr>
+<td>网络层</td>
+<td>分组传输和路由选择</td>
+<td>三层交换机、路由器、ARP/RARP/IP/ICMP/IGMP</td>
+</tr>
+<tr>
+<td>数据链路层</td>
+<td>传送以帧为单位的信息</td>
+<td>网桥、交换机、网卡 PPTP/L2TP/SLIP/PPP</td>
+</tr>
+<tr>
+<td>物理层</td>
+<td>二进制传输</td>
+<td>中继器、集线器</td>
+</tr>
+</tbody></table>
+<h2 id="TCP-IP协议族"><a href="#TCP-IP协议族" class="headerlink" title="TCP/IP协议族"></a>TCP/IP协议族</h2><p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211020093500346.png" srcset="/img/loading.gif" lazyload alt="模型"></p>
+<table>
+<thead>
+<tr>
+<th>协议</th>
+<th>端口及名称</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>POP3</td>
+<td>110 邮件收取</td>
+</tr>
+<tr>
+<td>SMTP</td>
+<td>25 邮件发送</td>
+</tr>
+<tr>
+<td>FTP</td>
+<td>20数据端口/21控制端口 文件传输协议</td>
+</tr>
+<tr>
+<td>HTTP</td>
+<td>80 超文本传输协议，网页传输</td>
+</tr>
+<tr>
+<td>DHCP</td>
+<td>67 IP地址自定分配</td>
+</tr>
+<tr>
+<td>SNMP</td>
+<td>161 简单网络管理协议</td>
+</tr>
+<tr>
+<td>DNS</td>
+<td>53 域名解析协议，记录域名与IP的映射关系</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>可靠的传输层协议</td>
+</tr>
+<tr>
+<td>UDP</td>
+<td>不可靠的传输层协议</td>
+</tr>
+<tr>
+<td>ICMP</td>
+<td>因特网控制协议，PING命令来自该协议</td>
+</tr>
+<tr>
+<td>IGMP</td>
+<td>组播协议</td>
+</tr>
+<tr>
+<td>ARP</td>
+<td>地址解析协议，IP地址转换为MAC地址</td>
+</tr>
+<tr>
+<td>RARP</td>
+<td>反向地址解析协议，MAC地址转IP地址</td>
+</tr>
+</tbody></table>
+<h2 id="子网划分"><a href="#子网划分" class="headerlink" title="子网划分"></a>子网划分</h2><p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211020144903303.png" srcset="/img/loading.gif" lazyload alt="子网划分"></p>
+<h2 id="信息安全"><a href="#信息安全" class="headerlink" title="信息安全"></a>信息安全</h2><h3 id="对称加密技术"><a href="#对称加密技术" class="headerlink" title="对称加密技术"></a>对称加密技术</h3><p>发送者和接收者使用同一个密钥</p>
+<p>特点：</p>
+<ul>
+<li>加密强度不高，但效率高</li>
+<li>密钥分发困难</li>
+</ul>
+<p>常见的对称密钥算法：DES/3DES(三重DES)/RS/IDEA算法</p>
+<h3 id="非对称加密技术"><a href="#非对称加密技术" class="headerlink" title="非对称加密技术"></a>非对称加密技术</h3><p>不一样的加密和解密的密钥，分为公钥和私钥(成对出现)，公钥加密，相应的私钥解密</p>
+<p>加密过程：发送方A将消息发送给接受方B，消息应该用B的公钥进行加密，这样一来，只要B的私钥才可以解密</p>
+<p><strong>即用接收方的私钥加密，用接收方的公钥解密</strong></p>
+<p>特点：</p>
+<ul>
+<li>机密速度慢，但强度高</li>
+</ul>
+<p>常见的非对称加密算法：RSA/ECC</p>
+<h3 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h3><p>验证是本人签发的消息，证明消息的真实性</p>
+<p>加密过程：发送方A将消息发送给接受方B，消息应用发送方的私钥进行加密(签名过程)，接收方应用发送方的公钥来解密验证是否是发送方发送的消息</p>
+<p><strong>即用发送方的私钥加密，用发送方的公钥解密验证</strong></p>
+<h3 id="信息摘要"><a href="#信息摘要" class="headerlink" title="信息摘要"></a>信息摘要</h3><p>数字摘要：由单项散列函数加密成固定长度的散列值(不可逆)</p>
+<p>常用的消息摘要算法：MD5/SHA等，市场上广泛使用的MD5,SHA等算法的散列值为别为128和160位，由于SHA通常采用的密钥长度较长，因此安全性高于MD5</p>
+<h2 id="网络安全"><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h2><p>网络攻击分类主要分为<strong>被动攻击和主动攻击</strong>两大块</p>
+<ul>
+<li>被动攻击<ul>
+<li>监听(保密性)<ul>
+<li>消息内容获取</li>
+<li>业务流分析</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>主动攻击<ul>
+<li>中断(可用性)</li>
+<li>篡改(完整性)</li>
+<li>伪造(真实性)</li>
+</ul>
+</li>
+</ul>
+<p><strong>DoS(拒绝服务)</strong></p>
+<p>不断向网站发送伪造的请求，当正常的请求发送时，服务器由于忙于处理伪造的请求而拒绝服务正常的请求</p>
+<p><strong>重放攻击</strong></p>
+<p>攻击者抓取向服务器发送的有效数据包，并利用此数据包不断地向服务器发送，导致服务器一直应答此数据包，从而崩溃。</p>
+<p><strong>业务流分析</strong></p>
+<p>通过长期监听被攻击者的数据流，从而分析出相关业务流，可以依此了解被攻击者的一些倾向，常见的广告推送就是建立在业务流分析基础上的 </p>
+<h3 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h3><p>防火墙是一种放置在网络边界上，用于保护内部网络安全的网络设备，主要由服务访问规则、验证工具、包过滤、应用网关4部分组成。通过对流经数据流进行分析和检查，可实现对数据包的过滤、保存用户访问网络记录和服务器代理功能。</p>
+<p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211020105334480.png" srcset="/img/loading.gif" lazyload alt="防火墙体系"></p>
+<p>包过滤型：优点速度快费用低，缺点维护困难，<strong>只能阻止少部分ip欺骗</strong>，不支持有效的用户认证<br>双宿网关：位于内外网之间，实现对内外和外网物理上的隔离<br>屏蔽主机：由包过滤和双宿网关组合形成，优点实现网络层和应用层安全，<strong>缺点堡垒主机可能被绕过</strong><br><strong>屏蔽子网：目前安全最高</strong></p>
+<p>**安全区(非军事区/DMZ)**：连接外网和内网，同时向内网和外网提供服务</p>
+<h3 id="木马和病毒"><a href="#木马和病毒" class="headerlink" title="木马和病毒"></a>木马和病毒</h3><p>病毒：编制或者在计算机程序中插入的波坏计算机功能或者破坏数据，影响计算机使用并且能够自我复制的一组计算机指令或者程序代码</p>
+<p>木马：计算机木马时一种后门程序，常被黑客用作控制远程计算机的工具</p>
+<h1 id="程序设计语言与语言处理程序"><a href="#程序设计语言与语言处理程序" class="headerlink" title="程序设计语言与语言处理程序"></a>程序设计语言与语言处理程序</h1><h2 id="编译与解释"><a href="#编译与解释" class="headerlink" title="编译与解释"></a>编译与解释</h2><p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211020151555850.png" srcset="/img/loading.gif" lazyload alt="编译过程"></p>
+<p>注：</p>
+<p>(1)符号表在编译程序工作的过程中需要不断收集、记录和使用源程序中一些语法符号的类型和特征等相关信息。这些信息一般以表格形式存储于系统之中</p>
+<p>(2)在对源程序进行编译的过程中，常生成与源程序等价的中间代码，以利于进行优化，常见的中间代码包括：后缀式、三地址码和树等</p>
+<p>(3)中间代码的生成与具体的机器没有任何关系，但目标代码的生成与具体的机器有着密切的关系</p>
+<p>(4)编译过程中，中间代码生成和代码优化并不是每一个编译编译器都必须的</p>
+<h2 id="有限自动机"><a href="#有限自动机" class="headerlink" title="有限自动机"></a>有限自动机</h2><p>有限自状态自动机可以形象地用转换图表示</p>
+<p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211020154109524.png" srcset="/img/loading.gif" lazyload alt="有限自动机"></p>
+<p>由题可知(S,0) = 1，说明初态是S，终态(两个圆组成)是f</p>
+<h2 id="正则式"><a href="#正则式" class="headerlink" title="正则式"></a>正则式</h2><p>正规式是描述程序语言单词的表达式</p>
+<p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211020154304832.png" srcset="/img/loading.gif" lazyload alt="例题"></p>
+<p>S -&gt; aA|bB 说明 S 可以推导出aA或者bB</p>
+<ul>
+<li>”|“ 是表示或的意思</li>
+<li>”*“ 是表示零到无穷大</li>
+</ul>
+<h2 id="表达式"><a href="#表达式" class="headerlink" title="表达式"></a>表达式</h2><p>前缀表达式(根左右)</p>
+<p>中缀表达式(左根右)</p>
+<p>后缀表达式(左右根)</p>
+<p>可以通过栈或者构造二叉树来解题</p>
+<h2 id="程序语言特点"><a href="#程序语言特点" class="headerlink" title="程序语言特点"></a>程序语言特点</h2><table>
+<thead>
+<tr>
+<th>语言</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Fortran</td>
+<td>科学计算，执行效率高</td>
+</tr>
+<tr>
+<td>Pascal</td>
+<td>为教学而开发的，表达能力强，Delphi</td>
+</tr>
+<tr>
+<td>C语言</td>
+<td>指针操作能力强</td>
+</tr>
+<tr>
+<td>Lisp</td>
+<td>函数式程序语言，符号处理，人工智能</td>
+</tr>
+<tr>
+<td>C++</td>
+<td>面向对象，高效</td>
+</tr>
+<tr>
+<td>Java语言</td>
+<td>面向对象，中间代码，,NET</td>
+</tr>
+<tr>
+<td>Prolog</td>
+<td>逻辑推理，简洁性，表达能力，数据库和专家系统</td>
+</tr>
+</tbody></table>
+<h1 id="法律法规"><a href="#法律法规" class="headerlink" title="法律法规"></a>法律法规</h1><h2 id="保护期限"><a href="#保护期限" class="headerlink" title="保护期限"></a>保护期限</h2><p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211020161305017.png" srcset="/img/loading.gif" lazyload alt="保护期限"></p>
+<h2 id="知识产权人确定"><a href="#知识产权人确定" class="headerlink" title="知识产权人确定"></a>知识产权人确定</h2><p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211020161812907.png" srcset="/img/loading.gif" lazyload alt="知识产权人确定"></p>
+<p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211020162211568.png" srcset="/img/loading.gif" lazyload alt="委托创作"></p>
+<h2 id="侵权判定"><a href="#侵权判定" class="headerlink" title="侵权判定"></a>侵权判定</h2><ul>
+<li>中国公民、法人或者其他组织的作品，不论是否发表，都享有著作权</li>
+<li>开发软件所用的思想、处理过程、操作方法或者数学概念不受保护</li>
+</ul>
+<p>著作权法不适用于下列情况：</p>
+<ul>
+<li>法律、法规，国家机关的决议、决定、命令和其他具有立法、行政、司法性质的文件，机器官方正式译文</li>
+<li>时事新闻</li>
+<li>历法、通用数表、通用表格和公式</li>
+</ul>
+<p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211020163205780.png" srcset="/img/loading.gif" lazyload alt="侵权判断"></p>
+<h1 id="标准化基础知识"><a href="#标准化基础知识" class="headerlink" title="标准化基础知识"></a>标准化基础知识</h1><blockquote>
+<p>标准的分类</p>
+</blockquote>
+<p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211020163707794.png" srcset="/img/loading.gif" lazyload alt="标准化分类"></p>
+<blockquote>
+<p>标准的编号</p>
+</blockquote>
+<p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211020164040627.png" srcset="/img/loading.gif" lazyload alt="编号"></p>
+<h1 id="软件工程"><a href="#软件工程" class="headerlink" title="软件工程"></a>软件工程</h1>
             </div>
             <hr>
             <div>
