@@ -301,7 +301,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      10.4k 字
+      12.7k 字
     </span>
   
 
@@ -311,7 +311,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      115
+      139
        分钟
     </span>
   
@@ -353,7 +353,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年10月20日 下午
+                  本文最后更新于：2021年10月21日 晚上
                 
               </p>
             
@@ -990,21 +990,20 @@
 <li><p>后面以此类推得到答案</p>
 </li>
 </ul>
-<h2 id="存储管理"><a href="#存储管理" class="headerlink" title="存储管理"></a>存储管理</h2><p><strong>页式存储</strong>：将程序与内存均划分为同样大小的块，以页为单位将程序调入内存</p>
+<h2 id="存储管理"><a href="#存储管理" class="headerlink" title="存储管理"></a>存储管理</h2><h4 id="页式存储"><a href="#页式存储" class="headerlink" title="页式存储"></a><strong>页式存储</strong></h4><p>将程序与内存均划分为同样大小的块，以页为单位将程序调入内存</p>
 <p>✅ <strong>逻辑地址 = 页号 + 页内地址</strong></p>
 <p>✅ <strong>物理地址 = 页帧号(物理块号) + 页内地址</strong></p>
 <p>👉栗子：</p>
 <p><strong>页式存储系统中，每个页的大小为4KB，即页内地址用12位来表示</strong>(4k = 2^12^)</p>
 <p>优点：利用率高，碎片小，分配及管理简单</p>
 <p>缺点：增加了系统开销，可能产生抖动现象</p>
-<p><strong>段式存储：</strong>按用户作业中的自然段来划分逻辑空间，然后调入内存，段的长度可以不一样</p>
+<h4 id="段式存储"><a href="#段式存储" class="headerlink" title="段式存储"></a><strong>段式存储</strong></h4><p>按用户作业中的自然段来划分逻辑空间，然后调入内存，段的长度可以不一样</p>
 <p>优点：多道程序共享内存，各段程序修改互不影响</p>
 <p>缺点：内存利用率低，内存碎片浪费大</p>
-<p><strong>段页式存储：</strong>段式和页式的综合体，先分段，再分页，1个程序有若干个段，每个段中可以有若干个页，每个页的大小相同，但每个段的大小不同**(较少考)**</p>
+<h4 id="段页式存储"><a href="#段页式存储" class="headerlink" title="段页式存储"></a><strong>段页式存储</strong></h4><p>段式和页式的综合体，先分段，再分页，1个程序有若干个段，每个段中可以有若干个页，每个页的大小相同，但每个段的大小不同**(较少考)**</p>
 <p>优点：空间浪费小，存储共享容易，存储保护容易，能动态连接</p>
 <p>缺点：由于管理软件的增加，复杂性和开销也随之增加，需要的硬件以及占用的内容也有所增加，使得执行速度大大下降</p>
-<p><strong>磁盘管理</strong></p>
-<p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211015165848590.png" srcset="/img/loading.gif" lazyload alt="磁盘"></p>
+<h3 id="磁盘管理"><a href="#磁盘管理" class="headerlink" title="磁盘管理"></a><strong>磁盘管理</strong></h3><p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211015165848590.png" srcset="/img/loading.gif" lazyload alt="磁盘"></p>
 <p>磁头就好比留声机中的放在碟片上的那根磁头</p>
 <p>✅ <strong>存取时间 = 寻道时间 + 等待时间</strong></p>
 <p>寻道时间是指<strong>磁头移动到磁道所需要的时间</strong>，等待时间为<strong>等待读写的扇区转到磁头下方所用的时间</strong></p>
@@ -1414,7 +1413,291 @@
 <p>标准的编号</p>
 </blockquote>
 <p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211020164040627.png" srcset="/img/loading.gif" lazyload alt="编号"></p>
-<h1 id="软件工程"><a href="#软件工程" class="headerlink" title="软件工程"></a>软件工程</h1>
+<h1 id="软件工程"><a href="#软件工程" class="headerlink" title="软件工程"></a>软件工程</h1><h2 id="软件开发模型"><a href="#软件开发模型" class="headerlink" title="软件开发模型"></a>软件开发模型</h2><h3 id="瀑布模型-SDLC"><a href="#瀑布模型-SDLC" class="headerlink" title="瀑布模型(SDLC)"></a>瀑布模型(SDLC)</h3><p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211021113312472.png" srcset="/img/loading.gif" lazyload alt="瀑布模型"></p>
+<p><strong>结构化的典型代表</strong></p>
+<p>根本问题：需求问题难以明确，在测试阶段出现问题会回溯到需求分析</p>
+<p>适用场合：需求明确，二次开发</p>
+<h3 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h3><p><strong>在需求不明确的情况下</strong>，将用户界面简单实现，使用墨刀等工具，<strong>快速构建简易的用户界面</strong>，供用户大致了解产品原型，比如提交按钮放在哪里，点击这个按钮会出现什么弹框或者跳转至哪个页面等等。简单来说就是<strong>做一个demo来演示</strong></p>
+<p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211021114621899.png" srcset="/img/loading.gif" lazyload alt="其他经典模型"></p>
+<h3 id="增量模型"><a href="#增量模型" class="headerlink" title="增量模型"></a>增量模型</h3><p>首要是<strong>完成项目的核心模块</strong>，每次给用户演示提出相关问题，会在核心模块进一步改进。每一个增量均发布一个可操作的产品</p>
+<h3 id="螺旋模型"><a href="#螺旋模型" class="headerlink" title="螺旋模型"></a>螺旋模型</h3><p>螺旋模型是多种模型组合的模型，其中包括原型模型，瀑布模型等。</p>
+<p>(๑•̀ㅂ•́)و✧ 😀 <strong>螺旋模型引入了风险分析</strong></p>
+<p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211021115159155.png" srcset="/img/loading.gif" lazyload alt="螺旋模型"></p>
+<h3 id="V模型"><a href="#V模型" class="headerlink" title="V模型"></a>V模型</h3><p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211021115251441.png" srcset="/img/loading.gif" lazyload alt="V模型"></p>
+<p>特点：</p>
+<ul>
+<li>对于瀑布模型来说，V模型将测试细分化</li>
+<li>设计编码和测试是并行的</li>
+</ul>
+<h3 id="喷泉模型"><a href="#喷泉模型" class="headerlink" title="喷泉模型"></a>喷泉模型</h3><p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211021115830527.png" srcset="/img/loading.gif" lazyload alt="喷泉模型"></p>
+<p><strong>最大的特点：面向对象的模型</strong></p>
+<h3 id="RAD模型"><a href="#RAD模型" class="headerlink" title="RAD模型"></a>RAD模型</h3><p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211021115929071.png" srcset="/img/loading.gif" lazyload alt="RAD模型"></p>
+<p>RAD是瀑布模型和结构化开发的结合</p>
+<p><strong>特点：快速构建应用系统</strong></p>
+<h3 id="构建组装模型-CBSD"><a href="#构建组装模型-CBSD" class="headerlink" title="构建组装模型(CBSD)"></a>构建组装模型(CBSD)</h3><p>极大提高了软件开发的复用性，使软件成本降低，提高可靠性。</p>
+<p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211021141316642.png" srcset="/img/loading.gif" lazyload alt="构建组装模型"></p>
+<h3 id="敏捷开发方法"><a href="#敏捷开发方法" class="headerlink" title="敏捷开发方法"></a>敏捷开发方法</h3><p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211021141534069.png" srcset="/img/loading.gif" lazyload alt="敏捷开发"></p>
+<h1 id="系统设计"><a href="#系统设计" class="headerlink" title="系统设计"></a>系统设计</h1><h2 id="结构化设计"><a href="#结构化设计" class="headerlink" title="结构化设计"></a>结构化设计</h2><p>概要设计，详细设计</p>
+<ul>
+<li>自顶向下，逐步求精</li>
+<li>信息隐藏</li>
+<li>模块独立(<strong>高内聚，低耦合</strong>，复杂度)</li>
+</ul>
+<h2 id="内聚与耦合"><a href="#内聚与耦合" class="headerlink" title="内聚与耦合"></a>内聚与耦合</h2><p><strong>内聚：一个模块的内部各个部件连接的紧密程度</strong></p>
+<table>
+<thead>
+<tr>
+<th>内聚类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>功能内聚</td>
+<td>完成一个单一功能，各个部分协同工作，缺一不可</td>
+</tr>
+<tr>
+<td>顺序内聚</td>
+<td>处理元素相关，而且必须顺序执行</td>
+</tr>
+<tr>
+<td>通信内聚</td>
+<td>所有处理元素集中在一个数据结构的区域上</td>
+</tr>
+<tr>
+<td>过程内聚</td>
+<td>处理元素相关，而且必须按照特定的次序执行</td>
+</tr>
+<tr>
+<td>时间内聚</td>
+<td>所包含的任务必须在统一时间间隔内执行</td>
+</tr>
+<tr>
+<td>逻辑内聚</td>
+<td>完成逻辑上相关的一组任务</td>
+</tr>
+<tr>
+<td>偶然内聚</td>
+<td>完成一组没有关系或松散关系的任务</td>
+</tr>
+</tbody></table>
+<p><strong>耦合：模块与模块之间的关系概念</strong></p>
+<table>
+<thead>
+<tr>
+<th>耦合类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>非直接耦合</td>
+<td>两个模块之间没有直接联系，它们之间的联系完全是通过主模块的控制和调用来实现的</td>
+</tr>
+<tr>
+<td>数据耦合</td>
+<td>一组模块借助参数表传递简单数据</td>
+</tr>
+<tr>
+<td>标记耦合</td>
+<td>一组 模块通过参数表传递记录信息(数据结构)</td>
+</tr>
+<tr>
+<td>控制耦合</td>
+<td>模块之间传递的信息中包含用于控制模块内部逻辑的信息</td>
+</tr>
+<tr>
+<td>外部耦合</td>
+<td>一组模块都访问同一全局简单变量，而且不是通过参数表传递该全局变量的信息</td>
+</tr>
+<tr>
+<td>公共耦合</td>
+<td>多个模块都访问同一个公共数据环境</td>
+</tr>
+<tr>
+<td>内容耦合</td>
+<td>一个模块直接访问另一个模块的内部数据；一个模块不通过正常入口转到另一个模块内部；两个模块有一部分程序代码重叠；一个模块有多个入口</td>
+</tr>
+</tbody></table>
+<h2 id="软件测试"><a href="#软件测试" class="headerlink" title="软件测试"></a>软件测试</h2><h3 id="测试原则"><a href="#测试原则" class="headerlink" title="测试原则"></a>测试原则</h3><ul>
+<li>尽早、不断的进行测试</li>
+<li>程序员避免测试自己设计的程序</li>
+<li>既要选择有效、合理的数据，也要选择无效、不合理的数据</li>
+<li>修改后应进行回归测试</li>
+<li>尚未发现的错误数量与该程序已发现错误数成正比</li>
+</ul>
+<h3 id="测试类型"><a href="#测试类型" class="headerlink" title="测试类型"></a><strong>测试类型</strong></h3><ul>
+<li><p>动态测试</p>
+<ul>
+<li>黑盒测试/功能测试</li>
+<li>白盒测试</li>
+<li>灰盒测试</li>
+</ul>
+</li>
+<li><p>静态测试</p>
+<ul>
+<li>桌前检查</li>
+<li>代码走查</li>
+<li>代码审查</li>
+</ul>
+</li>
+</ul>
+<h3 id="测试用例设计"><a href="#测试用例设计" class="headerlink" title="测试用例设计"></a>测试用例设计</h3><p><strong>黑盒测试，关注输入输出，不关注程序内部结构</strong></p>
+<ul>
+<li>等价类划分<ul>
+<li>有效等价类</li>
+<li>无效等价类</li>
+</ul>
+</li>
+<li>边界值分析</li>
+<li>错误推测</li>
+<li>因果图</li>
+</ul>
+<p><strong>边界值数据确定方法</strong></p>
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>边界值</th>
+<th>测试用例的设计思路</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>字符</td>
+<td>起始-1个字符/结束+1个字符</td>
+<td>假设一个文本输入区域要求允许输入1-255个字符，输入1个和255个作为有效等价类，输入0个和256个作为无效等价类，这几个数值都属于边界条件值。</td>
+</tr>
+<tr>
+<td>数值</td>
+<td>开始位-1/结束位-1</td>
+<td>例如，数据的输入域为1-999，其值最小为1，最大值为999,1000刚好在边界值附近。</td>
+</tr>
+<tr>
+<td>方向</td>
+<td>刚刚超过/刚刚低于</td>
+<td></td>
+</tr>
+<tr>
+<td>空间</td>
+<td>小于空余空间一点/大于空余空间一点</td>
+<td>例如，测试数据存储时，使用比最小剩余空间大一点（几KB）的文件作为最大值检验的边界条件。</td>
+</tr>
+</tbody></table>
+<p>👉 <strong>例题：</strong></p>
+<p>有一报表处理系统，要求用户输入处理报表的日期。假设日期在2000年1月至2020年12月，即系统只能对该段时期内的报表进行处理。如果用户不再这个范围内，则显示错误信息。并且此系统规定日期由年月的6位数字组成，前4位代表年，后2位代表月。</p>
+<table>
+<thead>
+<tr>
+<th>输入</th>
+<th>有效等级类</th>
+<th>无效等价类</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>报表日期</td>
+<td>（1）6位数字字符</td>
+<td>（2）少于6位数字字符（3）多余6位数字字符（4）有非数字字符</td>
+</tr>
+<tr>
+<td>年份范围</td>
+<td>（5）在2000年到2020年之间</td>
+<td>（6）小于2000（7）大于2020</td>
+</tr>
+<tr>
+<td>月份范围</td>
+<td>（8）在1到12月之间</td>
+<td>（9）等于0（10）大于12</td>
+</tr>
+</tbody></table>
+<p><strong>白盒测试，关注程序内部逻辑结构</strong></p>
+<ul>
+<li>基本路径测试</li>
+<li>循环覆盖测试</li>
+<li>逻辑覆盖测试<ul>
+<li>语句覆盖：程序中的每个可执行语句至少执行一次</li>
+<li>判定覆盖：程序每条判断分支至少取运行结果为真一次，为假一次</li>
+<li>条件覆盖：程序中每个条件的的结果至少执行一次</li>
+<li>条件判定覆盖：判定覆盖测试和条件覆盖测试都要满足，即程序中每个条件的的结果至少执行一次，同时，每条判断分支至少取运行结果为真一次，为假一次</li>
+<li>修正的条件判断覆盖</li>
+<li>条件组合覆盖</li>
+<li>点覆盖</li>
+<li>边覆盖</li>
+<li>路径覆盖：设计的测试用例覆盖程序中所有<strong>可能</strong>的路径</li>
+</ul>
+</li>
+</ul>
+<p>👉 <strong>例子：</strong></p>
+<p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211021155525048.png" srcset="/img/loading.gif" lazyload alt="栗子"></p>
+<p>图中有5个语句(a,b,c,d,e)，4条路径(1,2,3,4)</p>
+<p><strong>语句覆盖测试用例：</strong></p>
+<p>CASE1：a = 80 b = 2 c = 1</p>
+<p>CASE2：a = 100 b = 5 c = 10</p>
+<p>CASE1执行了a,c,d语句</p>
+<p>CASE2执行了a,b,d,e语句</p>
+<p><strong>判定覆盖测试用例：</strong></p>
+<p>CASE1：a = 80 b = 2 c = 1</p>
+<p>CASE2：a = 100 b = 5 c = 10</p>
+<p>CASE1执行了2，4路径，即ab分支的假路径</p>
+<p>CASE2执行了1，3路径，即ab分支的真路径</p>
+<p><strong>条件覆盖测试用例：</strong></p>
+<p>CASE1：a = 80 b = 10 c = 10</p>
+<p>CASE2：a = 100 b = 1 c = 1</p>
+<p><strong>判定-条件覆盖测试用例：</strong></p>
+<p>CASE1：a = 80 b = 10 c = 10</p>
+<p>CASE2：a = 100 b = 1 c = 1</p>
+<p><strong>路径覆盖测试用例：</strong></p>
+<p>CASE1：a = 100 b = 1 c = 10</p>
+<p>CASE2：a = 100 b = 1 c = 1</p>
+<p>CASE3：a = 80 b = 5 c = 3</p>
+<p>CASE4：a = 81 b = 5 c =3</p>
+<h2 id="测试阶段"><a href="#测试阶段" class="headerlink" title="测试阶段"></a>测试阶段</h2><p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211021171359695.png" srcset="/img/loading.gif" lazyload alt="测试阶段"></p>
+<h2 id="McCabe复杂度"><a href="#McCabe复杂度" class="headerlink" title="McCabe复杂度"></a>McCabe复杂度</h2><p>计算有向图G的<strong>环路复杂度</strong>的公式为：</p>
+<p>✅ <strong>V(G) = m - n + 2</strong></p>
+<p>m是G中的有向弧数，n(node)是G中的节点数</p>
+<p>✅ <strong>V(G) = 判定节点 + 1</strong></p>
+<p>✅ <strong>V(G) = 图中包围的圈数</strong></p>
+<p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211021172545215.png" srcset="/img/loading.gif" lazyload alt="图示"></p>
+<p>其中2，3，7，10是判断节点 所以V(G) = 4 + 1 = 5</p>
+<p>其中边数是15，节点数是12 所以V(G) = 15 - 12 + 2 = 5</p>
+<p>其中计算图中空白包围的数量是5</p>
+<h2 id="系统运行与维护"><a href="#系统运行与维护" class="headerlink" title="系统运行与维护"></a>系统运行与维护</h2><p>软件维护时生命周期的一个完整部分</p>
+<p>可维护性</p>
+<ul>
+<li>易分析性：描述诊断缺陷或失效的原因、判定待修改成都的难易程度的特性</li>
+<li>易改变性：描述修改、排错或适应环境变化的难易程度</li>
+<li>稳定性：描述修改造成难以预料的后果的风险程度，风险程度越低，稳定性越好</li>
+<li>易测试性：描述测试已修改软件的难易程度的特性</li>
+</ul>
+<p>维护类型</p>
+<ul>
+<li>改正性维护</li>
+<li>适应性维护</li>
+<li>完善性维护</li>
+<li>预防性维护</li>
+</ul>
+<h2 id="CMMI能力成熟度模型集成"><a href="#CMMI能力成熟度模型集成" class="headerlink" title="CMMI能力成熟度模型集成"></a>CMMI能力成熟度模型集成</h2><table>
+<thead>
+<tr>
+<th>成熟度等级</th>
+<th>过程域</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>已管理级</td>
+<td>需求管理、项目计划、配置管理、项目监督与控制、供应商合同管理、度量和分析、过程和产品质量保证</td>
+</tr>
+<tr>
+<td>已定义级</td>
+<td>需求开发、技术解决方案、产品集成、验证、确认、组织级过程焦点、组织级过程定义、组织级培训、集成项目管理、风险管理、集成化团队、决策分析和解决方案、组织级集成环境</td>
+</tr>
+<tr>
+<td>定量管理级</td>
+<td>组织级过程性能、定量项目管理</td>
+</tr>
+<tr>
+<td>优化级</td>
+<td>组织级改革与实践、因果分析和解决方案</td>
+</tr>
+</tbody></table>
+<h1 id="项目管理"><a href="#项目管理" class="headerlink" title="项目管理"></a>项目管理</h1>
             </div>
             <hr>
             <div>
