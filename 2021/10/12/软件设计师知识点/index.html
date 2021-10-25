@@ -301,7 +301,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      13.9k 字
+      15.1k 字
     </span>
   
 
@@ -311,7 +311,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      153
+      165
        分钟
     </span>
   
@@ -353,7 +353,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年10月22日 下午
+                  本文最后更新于：2021年10月25日 下午
                 
               </p>
             
@@ -526,6 +526,7 @@
 </li>
 <li>循环冗余校验码（CRC）<ul>
 <li>模2除法校验，通过生成多项式作为除数 </li>
+<li><strong>其编码得结果由数据位+校验位组成，其中数据位在前，而校验位在后</strong></li>
 <li><strong>特点：可检验错误，不可纠错</strong></li>
 </ul>
 </li>
@@ -968,7 +969,7 @@
 <li>不剥夺</li>
 <li>环路等待</li>
 </ol>
-<blockquote>
+<h2 id="银行家算法"><a href="#银行家算法" class="headerlink" title="银行家算法"></a>银行家算法</h2><blockquote>
 <p>解决死锁问题的算法：银行家算法</p>
 </blockquote>
 <p><strong>分配原则</strong></p>
@@ -998,6 +999,40 @@
 <p><strong>页式存储系统中，每个页的大小为4KB，即页内地址用12位来表示</strong>(4k = 2^12^)</p>
 <p>优点：利用率高，碎片小，分配及管理简单</p>
 <p>缺点：增加了系统开销，可能产生抖动现象</p>
+<p>👉<strong>例题：</strong></p>
+<p>某计算机系统页面大小为4k，若进程的页面变换表如下图，逻辑地址为十六进制1D16H。该地址经过变换后，其物理地址应为十六进制()</p>
+<table>
+<thead>
+<tr>
+<th>页号</th>
+<th>物理块号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>3</td>
+</tr>
+<tr>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>3</td>
+<td>6</td>
+</tr>
+</tbody></table>
+<p>A. 1024H</p>
+<p>B. 3D16H</p>
+<p>C. 4D16H</p>
+<p>D. 6D16H</p>
+<p><strong>解析：</strong></p>
+<p>✅ <strong>逻辑地址 = 页号 + 页内地址</strong></p>
+<p>✅ <strong>物理地址 = 页帧号(物理块号) + 页内地址</strong></p>
+<p>计算机系统页面大小为4k，可知页内地址为12位，二进制的12位对应十六进制的3位，所以D16H是页内地址，页号为1。通过页表查询到物理块号是3，因此物理地址为3D16H</p>
 <h4 id="段式存储"><a href="#段式存储" class="headerlink" title="段式存储"></a><strong>段式存储</strong></h4><p>按用户作业中的自然段来划分逻辑空间，然后调入内存，段的长度可以不一样</p>
 <p>优点：多道程序共享内存，各段程序修改互不影响</p>
 <p>缺点：内存利用率低，内存碎片浪费大</p>
@@ -1085,6 +1120,7 @@
 </li>
 <li>物理设计</li>
 </ol>
+<p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211025145533989.png" srcset="/img/loading.gif" lazyload alt="数据库设计过程"></p>
 <h2 id="ER模型"><a href="#ER模型" class="headerlink" title="ER模型"></a>ER模型</h2><p><strong>ER模型用于表示类与类之间的关系</strong></p>
 <p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211019093639555.png" srcset="/img/loading.gif" lazyload alt="ER图组件"></p>
 <p>联系转关系模式：</p>
@@ -1225,6 +1261,11 @@
 <td>中继器、集线器</td>
 </tr>
 </tbody></table>
+<ul>
+<li>路由器是用于连接多个逻辑上分开的网络，所谓网络是代表一个单独的网络或者一个子网，当数据从一个网传输到另一个子网时，可通过路由器的路由功能来完成。因此，路由器具有判断网络地址和选择IP路径的功能。路由器的每个端口所连接的网络够独自构成一个广播域</li>
+<li>集线器内部，各接口都是通过背板总线连接在一起的，在逻辑上构成一个共享的总线。所以，集线器和所有的接口的主机共同构成了一个冲突域和一个广播域</li>
+<li>交换机上每个接口都是自己的一个冲突域。交换机和所有的接口所连接的主机共同构成了一个广播域</li>
+</ul>
 <h2 id="TCP-IP协议族"><a href="#TCP-IP协议族" class="headerlink" title="TCP/IP协议族"></a>TCP/IP协议族</h2><p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211020093500346.png" srcset="/img/loading.gif" lazyload alt="模型"></p>
 <table>
 <thead>
@@ -1293,7 +1334,7 @@
 <li>加密强度不高，但效率高</li>
 <li>密钥分发困难</li>
 </ul>
-<p>常见的对称密钥算法：DES/3DES(三重DES)/RS/IDEA算法</p>
+<p>常见的对称密钥算法：DES/3DES(三重DES)/RS/IDEA/RC4算法</p>
 <h3 id="非对称加密技术"><a href="#非对称加密技术" class="headerlink" title="非对称加密技术"></a>非对称加密技术</h3><p>不一样的加密和解密的密钥，分为公钥和私钥(成对出现)，公钥加密，相应的私钥解密</p>
 <p>加密过程：发送方A将消息发送给接受方B，消息应该用B的公钥进行加密，这样一来，只要B的私钥才可以解密</p>
 <p><strong>即用接收方的私钥加密，用接收方的公钥解密</strong></p>
@@ -1301,7 +1342,7 @@
 <ul>
 <li>机密速度慢，但强度高</li>
 </ul>
-<p>常见的非对称加密算法：RSA/ECC</p>
+<p>常见的非对称加密算法：RSA/ECC </p>
 <h3 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h3><p>验证是本人签发的消息，证明消息的真实性</p>
 <p>加密过程：发送方A将消息发送给接受方B，消息应用发送方的私钥进行加密(签名过程)，接收方应用发送方的公钥来解密验证是否是发送方发送的消息</p>
 <p><strong>即用发送方的私钥加密，用发送方的公钥解密验证</strong></p>
@@ -1332,7 +1373,7 @@
 <p>通过长期监听被攻击者的数据流，从而分析出相关业务流，可以依此了解被攻击者的一些倾向，常见的广告推送就是建立在业务流分析基础上的 </p>
 <h3 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h3><p>防火墙是一种放置在网络边界上，用于保护内部网络安全的网络设备，主要由服务访问规则、验证工具、包过滤、应用网关4部分组成。通过对流经数据流进行分析和检查，可实现对数据包的过滤、保存用户访问网络记录和服务器代理功能。</p>
 <p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211020105334480.png" srcset="/img/loading.gif" lazyload alt="防火墙体系"></p>
-<p>包过滤型：优点速度快费用低，缺点维护困难，<strong>只能阻止少部分ip欺骗</strong>，不支持有效的用户认证<br>双宿网关：位于内外网之间，实现对内外和外网物理上的隔离<br>屏蔽主机：由包过滤和双宿网关组合形成，优点实现网络层和应用层安全，<strong>缺点堡垒主机可能被绕过</strong><br><strong>屏蔽子网：目前安全最高</strong></p>
+<p>包过滤型：优点速度快费用低，缺点维护困难，<strong>只能阻止少部分ip欺骗</strong>，不支持有效的用户认证，不会隔离mac地址<br>双宿网关：位于内外网之间，实现对内外和外网物理上的隔离<br>屏蔽主机：由包过滤和双宿网关组合形成，优点实现网络层和应用层安全，<strong>缺点堡垒主机可能被绕过</strong><br><strong>屏蔽子网：目前安全最高</strong></p>
 <p>**安全区(非军事区/DMZ)**：连接外网和内网，同时向内网和外网提供服务</p>
 <h3 id="木马和病毒"><a href="#木马和病毒" class="headerlink" title="木马和病毒"></a>木马和病毒</h3><p>病毒：编制或者在计算机程序中插入的波坏计算机功能或者破坏数据，影响计算机使用并且能够自我复制的一组计算机指令或者程序代码</p>
 <p>木马：计算机木马时一种后门程序，常被黑客用作控制远程计算机的工具</p>
@@ -1390,6 +1431,10 @@
 <tr>
 <td>Prolog</td>
 <td>逻辑推理，简洁性，表达能力，数据库和专家系统</td>
+</tr>
+<tr>
+<td>Python</td>
+<td>面向对象，解释型</td>
 </tr>
 </tbody></table>
 <h1 id="法律法规"><a href="#法律法规" class="headerlink" title="法律法规"></a>法律法规</h1><h2 id="保护期限"><a href="#保护期限" class="headerlink" title="保护期限"></a>保护期限</h2><p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211020161305017.png" srcset="/img/loading.gif" lazyload alt="保护期限"></p>
@@ -1674,6 +1719,15 @@
 <li>完善性维护</li>
 <li>预防性维护</li>
 </ul>
+<p>软件维护工具</p>
+<ul>
+<li>版本控制工具</li>
+<li>文档分析工具</li>
+<li>开发信息库工具</li>
+<li>逆向工程工具</li>
+<li>再工程工具</li>
+<li>配置管理支持工具</li>
+</ul>
 <h2 id="CMMI能力成熟度模型集成"><a href="#CMMI能力成熟度模型集成" class="headerlink" title="CMMI能力成熟度模型集成"></a>CMMI能力成熟度模型集成</h2><table>
 <thead>
 <tr>
@@ -1828,6 +1882,85 @@
 <td></td>
 </tr>
 </tbody></table>
+<h3 id="行为型模式"><a href="#行为型模式" class="headerlink" title="行为型模式"></a>行为型模式</h3><table>
+<thead>
+<tr>
+<th>设计模式名称</th>
+<th>简要说明</th>
+<th>速记关键字</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Chain of Responsibility职责链模式</td>
+<td>通过给多个对象处理请求的机会，减少请求的发送者与接收者之间的耦合。将接受对象链接起来，在链中传递请求，知道有一个对象处理这个请求</td>
+<td>传递职责</td>
+</tr>
+<tr>
+<td>Command命令模式</td>
+<td>将一个请求封装为一个对象，从而可用不同的请求对客户进行参数化，将请求排队或记录请求日志，支持可撤销的操作</td>
+<td>日记记录，可撤销</td>
+</tr>
+<tr>
+<td>Interpreter解释器模式</td>
+<td>给定一种语言，定义它的文法表示，并定义一个解释器，该解释器用来根据文法表示来解释语言中的句子</td>
+<td></td>
+</tr>
+<tr>
+<td>Iterator迭代器模式</td>
+<td>提供一种方法来顺序访问一个聚合对象的各个元素，而不需要暴露该对象的内部表示</td>
+<td></td>
+</tr>
+<tr>
+<td>Mediator中介者模式</td>
+<td>用一个中介对象来封装一系列的对象交互，它使各对象不需要显式地相互调用，从而达到低耦合，还可以独立地改变对象间的交互</td>
+<td>不直接引用</td>
+</tr>
+<tr>
+<td>Memento备忘录模式</td>
+<td>在不破坏封装性的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态，从而可以在以后将该对象回复到原先保存的状态</td>
+<td></td>
+</tr>
+<tr>
+<td>Observer备忘录模式</td>
+<td>定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并自动更新</td>
+<td></td>
+</tr>
+<tr>
+<td>State状态模式</td>
+<td>允许一个对象在其内部状态改变时改变它的行为</td>
+<td>状态变成类</td>
+</tr>
+<tr>
+<td>Strategy策略模式</td>
+<td>定义一系列算法，把它们一个个封装起来，并且使它们之间可互相替换，从而让算法可以独立于使用它的用户而变化</td>
+<td>多方案切换</td>
+</tr>
+<tr>
+<td>Template Method模板方法模式</td>
+<td>定义一个操作中的算法骨架，而将一些步骤延迟到子类中，使得子类可以不改变一个算法的结构即可重新定义算法的某些特定的步骤</td>
+<td></td>
+</tr>
+<tr>
+<td>Visitor访问者模式</td>
+<td>表示一个作用于某对象结构中的个元素的操作，使得在不改变个元素的类的前提下定义作用于这些元素的新操作</td>
+<td></td>
+</tr>
+</tbody></table>
+<p><a target="_blank" rel="noopener" href="https://github.com/guanguans/design-patterns-for-humans-cn#creational-design-patterns">GitHub设计模式参考文章</a></p>
+<h1 id="数据流图-DFD"><a href="#数据流图-DFD" class="headerlink" title="数据流图(DFD)"></a>数据流图(DFD)</h1><blockquote>
+<p>基本元素</p>
+</blockquote>
+<p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211025141531161.png" srcset="/img/loading.gif" lazyload alt="基本元素"></p>
+<blockquote>
+<p>数据字典</p>
+</blockquote>
+<p>数据字典可以配合数据流图的使用</p>
+<p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211025142258499.png" srcset="/img/loading.gif" lazyload alt="基本元素"></p>
+<h2 id="平衡原则"><a href="#平衡原则" class="headerlink" title="平衡原则"></a>平衡原则</h2><ul>
+<li>父图与子图之间的平衡</li>
+<li>子图内平衡</li>
+</ul>
+<p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211025143933410.png" srcset="/img/loading.gif" lazyload alt="子图平衡"></p>
 
             </div>
             <hr>
