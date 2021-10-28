@@ -301,7 +301,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      15.1k 字
+      15.8k 字
     </span>
   
 
@@ -311,7 +311,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      165
+      172
        分钟
     </span>
   
@@ -353,7 +353,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年10月25日 下午
+                  本文最后更新于：2021年10月28日 下午
                 
               </p>
             
@@ -925,7 +925,7 @@
 <p>进程的状态</p>
 </blockquote>
 <p>三态模型：就绪、运行、等待</p>
-<p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211015154142886.png" srcset="/img/loading.gif" lazyload alt="进程的三大状态"></p>
+<p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211028104615077.png" srcset="/img/loading.gif" lazyload alt="进程的三大状态"></p>
 <blockquote>
 <p>PV操作</p>
 </blockquote>
@@ -999,6 +999,7 @@
 <p><strong>页式存储系统中，每个页的大小为4KB，即页内地址用12位来表示</strong>(4k = 2^12^)</p>
 <p>优点：利用率高，碎片小，分配及管理简单</p>
 <p>缺点：增加了系统开销，可能产生抖动现象</p>
+<h4 id="页面淘汰算法"><a href="#页面淘汰算法" class="headerlink" title="页面淘汰算法"></a><strong>页面淘汰算法</strong></h4><p>系统应该<strong>首先淘汰未被访问的页面</strong>，因为根据程序的局部性原理，最近未被访问的页面下次访问的概率更小；<strong>如果页面最近都被访问过，应该先淘汰未修改过的页面</strong>，因为未修改过的页面内存与辅存一致，故淘汰时无需写回辅存，使系统置换页面代价小。</p>
 <p>👉<strong>例题：</strong></p>
 <p>某计算机系统页面大小为4k，若进程的页面变换表如下图，逻辑地址为十六进制1D16H。该地址经过变换后，其物理地址应为十六进制()</p>
 <table>
@@ -1213,6 +1214,8 @@
 </tr>
 </tbody></table>
 <p>由题可知 A -&gt; B，所以R2中的B也可以通过A推出来，当所有属性都打勾说明可以还原</p>
+<h2 id="封锁协议"><a href="#封锁协议" class="headerlink" title="封锁协议"></a>封锁协议</h2><p><strong>共享锁(S锁)：又称读锁</strong>，若事务T对数据对象A加上共享锁，其他事务只能再对A加共享锁，直到T释放A上的共享锁</p>
+<p><strong>排他锁(X锁)：又称写锁</strong>，若事务T对数据对象A加上排他锁，其他事务不能再对A加任何锁，直到T释放A上的锁</p>
 <h2 id="范式"><a href="#范式" class="headerlink" title="范式"></a>范式</h2><p>🔢 第一范式(1NF)：在关系模式中，当且仅当所有域只包含原子值，即<strong>每个属性都是不可再分的数据项</strong>，则称关系模式R是第一范式</p>
 <p>🔢 第二范式(2NF)：当且仅当关系模式R是第一范式，且<strong>每一个非主属性完全依赖候选键</strong>(没有不完全依赖)时，则称关系模式R时第二范式</p>
 <p>🔢 第三范式(3NF)：当且仅当关系模式R是第二范式(2NF)，且<strong>R中没有非主属性传递依赖于候选键</strong>时，则称关系模式R是第三范式</p>
@@ -1346,6 +1349,14 @@
 <h3 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h3><p>验证是本人签发的消息，证明消息的真实性</p>
 <p>加密过程：发送方A将消息发送给接受方B，消息应用发送方的私钥进行加密(签名过程)，接收方应用发送方的公钥来解密验证是否是发送方发送的消息</p>
 <p><strong>即用发送方的私钥加密，用发送方的公钥解密验证</strong></p>
+<h3 id="数字证书"><a href="#数字证书" class="headerlink" title="数字证书"></a>数字证书</h3><p>数字证书是由权威公证的第三方认证机构（即CA，Certificate Authority）负责签发和管理的、个人或企业的网络数字身份证明</p>
+<h3 id="协议安全"><a href="#协议安全" class="headerlink" title="协议安全"></a>协议安全</h3><p>安全电子邮箱服务的协议：</p>
+<ul>
+<li>SSL和HTTPS涉及到邮件传输过程的安全</li>
+<li>PGP(Pretty Good Privacy，优良保密协议)，是一套用于信息加密、验证的应用程序，可用于加密电子邮件内容</li>
+<li>S/MIME安全多用途互联网邮件扩展协议</li>
+</ul>
+<p><strong>MIME是一个互联网标准，扩展了电子邮件标准，时期能够支持，与安全无关。</strong></p>
 <h3 id="信息摘要"><a href="#信息摘要" class="headerlink" title="信息摘要"></a>信息摘要</h3><p>数字摘要：由单项散列函数加密成固定长度的散列值(不可逆)</p>
 <p>常用的消息摘要算法：MD5/SHA等，市场上广泛使用的MD5,SHA等算法的散列值为别为128和160位，由于SHA通常采用的密钥长度较长，因此安全性高于MD5</p>
 <h2 id="网络安全"><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h2><p>网络攻击分类主要分为<strong>被动攻击和主动攻击</strong>两大块</p>
@@ -1377,6 +1388,13 @@
 <p>**安全区(非军事区/DMZ)**：连接外网和内网，同时向内网和外网提供服务</p>
 <h3 id="木马和病毒"><a href="#木马和病毒" class="headerlink" title="木马和病毒"></a>木马和病毒</h3><p>病毒：编制或者在计算机程序中插入的波坏计算机功能或者破坏数据，影响计算机使用并且能够自我复制的一组计算机指令或者程序代码</p>
 <p>木马：计算机木马时一种后门程序，常被黑客用作控制远程计算机的工具</p>
+<p>病毒种类</p>
+<ul>
+<li>引导区病毒，破坏引导盘，目录文件等</li>
+<li>宏病毒，破坏OFFICE文件相关</li>
+<li>木马病毒，强调调控操作</li>
+<li>蠕虫病毒，复制自身在互联网环境下进行传播。如震网，熊猫烧香等</li>
+</ul>
 <h1 id="程序设计语言与语言处理程序"><a href="#程序设计语言与语言处理程序" class="headerlink" title="程序设计语言与语言处理程序"></a>程序设计语言与语言处理程序</h1><h2 id="编译与解释"><a href="#编译与解释" class="headerlink" title="编译与解释"></a>编译与解释</h2><p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211020151555850.png" srcset="/img/loading.gif" lazyload alt="编译过程"></p>
 <p>注：</p>
 <p>(1)符号表在编译程序工作的过程中需要不断收集、记录和使用源程序中一些语法符号的类型和特征等相关信息。这些信息一般以表格形式存储于系统之中</p>
@@ -1483,12 +1501,19 @@
 <h3 id="构建组装模型-CBSD"><a href="#构建组装模型-CBSD" class="headerlink" title="构建组装模型(CBSD)"></a>构建组装模型(CBSD)</h3><p>极大提高了软件开发的复用性，使软件成本降低，提高可靠性。</p>
 <p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211021141316642.png" srcset="/img/loading.gif" lazyload alt="构建组装模型"></p>
 <h3 id="敏捷开发方法"><a href="#敏捷开发方法" class="headerlink" title="敏捷开发方法"></a>敏捷开发方法</h3><p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211021141534069.png" srcset="/img/loading.gif" lazyload alt="敏捷开发"></p>
+<p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211028142337310.png" srcset="/img/loading.gif" lazyload alt="XP极限编程"></p>
+<ul>
+<li>水晶法(Crystal)强调经常交付，认为每一种不同的项目都需要一套不同的策略、约定和方法论</li>
+<li>并列争球法(Scrum)的核心是迭代、增量交付，按照30天进行迭代开发交付可实际运行的软件</li>
+<li>自适应软件开发(ASD)的核心是三个非线性的，重迭的开发阶段：猜测、合作、学习</li>
+</ul>
 <h1 id="系统设计"><a href="#系统设计" class="headerlink" title="系统设计"></a>系统设计</h1><h2 id="结构化设计"><a href="#结构化设计" class="headerlink" title="结构化设计"></a>结构化设计</h2><p>概要设计，详细设计</p>
 <ul>
 <li>自顶向下，逐步求精</li>
 <li>信息隐藏</li>
 <li>模块独立(<strong>高内聚，低耦合</strong>，复杂度)</li>
 </ul>
+<p>模块结构图由模块、调用、数据、控制信息和转接符号5种基本符号组成。<strong>其中控制信息与控制成分并不等价</strong></p>
 <h2 id="内聚与耦合"><a href="#内聚与耦合" class="headerlink" title="内聚与耦合"></a>内聚与耦合</h2><p><strong>内聚：一个模块的内部各个部件连接的紧密程度</strong></p>
 <table>
 <thead>
@@ -1544,7 +1569,7 @@
 </tr>
 <tr>
 <td>标记耦合</td>
-<td>一组 模块通过参数表传递记录信息(数据结构)</td>
+<td>一组模块通过参数表传递记录信息(数据结构)</td>
 </tr>
 <tr>
 <td>控制耦合</td>
@@ -1800,7 +1825,7 @@
 </li>
 <li>行为图/动态图<ul>
 <li><strong>用例图</strong>(动静态有歧义)：系统和外部的交互关系</li>
-<li>顺序图(序列图)：强调按时间顺序</li>
+<li>顺序图(序列图)：强调按时间顺序，展示一个用例和多个对象的行为</li>
 <li>通信图(协作图)：没有强调时间顺序</li>
 <li>定时图</li>
 <li>状态图：状态转移情况</li>
@@ -1808,6 +1833,11 @@
 <li>交互概览图</li>
 </ul>
 </li>
+</ul>
+<p><strong>组合和聚合的区别：</strong></p>
+<ul>
+<li>组合(Composition)关系，用一条带实心菱形箭头直线表示，指的是整体与部分的关系，并且整体与部分的生命周期相同</li>
+<li>聚合(aggregation)关系，用一条带实心菱形箭头直线表示，指的是整体与部分的关系，而部分可以单独存在</li>
 </ul>
 <h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2><p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211022151332590.png" srcset="/img/loading.gif" lazyload alt="设计模式"></p>
 <h3 id="创建型模式"><a href="#创建型模式" class="headerlink" title="创建型模式"></a>创建型模式</h3><table>

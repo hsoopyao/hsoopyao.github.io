@@ -301,7 +301,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      816 字
+      1.8k 字
     </span>
   
 
@@ -311,7 +311,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      10
+      25
        分钟
     </span>
   
@@ -353,7 +353,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年9月17日 上午
+                  本文最后更新于：2021年10月28日 晚上
                 
               </p>
             
@@ -366,8 +366,20 @@
 <h1 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h1><p>Ngin是一个高性能的HTTP和反向代理服务器，最常见的用途是将其设置未代理服务器。我们学习还是从配置文件中开始！！</p>
 <h2 id="nginx-conf"><a href="#nginx-conf" class="headerlink" title="nginx.conf"></a>nginx.conf</h2><p>从配置文件中可以发现</p>
 <ul>
-<li>upstream块 <strong>可以有块</strong></li>
-<li>http块<ul>
+<li><p>全局块</p>
+<ul>
+<li>全局块是默认配置文件从开始到events块之间的一部分内容，主要设置一些影响Nginx服务器整体运行的配置指令，因此，这些指令的作用域是Nginx服务器全局。</li>
+</ul>
+</li>
+<li><p>event块</p>
+<ul>
+<li>events块涉及的指令主要影响Nginx服务器与用户的网络连接。常用到的设置包括是否开启对多worker process下的网络连接进行序列化，是否允许同时接收多个网络连接，选取哪种事件驱动模型处理连接请求，每个worker process可以同时支持的最大连接数等。</li>
+</ul>
+</li>
+<li><p>upstream块 <strong>可以有块</strong></p>
+</li>
+<li><p>http块</p>
+<ul>
 <li>server块 <strong>可以有多个</strong></li>
 <li>location块 <strong>可以有多个</strong></li>
 </ul>
@@ -377,26 +389,99 @@
             <p>举一个完整栗子</p>
           </div>
 
-<div class="code-wrapper"><pre class="line-numbers language-conf" data-language="conf"><code class="language-conf">upstream name &#123;
-	server 服务名 weight&#x3D;权重s
-	keepalive 连接时长
+<div class="code-wrapper"><pre class="line-numbers language-conf" data-language="conf"><code class="language-conf">user  nginx; #用户组
+worker_processes  auto; #指定工作线程数 number|auto
+
+error_log  &#x2F;var&#x2F;log&#x2F;nginx&#x2F;error.log notice; #指定错误日志的路径和日志级别
+pid        &#x2F;var&#x2F;run&#x2F;nginx.pid; #指定pid文件存放路径
+
+
+events &#123;
+	#设置允许每一个worker process同时开启的最大连接数，当每个工作进程接受的连接数超过这个值时将不再接收连接
+    worker_connections  1024;
 &#125;
 
-#代理服务器
-server&#123;
-	listen #代理服务器监听的端口
-	server_name #表示监听到之后需要转到哪里去
+
+http &#123;
+    include       &#x2F;etc&#x2F;nginx&#x2F;mime.types;
+    default_type  application&#x2F;octet-stream; #配置默认类型
+    
+	# log_format指令，用于定义日志格式，此指令只能在http块中进行配置
+    log_format  main  &#39;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#39;
+                      &#39;$status $body_bytes_sent &quot;$http_referer&quot; &#39;
+                      &#39;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#39;;
+
+	# 定义了上面的日志格式后，可以以下面的形式使用日志
+    access_log  &#x2F;var&#x2F;log&#x2F;nginx&#x2F;access.log  main;
+
+	#开启关闭sendfile方式传输文件
+    sendfile        on;
+    #tcp_nopush     on;
 	
-	#匹配到的路径
-	location &#x2F;api&#x2F; &#123;
-		proxy_pass #代理的地址 相当于一个转发 即localhost:8080&#x2F;api&#x2F;这个请求会被转发到指定的proxy_pass的路径
+	#务器端对连接的保持时间
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+	#include指令，包含conf.d中以.conf后缀的配置文件，可以将server块的配置单独写一个conf文件，这样配置文件结构会比较清晰
+    include &#x2F;etc&#x2F;nginx&#x2F;conf.d&#x2F;*.conf;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+
+
+<h2 id="default-conf"><a href="#default-conf" class="headerlink" title="default.conf"></a>default.conf</h2><div class="code-wrapper"><pre class="line-numbers language-conf" data-language="conf"><code class="language-conf">server &#123;
+    listen       80; #ipv4监听端口
+    listen  [::]:80; #ipv6监听端口
+    server_name  localhost; #监听地址
+
+	upstream name &#123;
+		server 127.0.0.1:8080;
+		server 127.0.0.1:8081 backup; #热备
+		#ip_hash 负载均衡规则，默认是轮询
 	&#125;
-	
-	location &#x2F; &#123;
-		root #里面配置了root这时表示当匹配这个请求的路径时，将会在这个文件夹内寻找相应的文件
-		index #当没有指定主页时，默认会选择这个指定的文件，它可以有多个，并按顺序来加载，如果第一个不存在，则找第二个，依此类推
-	&#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+    #access_log  &#x2F;var&#x2F;log&#x2F;nginx&#x2F;host.access.log  main;
+
+    location &#x2F; &#123; #请求的url过滤
+        root   &#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html; #静态资源路径
+        index  index.html index.htm; #设置默认页
+        #proxy_pass http:&#x2F;&#x2F;name #请求转向name定义的服务器列表
+        #deny 拒绝的ip
+        #allow 允许的ip
+    &#125;
+
+    #error_page  404              &#x2F;404.html;
+
+    # redirect server error pages to the static page &#x2F;50x.html
+    # 错误页
+    error_page   500 502 503 504  &#x2F;50x.html;
+    location &#x3D; &#x2F;50x.html &#123;
+        root   &#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html;
+    &#125;
+
+    # proxy the PHP scripts to Apache listening on 127.0.0.1:80
+    #
+    #location ~ \.php$ &#123;
+    #    proxy_pass   http:&#x2F;&#x2F;127.0.0.1;
+    #&#125;
+
+    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+    #
+    #location ~ \.php$ &#123;
+    #    root           html;
+    #    fastcgi_pass   127.0.0.1:9000;
+    #    fastcgi_index  index.php;
+    #    fastcgi_param  SCRIPT_FILENAME  &#x2F;scripts$fastcgi_script_name;
+    #    include        fastcgi_params;
+    #&#125;
+
+    # deny access to .htaccess files, if Apache&#39;s document root
+    # concurs with nginx&#39;s one
+    #
+    #location ~ &#x2F;\.ht &#123;
+    #    deny  all;
+    #&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 
 
@@ -458,8 +543,97 @@ location @index_error &#123;
 </ol>
 <blockquote>
 <p>当然这是理论上的东西，还是需要实践才可以</p>
-<p>我后面再补 因为够钟下班了！！</p>
 </blockquote>
+<h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><blockquote>
+<p>通过docker，nginx运行项目</p>
+<p>先自行创建项目目录 /data/project/test</p>
+</blockquote>
+<ol>
+<li><p>从dockerhub上拉取nginx镜像</p>
+<div class="code-wrapper"><pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">docker pull nginx #不写版本号默认是最新<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></li>
+<li><p>在项目目录下编写docker-compose.yml文件</p>
+<div class="code-wrapper"><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">version '3'
+<span class="token key atrule">services</span><span class="token punctuation">:</span> 
+	<span class="token key atrule">nginx</span><span class="token punctuation">:</span> 
+		<span class="token key atrule">image</span><span class="token punctuation">:</span> nginx
+		<span class="token key atrule">container_name</span><span class="token punctuation">:</span> nginx
+		<span class="token key atrule">restart</span><span class="token punctuation">:</span> always
+		<span class="token key atrule">ports</span><span class="token punctuation">:</span>
+			<span class="token punctuation">-</span> 8799<span class="token punctuation">:</span><span class="token number">8799</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+<li><p>运行镜像</p>
+<p><strong>注意要在项目目录下执行<code>docker-compose</code>命令</strong></p>
+<p>up：启动</p>
+<p>-d：后台执行</p>
+<div class="code-wrapper"><pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">docker-compose up -d<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></li>
+<li><p>进入容器中找到要映射的数据卷(配置文件，日志文件等)</p>
+<div class="code-wrapper"><pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">docker exec -it nginx &#x2F;bin&#x2F;bash<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></li>
+<li><p>拷贝容器中的文件到宿主机对应目录</p>
+<div class="code-wrapper"><pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">docker cp nginx:&#x2F;etc&#x2F;nginx&#x2F;nginx.conf .&#x2F;nginx&#x2F;conf&#x2F;nginx.conf
+docker cp nginx:&#x2F;etc&#x2F;nginx&#x2F;conf.d .&#x2F;nginx&#x2F;conf&#x2F;conf.d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></li>
+<li><p>修改docker-compose.yml文件，<strong>添加数据卷映射</strong></p>
+<div class="code-wrapper"><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">version '3'
+<span class="token key atrule">services</span><span class="token punctuation">:</span> 
+	<span class="token key atrule">nginx</span><span class="token punctuation">:</span> 
+		<span class="token key atrule">image</span><span class="token punctuation">:</span> nginx
+		<span class="token key atrule">container_name</span><span class="token punctuation">:</span> nginx
+		<span class="token key atrule">restart</span><span class="token punctuation">:</span> always
+		<span class="token key atrule">ports</span><span class="token punctuation">:</span>
+			<span class="token punctuation">-</span> 8799<span class="token punctuation">:</span><span class="token number">8799</span>
+		<span class="token key atrule">volumes</span><span class="token punctuation">:</span> 
+			<span class="token punctuation">-</span> ./nginx/conf/nginx.conf<span class="token punctuation">:</span>/etc/nginx/nginx.conf
+			<span class="token punctuation">-</span> ./nginx/conf/conf.d<span class="token punctuation">:</span>/etc/nginx/conf.d
+			<span class="token punctuation">-</span> ./nginx/html<span class="token punctuation">:</span>/usr/share/nginx/html
+			<span class="token punctuation">-</span> ./nginx/logs<span class="token punctuation">:</span>/var/log/nginx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p><strong>volumes还有一种使用的方式：</strong></p>
+<div class="code-wrapper"><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">version '3'
+<span class="token key atrule">services</span><span class="token punctuation">:</span> 
+	<span class="token key atrule">nginx</span><span class="token punctuation">:</span> 
+		<span class="token key atrule">image</span><span class="token punctuation">:</span> nginx
+		<span class="token key atrule">container_name</span><span class="token punctuation">:</span> nginx
+		<span class="token key atrule">restart</span><span class="token punctuation">:</span> always
+		<span class="token key atrule">ports</span><span class="token punctuation">:</span>
+			<span class="token punctuation">-</span> 8799<span class="token punctuation">:</span><span class="token number">8799</span>
+		<span class="token key atrule">volumes</span><span class="token punctuation">:</span> 
+			<span class="token punctuation">-</span> ./nginx/conf/nginx.conf<span class="token punctuation">:</span>/etc/nginx/nginx.conf
+			<span class="token punctuation">-</span> ./nginx/conf/conf.d<span class="token punctuation">:</span>/etc/nginx/conf.d
+			<span class="token punctuation">-</span> ./nginx/html<span class="token punctuation">:</span>/usr/share/nginx/html
+			<span class="token punctuation">-</span> cmsqs_nginx_log<span class="token punctuation">:</span>/var/log/nginx
+<span class="token key atrule">volumes</span><span class="token punctuation">:</span> 
+	cmsqs_nginx_log<span class="token punctuation">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>这样是什么意思呢，我们通过命令<code>docker volumes ls</code>查询映射数据卷的列表</p>
+<div class="code-wrapper"><pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">$ docker volume ls
+DRIVER    VOLUME NAME
+local     cmsqs_cmsqs_nginx_log
+$ docker volume inspect cmsqs_cmsqs_nginx_log
+[
+    &#123;
+        &quot;CreatedAt&quot;: &quot;2021-10-27T10:25:50Z&quot;,
+        &quot;Driver&quot;: &quot;local&quot;,
+        &quot;Labels&quot;: &#123;
+            &quot;com.docker.compose.project&quot;: &quot;cmsqs&quot;,
+            &quot;com.docker.compose.version&quot;: &quot;1.25.5&quot;,
+            &quot;com.docker.compose.volume&quot;: &quot;cmsqs_nginx_log&quot;
+        &#125;,
+        &quot;Mountpoint&quot;: &quot;&#x2F;var&#x2F;lib&#x2F;docker&#x2F;volumes&#x2F;cmsqs_cmsqs_nginx_log&#x2F;_data&quot;,
+        &quot;Name&quot;: &quot;cmsqs_cmsqs_nginx_log&quot;,
+        &quot;Options&quot;: null,
+        &quot;Scope&quot;: &quot;local&quot;
+    &#125;
+]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>发现映射到了<code>&quot;/var/lib/docker/volumes/cmsqs_cmsqs_nginx_log/_data&quot;</code>该路径</p>
+</li>
+<li><p>重启nginx</p>
+<p><strong>修改配置文件就用 up 指令重启镜像，否则用 restart 指令重启</strong></p>
+<div class="code-wrapper"><pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">docker-compose up -d<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></li>
+<li><p>查看运行日志</p>
+<p>-f：自动滚屏</p>
+<div class="code-wrapper"><pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">docker-compose logs -f nginx<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></li>
+<li><p>运行127.0.0.1:8799</p>
+</li>
+</ol>
 
             </div>
             <hr>
