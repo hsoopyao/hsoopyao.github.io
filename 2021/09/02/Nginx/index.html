@@ -301,7 +301,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.8k 字
+      2.1k 字
     </span>
   
 
@@ -311,7 +311,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      25
+      30
        分钟
     </span>
   
@@ -353,7 +353,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年10月28日 晚上
+                  本文最后更新于：2021年10月29日 上午
                 
               </p>
             
@@ -545,7 +545,7 @@ location @index_error &#123;
 <p>当然这是理论上的东西，还是需要实践才可以</p>
 </blockquote>
 <h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><blockquote>
-<p>通过docker，nginx运行项目</p>
+<p>通过docker，nginx运行</p>
 <p>先自行创建项目目录 /data/project/test</p>
 </blockquote>
 <ol>
@@ -578,7 +578,7 @@ docker cp nginx:&#x2F;etc&#x2F;nginx&#x2F;conf.d .&#x2F;nginx&#x2F;conf&#x2F;con
 		<span class="token key atrule">container_name</span><span class="token punctuation">:</span> nginx
 		<span class="token key atrule">restart</span><span class="token punctuation">:</span> always
 		<span class="token key atrule">ports</span><span class="token punctuation">:</span>
-			<span class="token punctuation">-</span> 8799<span class="token punctuation">:</span><span class="token number">8799</span>
+			<span class="token punctuation">-</span> <span class="token datetime number">80:80</span>
 		<span class="token key atrule">volumes</span><span class="token punctuation">:</span> 
 			<span class="token punctuation">-</span> ./nginx/conf/nginx.conf<span class="token punctuation">:</span>/etc/nginx/nginx.conf
 			<span class="token punctuation">-</span> ./nginx/conf/conf.d<span class="token punctuation">:</span>/etc/nginx/conf.d
@@ -593,7 +593,7 @@ docker cp nginx:&#x2F;etc&#x2F;nginx&#x2F;conf.d .&#x2F;nginx&#x2F;conf&#x2F;con
 		<span class="token key atrule">container_name</span><span class="token punctuation">:</span> nginx
 		<span class="token key atrule">restart</span><span class="token punctuation">:</span> always
 		<span class="token key atrule">ports</span><span class="token punctuation">:</span>
-			<span class="token punctuation">-</span> 8799<span class="token punctuation">:</span><span class="token number">8799</span>
+			<span class="token punctuation">-</span> <span class="token datetime number">80:80</span>
 		<span class="token key atrule">volumes</span><span class="token punctuation">:</span> 
 			<span class="token punctuation">-</span> ./nginx/conf/nginx.conf<span class="token punctuation">:</span>/etc/nginx/nginx.conf
 			<span class="token punctuation">-</span> ./nginx/conf/conf.d<span class="token punctuation">:</span>/etc/nginx/conf.d
@@ -624,14 +624,62 @@ $ docker volume inspect cmsqs_cmsqs_nginx_log
 ]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>发现映射到了<code>&quot;/var/lib/docker/volumes/cmsqs_cmsqs_nginx_log/_data&quot;</code>该路径</p>
+<p>两种方式的区别是前者可以自定义存放文件夹位置即名称，更加人性化一些；后者会自动生成一串很长的字符串，是不可能记得住的。</p>
 </li>
+<li><p>配置文件(default.conf是默认的配置文件)</p>
+<div class="code-wrapper"><pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">$ vim nginx&#x2F;conf&#x2F;conf.d&#x2F;default.conf
+server &#123;
+    listen       80;
+    listen  [::]:80;
+    server_name  localhost;
+
+    #access_log  &#x2F;var&#x2F;log&#x2F;nginx&#x2F;host.access.log  main;
+
+    location &#x2F; &#123;
+        root   &#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html;
+        index  index.html index.htm;
+    &#125;
+
+    #error_page  404              &#x2F;404.html;
+
+    # redirect server error pages to the static page &#x2F;50x.html
+    #
+    error_page   500 502 503 504  &#x2F;50x.html;
+    location &#x3D; &#x2F;50x.html &#123;
+        root   &#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html;
+    &#125;
+
+    # proxy the PHP scripts to Apache listening on 127.0.0.1:80
+    #
+    #location ~ \.php$ &#123;
+    #    proxy_pass   http:&#x2F;&#x2F;127.0.0.1;
+    #&#125;
+
+    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+    #
+    #location ~ \.php$ &#123;
+    #    root           html;
+    #    fastcgi_pass   127.0.0.1:9000;
+    #    fastcgi_index  index.php;
+    #    fastcgi_param  SCRIPT_FILENAME  &#x2F;scripts$fastcgi_script_name;
+    #    include        fastcgi_params;
+    #&#125;
+
+    # deny access to .htaccess files, if Apache&#39;s document root
+    # concurs with nginx&#39;s one
+    #
+    #location ~ &#x2F;\.ht &#123;
+    #    deny  all;
+    #&#125;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
 <li><p>重启nginx</p>
 <p><strong>修改配置文件就用 up 指令重启镜像，否则用 restart 指令重启</strong></p>
 <div class="code-wrapper"><pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">docker-compose up -d<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></li>
 <li><p>查看运行日志</p>
 <p>-f：自动滚屏</p>
 <div class="code-wrapper"><pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">docker-compose logs -f nginx<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></li>
-<li><p>运行127.0.0.1:8799</p>
+<li><p>运行127.0.0.1:80</p>
 </li>
 </ol>
 

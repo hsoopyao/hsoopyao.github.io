@@ -301,7 +301,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      15.8k 字
+      16k 字
     </span>
   
 
@@ -311,7 +311,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      172
+      175
        分钟
     </span>
   
@@ -353,7 +353,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年10月28日 下午
+                  本文最后更新于：2021年10月29日 上午
                 
               </p>
             
@@ -1214,6 +1214,19 @@
 </tr>
 </tbody></table>
 <p>由题可知 A -&gt; B，所以R2中的B也可以通过A推出来，当所有属性都打勾说明可以还原</p>
+<h3 id="函数依赖"><a href="#函数依赖" class="headerlink" title="函数依赖"></a>函数依赖</h3><p>Amstrong公理：</p>
+<p>设U是关系模式R的属性集，F是R上成立的只涉及U中属性的函数依赖集。函数依赖的推理规则有以下三条：</p>
+<ul>
+<li>自反律：若属性集Y包含于属性集X，属性集X包含于U，则X-&gt;Y在R成立</li>
+<li>增广律：若X-&gt;Y在R上成立，且属性集Z包含于属性集U，则XZ-&gt;YZ在R上成立</li>
+<li>传递律：若X-&gt;Y和Y-&gt;Z在R上成立，则X-&gt;Z在R上成立</li>
+</ul>
+<p>根据上面三条推理规则，又可以推出下面三条推理规则</p>
+<ol>
+<li>合并规则：若X-&gt;Y，X-&gt;Z，则X-&gt;YZ为F所蕴含</li>
+<li>伪传递规则：若X-&gt;Y，WY-&gt;Z，则XW-&gt;Z为F所蕴含</li>
+<li>分解规则：若X-&gt;Y，Z⊆U，XZ-&gt;YZ为F所蕴含</li>
+</ol>
 <h2 id="封锁协议"><a href="#封锁协议" class="headerlink" title="封锁协议"></a>封锁协议</h2><p><strong>共享锁(S锁)：又称读锁</strong>，若事务T对数据对象A加上共享锁，其他事务只能再对A加共享锁，直到T释放A上的共享锁</p>
 <p><strong>排他锁(X锁)：又称写锁</strong>，若事务T对数据对象A加上排他锁，其他事务不能再对A加任何锁，直到T释放A上的锁</p>
 <h2 id="范式"><a href="#范式" class="headerlink" title="范式"></a>范式</h2><p>🔢 第一范式(1NF)：在关系模式中，当且仅当所有域只包含原子值，即<strong>每个属性都是不可再分的数据项</strong>，则称关系模式R是第一范式</p>
