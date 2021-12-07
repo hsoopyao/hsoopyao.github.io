@@ -301,7 +301,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.2k 字
+      1.7k 字
     </span>
   
 
@@ -311,7 +311,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      16
+      22
        分钟
     </span>
   
@@ -353,7 +353,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年9月24日 下午
+                  本文最后更新于：2021年12月6日 晚上
                 
               </p>
             
@@ -456,6 +456,61 @@
 
 <p><img src="/2021/09/01/%E8%AE%B0%E5%BD%95%E5%B7%A5%E4%BD%9C%E4%B8%AD%E7%9A%84%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/image-20210901173505326.png" srcset="/img/loading.gif" lazyload alt="返回结果"></p>
 <p>我之前在学校写的项目简直没有规范可言 $%^&amp;*^##@!# 最近在准备毕设和负责项目才接触到 TAT</p>
+<h2 id="统一捕获全局异常"><a href="#统一捕获全局异常" class="headerlink" title="统一捕获全局异常"></a>统一捕获全局异常</h2><blockquote>
+<p>在方法中捕获异常，使用大量的try…catch会造成代码冗余且不美观</p>
+<p>因此可以通过捕获全局异常来整洁代码</p>
+</blockquote>
+<p><strong>使用<code>@RestControllerAdvice</code>和<code>@ExceptionHandler</code></strong></p>
+<ul>
+<li><p><code>@RestControllerAdvice</code> = <code>@ControllerAdvice</code>+<code>@ResponseBody</code>，<code>@RestControllerAdvice</code>实现全局异常处理，只需要定义类，该类中可以定义多个方法，不同的方法处理不同的异常</p>
+</li>
+<li><p><code>@ExceptionHandler</code>注解来指明异常的处理对应的类型(value指定捕获的具体异常)</p>
+<ul>
+<li>需要注意的是使用@ExceptionHandler注解传入的参数可以一个<strong>数组</strong>，且使用该注解时，<strong>传入的参数不能相同</strong>，也就是<strong>不能使用两个@ExceptionHandler去处理同一个异常</strong>。如果传入参数相同，则初始化ExceptionHandler时会失败。</li>
+</ul>
+</li>
+</ul>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@RestControllerAdvice</span>
+<span class="token annotation punctuation">@Slf4j</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">GlobalExceptionAdvice</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">//捕获运行时异常</span>
+    <span class="token annotation punctuation">@ExceptionHandler</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token class-name">RuntimeException</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token class-name">Result</span> <span class="token function">runtimeExceptionHandler</span><span class="token punctuation">(</span><span class="token class-name">HttpServletRequest</span> req<span class="token punctuation">,</span> <span class="token class-name">RuntimeException</span> e<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">Result</span> result <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Result</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        log<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        result<span class="token punctuation">.</span><span class="token function">setMsg</span><span class="token punctuation">(</span><span class="token string">"系统错误:"</span><span class="token operator">+</span> e<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        result<span class="token punctuation">.</span><span class="token function">setCode</span><span class="token punctuation">(</span><span class="token class-name">Status</span><span class="token punctuation">.</span>SYS_ERROR<span class="token punctuation">.</span><span class="token function">getCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        result<span class="token punctuation">.</span><span class="token function">setData</span><span class="token punctuation">(</span><span class="token string">"ErrorUrl: "</span><span class="token operator">+</span>req<span class="token punctuation">.</span><span class="token function">getRequestURL</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    
+    <span class="token comment">//也可以捕获自定义异常</span>
+    <span class="token annotation punctuation">@ExceptionHandler</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token class-name">GlobalException</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token class-name">Result</span> <span class="token class-name">GlobalExceptionHandler</span><span class="token punctuation">(</span><span class="token class-name">HttpServletRequest</span> req<span class="token punctuation">,</span> <span class="token class-name">GlobalException</span> e<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">Result</span> result <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Result</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        result<span class="token punctuation">.</span><span class="token function">setMsg</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        result<span class="token punctuation">.</span><span class="token function">setCode</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span><span class="token function">getStatus</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        result<span class="token punctuation">.</span><span class="token function">setData</span><span class="token punctuation">(</span><span class="token string">"ErrorUrl: "</span><span class="token operator">+</span>req<span class="token punctuation">.</span><span class="token function">getRequestURL</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p><strong>注意：</strong></p>
+<ul>
+<li>多个<code>@RestControllerAdvice</code>是有加载顺序的，我们可以在类上添加<code>@Order</code>来控制执行的顺序。<ul>
+<li>源码分析结果为：<code>@ControllerAdvice</code>或者<code>@RestControllerAdvice</code>上有没有标注<code>@Order</code>注解，或者是<code>@Priority</code>注解，并没有检查有没有实现<code>Ordered</code>接口，故而无效，单单只检查了类上有无这俩注解。</li>
+</ul>
+</li>
+</ul>
+<p><strong>举例：</strong><br>A类和B类都有<code>@ControllerAdvice</code>注解，要捕获的异常为自定义异常<code>CustomException</code>。<br><strong>场景一</strong>：A中有<code>@ExceptionHandler(CustomException.class)</code>，B中没有，但B中有<code>@ExceptionHandler(Exception.class)</code>，</p>
+<ul>
+<li>若B加载顺序优先于A，则<code>CustomException</code>异常会被B处理，因为<code>Exception</code>是<code>CustomException</code>的父类。</li>
+<li>若A加载顺序优先于B，则<code>CustomException</code>异常会被A处理。</li>
+</ul>
+<p><strong>场景二</strong>：A中有<code>@ExceptionHandler(CustomException.class)</code>，B中没有，且B中没有任何<code>@ExceptionHandler()</code>是<code>CustomException</code>的父类</p>
+<ul>
+<li>不管AB是何优先级加载，均会被A处理</li>
+</ul>
 <h2 id="查询提供自定义排序"><a href="#查询提供自定义排序" class="headerlink" title="查询提供自定义排序"></a>查询提供自定义排序</h2><p>案发现场：</p>
 <p><img src="/2021/09/01/%E8%AE%B0%E5%BD%95%E5%B7%A5%E4%BD%9C%E4%B8%AD%E7%9A%84%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/image-20210901174317864.png" srcset="/img/loading.gif" lazyload alt="不忍直视"></p>
 <p>​             **因为项目是集成了Jeecg boot所以我认为他有默认的排序/// ^ /// 而且不能修改SQL语句 **</p>

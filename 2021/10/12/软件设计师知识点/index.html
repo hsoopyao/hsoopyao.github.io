@@ -301,7 +301,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      16.2k 字
+      16.4k 字
     </span>
   
 
@@ -311,7 +311,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      177
+      179
        分钟
     </span>
   
@@ -353,7 +353,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年11月4日 下午
+                  本文最后更新于：2021年11月5日 晚上
                 
               </p>
             
@@ -465,7 +465,7 @@
 <p>[+0] = [0000 0000]原 = [0000 0000]反 = <strong>[0000 0000]补 = [1000 0000]移</strong></p>
 <p>[-0] = [1000 0000]原 = [1111 1111]反 = <strong>[0000 0000]补 = [1000 0000]移</strong></p>
 <ol start="2">
-<li><p>采用n位补码(包含一个符号位)表示符号位，表示数据，可以直接表示数值()</p>
+<li><p>采用n位补码(包含一个符号位)表示符号位，表示数据，可以直接表示数值(<strong>D</strong>)</p>
 <p>A. 2^n^</p>
 <p>B. -2^n^</p>
 <p>C. 2^n-1^</p>
@@ -720,7 +720,7 @@
 <p>根据存储器所要求的容量和选定的存储芯片的容量，就可以计算出所需的芯片的总数，即</p>
 <p>​                                            ✅总片数 = 总容量 / 每片的容量</p>
 <p><strong>例题：</strong></p>
-<p>内存按字节编址，地址从A0000H到CFFFFH的内容，共有(<strong>B</strong>)字节，若用存储容量为64K×8bit的存储器芯片构成该内存空间，至少需要(<strong>B</strong>)片</p>
+<p>内存按字节编址，地址从A0000H到CFFFFH的内容，共有(<strong>D</strong>)字节，若用存储容量为64K×8bit的存储器芯片构成该内存空间，至少需要(<strong>B</strong>)片</p>
 <p>A. 80    B. 96    C. 160    D. 192</p>
 <p>A. 2    B. 3    C. 5    D. 8</p>
 <p><strong>解析：</strong></p>
@@ -926,7 +926,8 @@
 </ul>
 <h2 id="有损压缩和无损压缩"><a href="#有损压缩和无损压缩" class="headerlink" title="有损压缩和无损压缩"></a>有损压缩和无损压缩</h2><p>无损压缩编码法，也称为冗余压缩法或熵编码法</p>
 <p>有损压缩编码法，也称为熵压缩法</p>
-<h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><h2 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h2><blockquote>
+<h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><p><strong>I/O软件</strong>：隐藏了I/O操作实现的细节；向用户提供的是逻辑接口，不是物理；方便用户使用</p>
+<h2 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h2><blockquote>
 <p>进程的概念</p>
 </blockquote>
 <p>🔢 进程是程序在一个数据集合运行的过程，它是系统进行资源分配和调度的一个独立单元，它由程序块、进程控制块(PCB)和数据块三部分组成</p>
@@ -1080,7 +1081,7 @@
 <p>如果是双缓冲区，可以实现读入到缓冲区2和从缓冲区1读入到用户区并发</p>
 <p><strong>可以构造流水线进行计算</strong></p>
 <p>👉<strong>例题：</strong></p>
-<p>假设磁盘块与缓冲区大小相同，每个盘块读入缓冲区的时间为16us，由缓冲区送至用户区的时间是5us，在用户区内系统对每块数据的处理时间为1us。若用户需要将大小为10个磁盘块的Doc1文件逐块从磁盘读入缓冲区，并送至用户区进行处理，那么采用单缓冲区需要花费的时间为(****)us；采用双缓冲区需要花费的时间为()us</p>
+<p>假设磁盘块与缓冲区大小相同，每个盘块读入缓冲区的时间为16us，由缓冲区送至用户区的时间是5us，在用户区内系统对每块数据的处理时间为1us。若用户需要将大小为10个磁盘块的Doc1文件逐块从磁盘读入缓冲区，并送至用户区进行处理，那么采用单缓冲区需要花费的时间为(<strong>D</strong>)us；采用双缓冲区需要花费的时间为(<strong>C</strong>)us</p>
 <p>A. 160        B. 161        C. 166    **D.**211</p>
 <p>A. 160        B. 161        <strong>C.</strong> 166    D. 211</p>
 <p><strong>解析：</strong></p>
@@ -1104,7 +1105,7 @@
 <p><strong>A</strong>. 129        B. 257        C. 513        D. 1025</p>
 <p><strong>解析：</strong></p>
 <p>已知系统字长为32位，说明一个字可以表示32个物理块的使用情况</p>
-<p>m = (4096 + 1) / 32 = 128 余 1，所以这一位属于第129个字的第一位，+1是因为编号是从0开始的</p>
+<p>m = (4096 + 1) / 32 = 128 余 0.3…，所以这一位属于第129个字的第一位，+1是因为编号是从0开始的</p>
 <h1 id="数据库系统"><a href="#数据库系统" class="headerlink" title="数据库系统"></a>数据库系统</h1><h2 id="三级模式-两层映射"><a href="#三级模式-两层映射" class="headerlink" title="三级模式-两层映射"></a>三级模式-两层映射</h2><p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211019091456289.png" srcset="/img/loading.gif" lazyload alt="三级模式-两层映射"></p>
 <ul>
 <li><strong>外模式</strong>也称为用户模式，关注的是数据逻辑结构</li>
@@ -1292,7 +1293,8 @@
 <li>集线器内部，各接口都是通过背板总线连接在一起的，在逻辑上构成一个共享的总线。所以，集线器和所有的接口的主机共同构成了一个冲突域和一个广播域</li>
 <li>交换机上每个接口都是自己的一个冲突域。交换机和所有的接口所连接的主机共同构成了一个广播域</li>
 </ul>
-<h2 id="TCP-IP协议族"><a href="#TCP-IP协议族" class="headerlink" title="TCP/IP协议族"></a>TCP/IP协议族</h2><p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211020093500346.png" srcset="/img/loading.gif" lazyload alt="模型"></p>
+<h2 id="TCP-IP协议族"><a href="#TCP-IP协议族" class="headerlink" title="TCP/IP协议族"></a>TCP/IP协议族</h2><p>⭐ 在TCP/IP网络中，建立连接进行可靠通信指的是TCP，是在<strong>传输层</strong>，此功能在OSI/RM中是在<strong>会话层</strong>来实现的</p>
+<p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211020093500346.png" srcset="/img/loading.gif" lazyload alt="模型"></p>
 <table>
 <thead>
 <tr>
@@ -1355,6 +1357,14 @@
 </tbody></table>
 <p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211101093644786.png" srcset="/img/loading.gif" lazyload alt="层次结构"></p>
 <h2 id="子网划分"><a href="#子网划分" class="headerlink" title="子网划分"></a>子网划分</h2><p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211020144903303.png" srcset="/img/loading.gif" lazyload alt="子网划分"></p>
+<h2 id="IPv4与IPv6"><a href="#IPv4与IPv6" class="headerlink" title="IPv4与IPv6"></a>IPv4与IPv6</h2><ul>
+<li><p>IPv4用32位二进制表示，能够表示的地址空间是2^32^</p>
+</li>
+<li><p>IPv6用128位二进制表示，能够表示的地址空间是2^128^</p>
+</li>
+<li><p>所以IPv6地址空间是IPv4的2^96^倍</p>
+</li>
+</ul>
 <h2 id="信息安全"><a href="#信息安全" class="headerlink" title="信息安全"></a>信息安全</h2><h3 id="对称加密技术"><a href="#对称加密技术" class="headerlink" title="对称加密技术"></a>对称加密技术</h3><p>也称为**(共享密钥加密)**</p>
 <p>发送者和接收者使用同一个密钥</p>
 <p>特点：</p>
@@ -1517,9 +1527,9 @@
 <p><strong>结构化的典型代表</strong></p>
 <p>根本问题：需求问题难以明确，在测试阶段出现问题会回溯到需求分析</p>
 <p>适用场合：需求明确，二次开发</p>
-<h3 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h3><p><strong>在需求不明确的情况下</strong>，将用户界面简单实现，使用墨刀等工具，<strong>快速构建简易的用户界面</strong>，供用户大致了解产品原型，比如提交按钮放在哪里，点击这个按钮会出现什么弹框或者跳转至哪个页面等等。简单来说就是<strong>做一个demo来演示</strong></p>
+<h3 id="原型模型"><a href="#原型模型" class="headerlink" title="原型模型"></a>原型模型</h3><p><strong>在需求不明确的情况下</strong>，将用户界面简单实现，使用墨刀等工具，<strong>快速构建简易的用户界面</strong>，供用户大致了解产品原型，比如提交按钮放在哪里，点击这个按钮会出现什么弹框或者跳转至哪个页面等等。简单来说就是<strong>做一个demo来演示</strong></p>
 <p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211021114621899.png" srcset="/img/loading.gif" lazyload alt="其他经典模型"></p>
-<h3 id="增量模型"><a href="#增量模型" class="headerlink" title="增量模型"></a>增量模型</h3><p>首要是<strong>完成项目的核心模块</strong>，每次给用户演示提出相关问题，会在核心模块进一步改进。<strong>每一个增量均发布一个可操作的产品</strong></p>
+<h3 id="增量模型"><a href="#增量模型" class="headerlink" title="增量模型"></a>增量模型</h3><p>首要是<strong>完成项目的核心模块</strong>，每次给用户演示提出相关问题，会在核心模块进一步改进。<strong>每一个增量发布均是一个可操作的产品</strong></p>
 <h3 id="螺旋模型"><a href="#螺旋模型" class="headerlink" title="螺旋模型"></a>螺旋模型</h3><p>螺旋模型是多种模型组合的模型，其中包括原型模型，瀑布模型等。</p>
 <p>(๑•̀ㅂ•́)و✧ 😀 <strong>螺旋模型引入了风险分析</strong></p>
 <p><img src="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/image-20211021115159155.png" srcset="/img/loading.gif" lazyload alt="螺旋模型"></p>
@@ -1991,7 +2001,7 @@
 <td></td>
 </tr>
 <tr>
-<td>Observer备忘录模式</td>
+<td>Observer观察者模式</td>
 <td>定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并自动更新</td>
 <td></td>
 </tr>
@@ -2064,6 +2074,12 @@
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2021/11/08/stateful%E4%B8%8Estateless/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">✨stateful与stateless</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">

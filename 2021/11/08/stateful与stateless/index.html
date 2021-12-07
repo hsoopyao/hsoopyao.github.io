@@ -14,13 +14,39 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#5e5e5f">
-  <meta name="description" content="记录我的成长历程~">
+  <meta name="description" content="近期项目中涉及到关于**stateful(有状态)、stateless(无状态)**的知识点">
   <meta name="author" content="hspro-yao">
   <meta name="keywords" content="">
   
-  <title>hspro-yao&#39;s blog</title>
+  <title>✨stateful与stateless | hspro-yao&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      
+        
+          
+          
+          
+        
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-tomorrow.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.min.css" />
+      
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
 
 
 
@@ -54,7 +80,7 @@
 
 
 <body>
-  <header style="height: 100vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -248,22 +274,63 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('/img/darkmodepicture4.jpg') no-repeat center center;
+         style="background: url('https://cdn.pixabay.com/photo/2020/09/23/17/12/flowers-5596564_960_720.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="所爱隔山海，山海皆可平。">
+            <span class="h2" id="subtitle" title="✨stateful与stateless">
               
             </span>
 
             
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-11-08 09:53" pubdate>
+        2021年11月8日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      306 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      3
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
           </div>
 
-          
-            <div class="scroll-down-bar">
-              <i class="iconfont icon-arrowdown"></i>
-            </div>
           
         </div>
       </div>
@@ -272,267 +339,146 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          style=margin-top:0>
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">✨stateful与stateless</h1>
+            
+              <p class="note note-info">
                 
-
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/09/02/Nginx/" target="_self">
-          <img src="https://cdn.pixabay.com/photo/2020/01/30/12/28/st-petersburg-4805301_960_720.jpg" srcset="/img/loading.gif" lazyload alt="🌼Nginx">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/09/02/Nginx/" target="_self">
-          🌼Nginx
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/09/02/Nginx/" target="_self">
-          
-          
+                  本文最后更新于：2021年11月8日 晚上
+                
+              </p>
             
-          
-          前言今天在调式中遇到了代理问题，然后叫汉叔过来看看问题，结果发现我对Nginx的代理以及配置文件还不是很了解，随后汉叔发我一条连接，打开一看是关于Nginx配置文件的详解，要好好学习了啊！！
-案发现场：
+            <div class="markdown-body">
+              <p>近期项目中涉及到关于**stateful(有状态)、stateless(无状态)**的知识点</p>
+<span id="more"></span>
 
-这里提供了原文链接 可戳 (本文也会参照一些)
-上文主要还是对location的介绍
-NginxNgin是一个高性能的HTTP和反向代理服务器，最常见的用途是将其设置未代理服务器。我们学习还是从
-        </a>
-      </p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近项目设计到高可用(HA)，然后从汉叔那里了解到关于多个项目之前一些用户信息的共享问题，延伸到<strong>stateful(有状态)、stateless(无状态)</strong></p>
+<h1 id="Stateful与Stateless"><a href="#Stateful与Stateless" class="headerlink" title="Stateful与Stateless"></a>Stateful与Stateless</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
+<p>stateful(有状态)</p>
+</blockquote>
+<p>有存储功能，非线性安全。在不同方法调用间不保留任何状态。类似session、cookies</p>
+<blockquote>
+<p>stateless(无状态)</p>
+</blockquote>
+<p>一次操作，不能保存数据，线程安全，可减缓服务器压力 </p>
+<h2 id="分布式实例"><a href="#分布式实例" class="headerlink" title="分布式实例"></a>分布式实例</h2><p><img src="/2021/11/08/stateful%E4%B8%8Estateless/image-20211108111131624.png" srcset="/img/loading.gif" lazyload alt="实例"></p>
+<p>透明：通过nginx进行负载均衡，在不同节点跳转对于用户是感受不到的</p>
+<h3 id="session方式"><a href="#session方式" class="headerlink" title="session方式"></a>session方式</h3><p>将用户信息存到session中，用于各个节点共享。我们都知道session是存在服务端的，如果有百万级的用户的话会加大服务器端的压力，因此可以将session看作是内部的数据</p>
+<h3 id="jwt方式"><a href="#jwt方式" class="headerlink" title="jwt方式"></a>jwt方式</h3><p>jwt(java web token)，服务端将用户信息进行加密得到的token(令牌)返回给客户端，因此token是存在客户端的，可以减缓服务端的压力，因此可以将token这种数据看作是外部的数据</p>
 
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-09-02 19:20" pubdate>
-              2021-09-02
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Nginx/">Nginx</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Nginx/">Nginx</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/09/01/%E8%AE%B0%E5%BD%95%E5%B7%A5%E4%BD%9C%E4%B8%AD%E7%9A%84%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/" target="_self">
-          <img src="https://cdn.pixabay.com/photo/2021/09/10/20/36/bavaria-6614144_960_720.jpg" srcset="/img/loading.gif" lazyload alt="📌记录工作中的开发规范">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/09/01/%E8%AE%B0%E5%BD%95%E5%B7%A5%E4%BD%9C%E4%B8%AD%E7%9A%84%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/" target="_self">
-          📌记录工作中的开发规范
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/09/01/%E8%AE%B0%E5%BD%95%E5%B7%A5%E4%BD%9C%E4%B8%AD%E7%9A%84%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/" target="_self">
-          
-          
-            
-          
-          前言记录在工作中提到的开发规范：
-
-在负责项目接口实现与前端进行对接的时候，出现了很多bug，改了好几天也长了记性
-在对接的过程中还有别人的建议，是时候记录一下，规范自己以后的开发模式
-
-正片开始接口返回统一数据格式
-现在是前后端分离的时代，在编写后端开发时要返回统一数据格式(一般都是json字符串)，这样才能更好的查看返回的结果
-
-一般包含：
-
-信息 Message
-状态码 Code
-结果 Re
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-09-01 17:13" pubdate>
-              2021-09-01
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Java/">Java</a>
-            
-              <a href="/categories/Java/%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/">开发规范</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/">开发规范</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/08/30/AtomicInteger%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3%E4%B8%8E%E5%AE%9E%E8%B7%B5/" target="_self">
-          <img src="https://en.freejpg.com.ar/image-900/7d/7db5/F100029520-lights_of_different_colors_4k_background.jpg" srcset="/img/loading.gif" lazyload alt="🌈AtomicInteger自我理解与实践">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/30/AtomicInteger%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3%E4%B8%8E%E5%AE%9E%E8%B7%B5/" target="_self">
-          🌈AtomicInteger自我理解与实践
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/30/AtomicInteger%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3%E4%B8%8E%E5%AE%9E%E8%B7%B5/" target="_self">
-          
-          
-            
-          
-          前言记录在工作中遇到的情况:
-
-直播间中统计观看直播的人数 一开始傻傻的用Integer来实现 结果被汉叔说用AtomicInteger原子整型
-我才发现我大学学的多线程只是皮毛，导致实践时根本就没考虑到高并发的情况 想都没想就之间用了Integer实现了。。。
-
-案发现场：
-
-AtomicInteger 原子整型
-            原子整型在java.util.concurrent.ato
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-30 18:51" pubdate>
-              2021-08-30
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Java/">Java</a>
-            
-              <a href="/categories/Java/%E5%B9%B6%E5%8F%91/">并发</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Java/">Java</a>
-            
-              <a href="/tags/%E5%8E%9F%E5%AD%90%E6%95%B4%E5%9E%8B/">原子整型</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/26/hello-world/" target="_self">
-          Hello World
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/26/hello-world/" target="_self">
-          
-          
-            
-          
-          Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-26 19:35" pubdate>
-              2021-08-26
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-
-
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-    </span>
-  </nav>
-
-
-
-              </div>
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%9C%89%E7%8A%B6%E6%80%81/">有状态</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%9C%89%E7%8A%B6%E6%80%81/%E6%97%A0%E7%8A%B6%E6%80%81/">无状态</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/stateless/">stateless</a>
+                    
+                      <a class="hover-with-bg" href="/tags/statefull/">statefull</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/11/15/Docker/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">🐋Docker</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/10/12/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E7%9F%A5%E8%AF%86%E7%82%B9/">
+                        <span class="hidden-mobile">🗡️软件设计师知识点</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"UHPRzDGHJ12bMNq3b9w01zw4-gzGzoHsz","appKey":"ONGsBbk9viW3RjlEszXSbkzL","placeholder":"写邮箱方便收到回复噢~快来说点什么吧!(๑•̀ㅂ•́)و✧","path":"window.location.pathname","avatar":"retro","meta":["nick","mail"],"pageSize":10,"lang":"zh-CN","highlight":true,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":["nick","mail"]},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
@@ -639,9 +585,15 @@ Quick
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
 
 
 

@@ -301,7 +301,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.1k 字
+      2.5k 字
     </span>
   
 
@@ -311,7 +311,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      30
+      35
        分钟
     </span>
   
@@ -353,7 +353,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年10月29日 上午
+                  本文最后更新于：2021年11月28日 晚上
                 
               </p>
             
@@ -681,6 +681,50 @@ server &#123;
 <div class="code-wrapper"><pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">docker-compose logs -f nginx<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></li>
 <li><p>运行127.0.0.1:80</p>
 </li>
+</ol>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><blockquote>
+<p>对于vue的router[mode:history]模式，去除链接上的#</p>
+<p>nginx运行时没有问题，链接也没有问题，但在点击刷新后，页面就会显示(404)</p>
+</blockquote>
+<h2 id="try-files"><a href="#try-files" class="headerlink" title="try_files"></a>try_files</h2><p><code>try_files</code>：try_files是nginx中http_core核心模块所带的指令，主要是能替代一些rewrite的指令，提高解析效率</p>
+<p>语法：</p>
+<ul>
+<li><code>try_files file ... uri;</code></li>
+<li><code>try_files file ... = code;</code></li>
+</ul>
+<p>作用域：</p>
+<ul>
+<li>server</li>
+<li>location</li>
+</ul>
+<p>解释说明：</p>
+<ol>
+<li>按指定的file顺序查找存在的文件，并使用第一个找到的文件进行请求处理；</li>
+<li>查找路径是按照给定的root或alias为根路径来查找的；</li>
+<li>如果给出的file都没有匹配到，则会进行一个内部重定向到最后一个参数给定的uri，就是新的location匹配；</li>
+<li>只有最后一个参数可以引起一个内部重定向，之前的参数只设置内部URI的指向；</li>
+<li>最后一个参数是回退URI且必须存在，否则会出现内部500错误；</li>
+<li>如果是（格式2），若最后一个参数是 = 404 ，若给出的file都没有匹配到，则最后返回404的响应码</li>
+</ol>
+<p>原配置</p>
+<div class="code-wrapper"><pre class="line-numbers language-config" data-language="config"><code class="language-config">location &#x2F; &#123;
+	root &#x2F;nginx&#x2F;html;
+	index index.html;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>使用<code>try_files</code></p>
+<div class="code-wrapper"><pre class="line-numbers language-config" data-language="config"><code class="language-config">location &#x2F; &#123;
+    root &#x2F;nginx&#x2F;html;
+	index index.html;
+    try_files $uri $uri&#x2F; &#x2F;index.html;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>运行步骤：</p>
+<ol>
+<li>用户请求localhost:8080/example时，$uri就是/example，try_files会到硬盘里尝试查找这个文件</li>
+<li>如果存在/$root/example的文件，就直接把这个文件的内容发送给用户</li>
+<li>如果没有该目录，则匹配$uri/，就是看有没有名为/$root/example/的目录</li>
+<li>如果再找不到，就会fallback到try_files的最后一个选项 /index.html，相当于nginx发起一个HTTP请求到<a target="_blank" rel="noopener" href="http://localhost:8080/index.html">http://localhost:8080/index.html</a></li>
 </ol>
 
             </div>
