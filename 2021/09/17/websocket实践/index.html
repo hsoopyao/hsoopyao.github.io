@@ -301,7 +301,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.7k 字
+      1.9k 字
     </span>
   
 
@@ -311,7 +311,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      25
+      27
        分钟
     </span>
   
@@ -353,7 +353,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年9月17日 晚上
+                  本文最后更新于：2021年12月30日 中午
                 
               </p>
             
@@ -416,6 +416,7 @@
     <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
+<p><img src="/2021/09/17/websocket%E5%AE%9E%E8%B7%B5/image-20211230115824314.png" srcset="/img/loading.gif" lazyload alt="内部结构"></p>
 <h1 id="题外话：WebSocket还可以配置拦截器"><a href="#题外话：WebSocket还可以配置拦截器" class="headerlink" title="题外话：WebSocket还可以配置拦截器"></a><strong>题外话：WebSocket还可以配置拦截器</strong></h1><ul>
 <li>实现ChannelInterceptor接口</li>
 <li><strong>这里集成了SpringEvent事件监听机制</strong></li>
@@ -519,6 +520,7 @@
 <span class="token annotation punctuation">@Controller</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WebSocketController</span> <span class="token punctuation">&#123;</span>
 
+    <span class="token comment">//Spring-WebSocket 内置的一个消息发送工具，可以将消息发送到指定的客户端</span>
     <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">SimpMessagingTemplate</span> messagingTemplate<span class="token punctuation">;</span>
 
     <span class="token keyword">public</span> <span class="token class-name">WebSocketController</span><span class="token punctuation">(</span><span class="token class-name">SimpMessagingTemplate</span> messagingTemplate<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -534,7 +536,7 @@
         <span class="token comment">//messagingTemplate相当于@SendTo注解</span>
         messagingTemplate<span class="token punctuation">.</span><span class="token function">convertAndSend</span><span class="token punctuation">(</span>destination<span class="token punctuation">,</span>requestMessage<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 
 
@@ -606,7 +608,7 @@
                 <span class="token punctuation">&#125;</span>
             <span class="token punctuation">&#125;</span>
         <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-		<span class="token comment">//连接websocket 开启双通道</span>
+		<span class="token comment">//连接websocket 开启双通道 当协议为http时，使用ws://，当协议为https，使用wss://</span>
         <span class="token keyword">this</span><span class="token punctuation">.</span>stompClient<span class="token punctuation">.</span><span class="token function">connect</span><span class="token punctuation">(</span><span class="token string">"ws://localhost:&#123;port&#125;/websocket"</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>headers<span class="token punctuation">,</span> handler<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>port<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
         <span class="token keyword">if</span> <span class="token punctuation">(</span>latch<span class="token punctuation">.</span><span class="token function">await</span><span class="token punctuation">(</span><span class="token number">60</span><span class="token punctuation">,</span> <span class="token class-name">TimeUnit</span><span class="token punctuation">.</span>SECONDS<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -651,6 +653,9 @@
           </div>
 
 <p><strong>主要信息</strong></p>
+<blockquote>
+<p>在配置WebSocket时，定义了客户端订阅前缀/topic和/all，只要客户端订阅了前缀为/topic或/all(/topic/room/… 或 /topic/xxx/xx… )，无论后面接什么接多少个都可以，只要前缀符合即可收到发布的消息。发布消息，我们需要将消息发送到服务器，所以需要以/app为前缀才可以往服务器发消息。</p>
+</blockquote>
 <div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Override</span>
             <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterConnected</span><span class="token punctuation">(</span><span class="token keyword">final</span> <span class="token class-name">StompSession</span> session<span class="token punctuation">,</span> <span class="token class-name">StompHeaders</span> connectedHeaders<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
                 <span class="token comment">// 订阅/topic/room/1</span>
@@ -684,7 +689,7 @@
                 <span class="token punctuation">&#125;</span>
             <span class="token punctuation">&#125;</span>
         <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-		<span class="token comment">//连接websocket 开启双通道</span>
+		<span class="token comment">//连接websocket 开启双通道 当协议为http时，使用ws://，当协议为https，使用wss://</span>
         <span class="token keyword">this</span><span class="token punctuation">.</span>stompClient<span class="token punctuation">.</span><span class="token function">connect</span><span class="token punctuation">(</span><span class="token string">"ws://localhost:&#123;port&#125;/websocket"</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>headers<span class="token punctuation">,</span> handler<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>port<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p><strong>跑一跑 我们就拿到了发送的消息</strong></p>
