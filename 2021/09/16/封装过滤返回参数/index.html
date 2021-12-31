@@ -302,7 +302,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2k 字
+      2.2k 字
     </span>
   
 
@@ -312,7 +312,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      28
+      31
        分钟
     </span>
   
@@ -354,7 +354,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年9月17日 上午
+                  本文最后更新于：2021年12月31日 下午
                 
               </p>
             
@@ -482,6 +482,43 @@ map<span class="token punctuation">.</span><span class="token function">put</spa
     <span class="token class-name">LoginInfoVO</span> loginInfoVO <span class="token operator">=</span> <span class="token class-name">BeanUtil</span><span class="token punctuation">.</span><span class="token function">fillBeanWithMap</span><span class="token punctuation">(</span>userMap<span class="token punctuation">,</span> <span class="token class-name">LoginInfoVO</span><span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> loginInfoVO<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+
+
+<p>还可以通过<code>BeanUtil.copyProperties(Object source,Object target,boolean ignoreCase)</code>来复制Bean对象</p>
+<p><strong>Parameters:</strong></p>
+<p><code>source</code> - 源Bean对象</p>
+<p><code>target</code> - 目标Bean对象</p>
+<p><code>ignoreCase</code> - 是否忽略大小写</p>
+<div class="note note-info">
+            <p>举个栗子</p>
+          </div>
+
+<blockquote>
+<p>VO类中包含<code>UserProjectThemeEntity</code>属性以及两个额外字段</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Data</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserProjectThemeVo</span> <span class="token keyword">extends</span> <span class="token class-name">UserProjectThemeEntity</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> headImgUrl<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> btnsColor<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<blockquote>
+<p>我们需要将<code>UserProjectThemeEntity</code>的属性复制到VO类中，并将<code>ProjectThemeEntity</code>中的两个字段也复制到VO类中</p>
+</blockquote>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token class-name">UserProjectThemeVo</span> <span class="token function">getUserProjectDetails</span><span class="token punctuation">(</span><span class="token class-name">String</span> key<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token class-name">UserProjectThemeEntity</span> userProjectThemeEntity <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getOne</span><span class="token punctuation">(</span><span class="token class-name">Wrappers</span><span class="token punctuation">.</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">UserProjectThemeEntity</span><span class="token punctuation">></span></span><span class="token function">lambdaQuery</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">eq</span><span class="token punctuation">(</span><span class="token class-name">UserProjectThemeEntity</span><span class="token operator">::</span><span class="token function">getProjectKey</span><span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token class-name">ObjectUtil</span><span class="token punctuation">.</span><span class="token function">isNotNull</span><span class="token punctuation">(</span>userProjectThemeEntity<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">UserProjectThemeVo</span> vo <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UserProjectThemeVo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">//将`UserProjectThemeEntity`的属性复制到VO类中</span>
+        <span class="token class-name">BeanUtil</span><span class="token punctuation">.</span><span class="token function">copyProperties</span><span class="token punctuation">(</span>userProjectThemeEntity<span class="token punctuation">,</span> vo<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">ProjectThemeEntity</span> themeEntity <span class="token operator">=</span> projectThemeService<span class="token punctuation">.</span><span class="token function">getById</span><span class="token punctuation">(</span>userProjectThemeEntity<span class="token punctuation">.</span><span class="token function">getThemeId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">//将`ProjectThemeEntity`中的两个字段也复制到VO类中</span>
+        <span class="token class-name">BeanUtil</span><span class="token punctuation">.</span><span class="token function">copyProperties</span><span class="token punctuation">(</span>themeEntity<span class="token punctuation">,</span> vo<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> vo<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 
 
