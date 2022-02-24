@@ -674,7 +674,7 @@
 <div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">update</span> <span class="token keyword">user</span> <span class="token keyword">set</span> age <span class="token operator">=</span> <span class="token number">10</span> <span class="token keyword">where</span> id <span class="token operator">></span> <span class="token number">49</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 <p>上述SQL执行过程如下图所示，MySQL Server会根据WHERE条件根据第一条满足条件的记录，然后InnoDB引擎会将第一条记录返回并加锁，接着MySQL Server发起更新行记录的UPDATE请求，更新这条记录。一条记录操作完成，再读取下一条记录，直至没有匹配的记录为止<br><img src="/2022/02/22/sql%E4%BC%98%E5%8C%96/Pasted%20image%2020220224141502.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="行锁的类型"><a href="#行锁的类型" class="headerlink" title="行锁的类型"></a>行锁的类型</h3><p>不同的锁锁定的位置是不同的，比如说记录锁只锁定对应的记录，而间隙锁锁住记录和记录之间的间隙，Next-key Lock则锁住所属记录之间的间隙。不同的锁类型锁定的范围大致如图所示：</p>
-<p><img src="https://img2020.cnblogs.com/blog/1614350/202011/1614350-20201115221250844-767865625.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/02/22/sql%E4%BC%98%E5%8C%96/Pasted%20image%2020220224163923.png" srcset="/img/loading.gif" lazyload></p>
 <blockquote>
 <p>🔖记录锁(Record Lock)<br>锁定某行记录，行锁是加在索引上的，==如果当你的查询语句不走索引的话，那么它就会升级到表锁==，最终造成效率低下，所以在写SQL语句时需要特别注意。</p>
 </blockquote>
