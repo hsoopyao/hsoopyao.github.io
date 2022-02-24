@@ -301,7 +301,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      6.5k 字
+      6.6k 字
     </span>
   
 
@@ -311,7 +311,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      70
+      71
        分钟
     </span>
   
@@ -800,6 +800,13 @@
 <h2 id="MVCC"><a href="#MVCC" class="headerlink" title="MVCC"></a>MVCC</h2><blockquote>
 <p>❓什么是MVCC<br>全称Multi-Version Concurrency Control，多版本并发控制。MVCC 是一种并发控制的方法，一般在数据库管理系统中，实现对数据库的并发访问。</p>
 </blockquote>
+<p>==<strong>MVCC主要适用于RR级别以及RC级别</strong>==</p>
+<ul>
+<li><p>Read Committed隔离级别：每次select都生成一个快照读。</p>
+</li>
+<li><p>Read Repeatable隔离级别：<strong>开启事务后第一个select语句才是快照读的地方，而不是一开启事务就快照读。</strong></p>
+</li>
+</ul>
 <h3 id="当前读"><a href="#当前读" class="headerlink" title="当前读"></a>当前读</h3><blockquote>
 <p>❓什么是当前读<br>读取的数据库记录，都是当前最新的版本，会对当前读取的数据进行加锁，防止其他事务修改数据，是悲观锁的一种操作</p>
 </blockquote>
@@ -904,7 +911,7 @@
                     
                     
                       <a href="/2022/02/04/%E6%BC%8F%E6%A1%B6%E7%AE%97%E6%B3%95%E4%B8%8E%E4%BB%A4%E7%89%8C%E6%A1%B6%E7%AE%97%E6%B3%95/">
-                        <span class="hidden-mobile">漏桶算法与令牌桶算法</span>
+                        <span class="hidden-mobile">🌇漏桶算法与令牌桶算法</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
