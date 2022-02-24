@@ -301,7 +301,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.2k 字
+      1.3k 字
     </span>
   
 
@@ -311,7 +311,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      17
+      18
        分钟
     </span>
   
@@ -353,7 +353,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2022年1月26日 上午
+                  本文最后更新于：2022年2月24日 下午
                 
               </p>
             
@@ -476,7 +476,15 @@
 	<span class="token keyword">return</span> textValue<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
-<p>从源码可以看出，我们也可以通过commonAPI中的<code>translateDict()</code>来手动对字典进行翻译<br><strong>而且最重要的一点是字典翻译是要通过<code>Page</code>结构才可以出现对应的_dictText属性</strong></p>
+<p>从源码可以看出，我们也可以通过commonAPI中的<code>translateDict()</code>来手动对字典进行翻译 </p>
+<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Resource</span>  
+<span class="token keyword">private</span> <span class="token class-name">ISysBaseAPI</span> sysBaseAPI<span class="token punctuation">;</span>
+
+<span class="token comment">//sysBaseAPI.translateDict("字典名称",value)</span>
+<span class="token comment">// 0-男 1-女</span>
+user<span class="token punctuation">.</span><span class="token function">setGender</span><span class="token punctuation">(</span>sysBaseAPI<span class="token punctuation">.</span><span class="token function">translateDict</span><span class="token punctuation">(</span><span class="token string">"sex"</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p><strong>而且从代码 <code>if (((Result) result).getResult() instanceof IPage) &#123; ... &#125;</code> 最重要的一点是字典翻译是要通过 <code>Page</code> 结构才可以出现对应的_dictText属性</strong></p>
 <h1 id="websocket使用"><a href="#websocket使用" class="headerlink" title="websocket使用"></a>websocket使用</h1><p>如果我们要实现消息推送，可以使用jeecg封装简单的websocket。</p>
 <div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 此为单点消息(多人)</span>
 <span class="token comment">// userIds:用户的id编号</span>
