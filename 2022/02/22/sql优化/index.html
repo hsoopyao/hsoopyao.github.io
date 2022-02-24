@@ -14,7 +14,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#5e5e5f">
-  <meta name="description" content="记录我的成长历程~">
+  <meta name="description" content="高级SQL优化">
   <meta name="author" content="hspro-yao">
   <meta name="keywords" content="">
   
@@ -358,7 +358,9 @@
               </p>
             
             <div class="markdown-body">
-              <h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><h2 id="三大范式"><a href="#三大范式" class="headerlink" title="三大范式"></a>三大范式</h2><p>1NF：数据库表的每一列都是不可分割的原子数据项<br>2NF：数据库表中的每一列都和主键相关，而不能只与主键的某一部分相关，即不存在部分依赖(一张表描述一件事情)<br>3NF：保证每列都和主键直接相关</p>
+              <p>高级SQL优化</p>
+<span id="more"></span>
+<h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><h2 id="三大范式"><a href="#三大范式" class="headerlink" title="三大范式"></a>三大范式</h2><p>1NF：数据库表的每一列都是不可分割的原子数据项<br>2NF：数据库表中的每一列都和主键相关，而不能只与主键的某一部分相关，即不存在部分依赖(一张表描述一件事情)<br>3NF：保证每列都和主键直接相关</p>
 <h2 id="sql执行过程"><a href="#sql执行过程" class="headerlink" title="sql执行过程"></a>sql执行过程</h2><p>sql语句 → 进入缓存查找 → 解析器(查找语法是否有错) → 预处理 → 查询优化器 → 执行方案 → 查找引擎 → 引擎执行查找 → 数据</p>
 <p>其中优化的点是 ==查询优化器 → 执行方案==</p>
 <h2 id="sql执行顺序"><a href="#sql执行顺序" class="headerlink" title="sql执行顺序"></a>sql执行顺序</h2><ol>
