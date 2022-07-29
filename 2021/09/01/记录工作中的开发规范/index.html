@@ -301,7 +301,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      4.4k 字
+      4.6k 字
     </span>
   
 
@@ -311,7 +311,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      60
+      62
        分钟
     </span>
   
@@ -353,7 +353,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2022年2月11日 下午
+                  本文最后更新于：2022年4月24日 下午
                 
               </p>
             
@@ -835,16 +835,17 @@ docker stop nginx<span aria-hidden="true" class="line-numbers-rows"><span></span
       <span class="token punctuation">-</span> 宿主机路径<span class="token punctuation">:</span>/etc/nginx/conf.d/default.conf
       <span class="token punctuation">-</span> 宿主机路径<span class="token punctuation">:</span>/var/www/html
     <span class="token key atrule">networks</span><span class="token punctuation">:</span>
-      <span class="token key atrule">ipv4_address</span><span class="token punctuation">:</span> xxx.xxx.xxx.xxx
+   <span class="token key atrule">net</span><span class="token punctuation">:</span>
+        <span class="token key atrule">ipv4_address</span><span class="token punctuation">:</span> xxx.xxx.xxx.xxx
 
 <span class="token comment">#可以配置网络，固定ip</span>
 <span class="token key atrule">network</span><span class="token punctuation">:</span>
-  <span class="token key atrule">net</span><span class="token punctuation">:</span>
+  <span class="token key atrule">net</span><span class="token punctuation">:</span> <span class="token comment">#网络名称</span>
     <span class="token key atrule">driver</span><span class="token punctuation">:</span> bridge <span class="token comment">#默认是bridge</span>
     <span class="token key atrule">ipam</span><span class="token punctuation">:</span>
       <span class="token key atrule">config</span><span class="token punctuation">:</span>
         <span class="token punctuation">-</span> <span class="token key atrule">subnet</span><span class="token punctuation">:</span> xxx.xxx.xxx.xxx
-          <span class="token key atrule">gateway</span><span class="token punctuation">:</span> xxx.xxx.xxx.1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+          <span class="token key atrule">gateway</span><span class="token punctuation">:</span> xxx.xxx.xxx.1 <span class="token comment"># docker-compose 3版本以上省略,会自动分配</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <blockquote>
 <p>如何查看服务器上那些ip地址是可用的？</p>
@@ -1050,7 +1051,14 @@ server &#123;
 <div class="code-wrapper"><pre class="line-numbers language-ad-bug" data-language="ad-bug"><code class="language-ad-bug">需要注意的是，&#96;MapSplitter&#96; 对键值对格式有着严格的校验，下例会抛出 &#96;java.lang.IllegalArgumentException&#96; 异常<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 
 
-<h2 id="图片预览与下载"><a href="#图片预览与下载" class="headerlink" title="图片预览与下载"></a>图片预览与下载</h2><p>通过访问图片url，会出现两种情况</p>
+
+<h2 id="调用第三方接口"><a href="#调用第三方接口" class="headerlink" title="调用第三方接口"></a>调用第三方接口</h2><h3 id="使用HttpClient"><a href="#使用HttpClient" class="headerlink" title="使用HttpClient"></a>使用HttpClient</h3><h3 id="使用Hutool中的HttpUtil"><a href="#使用Hutool中的HttpUtil" class="headerlink" title="使用Hutool中的HttpUtil"></a>使用Hutool中的HttpUtil</h3><h3 id="使用RestTemplate"><a href="#使用RestTemplate" class="headerlink" title="使用RestTemplate"></a>使用RestTemplate</h3><h2 id="网络安全"><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h2><h3 id="端口映射"><a href="#端口映射" class="headerlink" title="端口映射"></a>端口映射</h3><p>在服务器上部署项目，mysql容器很容易被入侵，不要映射端口到宿主机，用**ssh forword(端口转发)**的方式访问mysql容器比较安全。<br><img src="/2021/09/01/%E8%AE%B0%E5%BD%95%E5%B7%A5%E4%BD%9C%E4%B8%AD%E7%9A%84%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/Pasted%20image%2020220424172814.png" srcset="/img/loading.gif" lazyload><br><strong>最后通过可视化图形界面连接即可。</strong></p>
+<p>如何查看容器ip?</p>
+<ul>
+<li>通过<code>docker network ls</code>命令查询所有网络配置</li>
+<li>使用<code>docker network inspect 网络配置名称</code>可以查询到网络详情以及每个容器的ip、名称等信息</li>
+</ul>
+<h3 id="服务器登录"><a href="#服务器登录" class="headerlink" title="服务器登录"></a>服务器登录</h3><h2 id="图片预览与下载"><a href="#图片预览与下载" class="headerlink" title="图片预览与下载"></a>图片预览与下载</h2><p>通过访问图片url，会出现两种情况</p>
 <ol>
 <li>下载</li>
 <li>预览</li>
@@ -1151,9 +1159,7 @@ server &#123;
 </ul>
 </li>
 <li><p>添加请求头中的<code>content-disposition : &quot;inile;filename=&#39;$&#123;filename&#125;&#39;</code>，<strong>其中<code>inline</code>是预览图片，<code>attachment</code>是下载附件</strong></p>
-</li>
-</ul>
-<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 设置强制下载不打开  </span>
+  <div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 设置强制下载不打开  </span>
 response<span class="token punctuation">.</span><span class="token function">setContentType</span><span class="token punctuation">(</span><span class="token string">"application/force-download"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token comment">// ISO-8859-1 ==> UTF-8 进行编码转换</span>
 response<span class="token punctuation">.</span><span class="token function">addHeader</span><span class="token punctuation">(</span><span class="token string">"Content-Disposition"</span><span class="token punctuation">,</span> <span class="token string">"attachment;fileName="</span> <span class="token operator">+</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span>file<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token string">"UTF-8"</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token string">"iso-8859-1"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -1162,9 +1168,9 @@ response<span class="token punctuation">.</span><span class="token function">add
 response<span class="token punctuation">.</span><span class="token function">setContentType</span><span class="token punctuation">(</span><span class="token string">"image/png"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token comment">// ISO-8859-1 ==> UTF-8 进行编码转换</span>
 response<span class="token punctuation">.</span><span class="token function">addHeader</span><span class="token punctuation">(</span><span class="token string">"Content-Disposition"</span><span class="token punctuation">,</span> <span class="token string">"inline;fileName="</span> <span class="token operator">+</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span>file<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token string">"UTF-8"</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token string">"iso-8859-1"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
-
-
 <p>实习还在继续，，，</p>
+</li>
+</ul>
 
             </div>
             <hr>

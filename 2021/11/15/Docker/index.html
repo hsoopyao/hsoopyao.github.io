@@ -301,7 +301,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      10.5k 字
+      10.9k 字
     </span>
   
 
@@ -311,7 +311,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      145
+      152
        分钟
     </span>
   
@@ -353,7 +353,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年11月26日 上午
+                  本文最后更新于：2022年4月28日 下午
                 
               </p>
             
@@ -447,6 +447,102 @@
 </ol>
 <p>所以说，新建一个容器的时候，Docker不需要像虚拟机一样重新加载一个操作系统内核，避免引导。虚拟机是加载GuestOS，分钟级别的，而docker是利用宿主机的操作系统，省略了复杂的过程，秒级级别。</p>
 <p><img src="/2021/11/15/Docker/image-20211115115029954.png" srcset="/img/loading.gif" lazyload alt="对比"></p>
+<h2 id="Docker离线下载"><a href="#Docker离线下载" class="headerlink" title="Docker离线下载"></a>Docker离线下载</h2><p>使用二进制方式安装Docker<br>二进制包下载地址：<a target="_blank" rel="noopener" href="https://download.docker.com/linux/static/stable/x86_64/">https://download.docker.com/linux/static/stable/x86_64/</a></p>
+<p>新增shell脚本 <code>docker-install.sh</code></p>
+<div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"><span class="token comment">#解压</span>
+<span class="token function">tar</span> xf docker-20.10.9.tgz
+<span class="token comment">#拷贝二进制文件 </span>
+<span class="token function">cp</span> docker/* /usr/bin/ 
+<span class="token comment">#创建containerd的service文件,并且启动 </span>
+<span class="token function">cat</span> <span class="token operator">></span>/etc/systemd/system/containerd.service <span class="token operator">&lt;&lt;</span><span class="token string">EOF 
+[Unit] Description=containerd container runtime 
+Documentation=https://containerd.io 
+After=network.target local-fs.target 
+
+[Service] ExecStartPre=-/sbin/modprobe overlay 
+ExecStart=/usr/bin/containerd 
+Type=notify 
+Delegate=yes 
+KillMode=process 
+Restart=always 
+RestartSec=5 
+LimitNPROC=infinity 
+LimitCORE=infinity
+LimitNOFILE=1048576 
+TasksMax=infinity 
+OOMScoreAdjust=-999 
+
+[Install] 
+WantedBy=multi-user.target
+EOF</span> 
+
+systemctl <span class="token builtin class-name">enable</span> --now containerd.service
+
+<span class="token comment">#准备docker的service文件 </span>
+<span class="token function">cat</span> <span class="token operator">></span> /etc/systemd/system/docker.service <span class="token operator">&lt;&lt;</span><span class="token string">EOF 
+
+[Unit] 
+Description=Docker Application Container Engine Documentation=https://docs.docker.com 
+After=network-online.target firewalld.service containerd.service 
+Wants=network-online.target 
+Requires=docker.socket containerd.service 
+
+[Service] 
+Type=notify 
+ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock ExecReload=/bin/kill -s HUP <span class="token variable">$MAINPID</span> 
+TimeoutSec=0 RestartSec=2 
+Restart=always 
+StartLimitBurst=3 
+StartLimitInterval=60s 
+LimitNOFILE=infinity 
+LimitNPROC=infinity 
+LimitCORE=infinity 
+TasksMax=infinity 
+Delegate=yes 
+KillMode=process 
+OOMScoreAdjust=-500 
+
+[Install] 
+WantedBy=multi-user.target 
+EOF</span> 
+
+<span class="token comment">#准备docker的socket文件 </span>
+<span class="token function">cat</span> <span class="token operator">></span> /etc/systemd/system/docker.socket <span class="token operator">&lt;&lt;</span><span class="token string">EOF 
+
+[Unit] 
+Description=Docker Socket for the API 
+
+[Socket] 
+ListenStream=/var/run/docker.sock 
+SocketMode=0660 
+SocketUser=root 
+SocketGroup=docker 
+
+[Install] 
+WantedBy=sockets.target 
+EOF</span>
+
+<span class="token comment">#创建docker组 </span>
+<span class="token function">groupadd</span> docker 
+<span class="token comment">#启动docker systemctl enable --now docker.socket &amp;&amp; systemctl enable --now docker.service </span>
+<span class="token comment">#验证</span>
+docker info<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>切换成root用户将shell脚本属性变更为可执行文件</p>
+<div class="code-wrapper"><pre class="line-numbers language-linux" data-language="linux"><code class="language-linux">su -
+password:
+
+chmod a+x .&#x2F;docker-install.sh
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>安装docker-compose</p>
+<ul>
+<li>将docker-compose文件复制到/usr/local/bin目录下并修改权限<div class="code-wrapper"><pre class="line-numbers language-linux" data-language="linux"><code class="language-linux">#复制文件
+cp docker-compose &#x2F;usr&#x2F;local&#x2F;bin
+
+#修改权限
+chomd a+x &#x2F;usr&#x2F;local&#x2F;bin&#x2F;docker-compose<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+</ul>
 <h1 id="Docker的常用命令"><a href="#Docker的常用命令" class="headerlink" title="Docker的常用命令"></a>Docker的常用命令</h1><h2 id="帮助命令"><a href="#帮助命令" class="headerlink" title="帮助命令"></a>帮助命令</h2><div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">docker version     <span class="token comment"># 显示docker的版本信息</span>
 docker info        <span class="token comment"># 显示docker的系统信息，包括镜像和容器的镜像</span>
 docker 命令 --help  <span class="token comment"># 万能命令</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>

@@ -301,7 +301,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.3k 字
+      1.5k 字
     </span>
   
 
@@ -311,7 +311,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      18
+      20
        分钟
     </span>
   
@@ -353,7 +353,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2022年2月24日 下午
+                  本文最后更新于：2022年3月9日 上午
                 
               </p>
             
@@ -566,6 +566,50 @@ message<span class="token punctuation">.</span><span class="token function">put<
 </li>
 <li><p>同步到数据库之后，在更多选择功能测试，新增数据就能看见职业名称是一个<strong>单选下拉框</strong>，里面对应的是我们一开始在<strong>数据字典中配置的数据</strong>。</p>
 <p> <img src="/2022/01/25/Jeecg%E4%B8%AA%E4%BA%BA%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/Pasted%20image%2020220126104601.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+</ol>
+<h1 id="数据权限"><a href="#数据权限" class="headerlink" title="数据权限"></a>数据权限</h1><p>当想让客户账号看不见我们自己测试的数据时，我们就需要对数据进行过滤</p>
+<ol>
+<li><p>在菜单管理中，选择一个菜单点击更多中的数据规则</p>
+<p><img src="/2022/01/25/Jeecg%E4%B8%AA%E4%BA%BA%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/Pasted%20image%2020220309110212.png" srcset="/img/loading.gif" lazyload><br><strong>规则字段需要驼峰命名规则，规则值可以固定写死也可以动态获取</strong></p>
+<table>
+<thead>
+<tr>
+<th>编码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>sys_user_code</td>
+<td>当前登录用户登录账号</td>
+</tr>
+<tr>
+<td>sys_user_name</td>
+<td>当前登录用户真实姓名</td>
+</tr>
+<tr>
+<td>sys_date</td>
+<td>当前系统日期</td>
+</tr>
+<tr>
+<td>sys_time</td>
+<td>当前系统时间</td>
+</tr>
+<tr>
+<td>sys_org_code</td>
+<td>当前登录用户部门编号</td>
+</tr>
+<tr>
+<td>sysMultiOrgCode</td>
+<td>当前登录用户拥有的所有机构编码逗号分隔</td>
+</tr>
+</tbody></table>
+<p>   规则值，配置写法如下：#{sys_user_code}</p>
+</li>
+<li><p>在角色管理中，选择一个需要过滤的角色，点击更多中的授权</p>
+<p> <img src="/2022/01/25/Jeecg%E4%B8%AA%E4%BA%BA%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/Pasted%20image%2020220309111829.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>最后需要在对应的接口上添加注解<code>@PermissionData(pageComponent = &quot;菜单组件路径&quot;)</code>，后面的pageComponent不可省略。<strong>pageComponent的值和你前端配置的要一样。</strong><br> <img src="/2022/01/25/Jeecg%E4%B8%AA%E4%BA%BA%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/Pasted%20image%2020220309112123.png" srcset="/img/loading.gif" lazyload><br> <img src="/2022/01/25/Jeecg%E4%B8%AA%E4%BA%BA%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/Pasted%20image%2020220309112145.png" srcset="/img/loading.gif" lazyload></p>
 </li>
 </ol>
 
