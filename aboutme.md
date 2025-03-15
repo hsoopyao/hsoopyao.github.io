@@ -2,14 +2,20 @@
 layout: page
 title: About me
 subtitle: Introduce myself
+cover-img: [/assets/imd/aboutme1.JPG, /assets/imd/aboutme2.JPG, /assets/imd/aboutme3.JPG, /assets/imd/aboutme4.JPG]
 ---
 
-My English name is Rowan. I'm from Guangdong, China.
+👋🏼 **My English name is Rowan. I'm from Guangdong, China.**
 
-I enjoy playing **basketball** with my pals and travelling around. I'm still learning English currently.
-I'm highly interested in coding and practicing.
+📍 My experience:
+- Study Software Engineering at Songtian College in China. (2018-2022)
+- Work at Guangdong Yitonglian Cloud Intelligent Information Co., LTD. (2021-2024)
+- Studying Advanced Computer Science at Newcastle University in UK. (2024-2025)
 
-My MBTI is **INFJ**.
+📍 What kind of person am I:
+- 🏀 I enjoy playing **basketball** with my pals and travelling around.
+- 📚 I'm still learning English currently.
+- 👩🏻‍💻 I'm highly interested in coding and practicing.
+- 🌠 My MBTI is **INFJ**.
 
-Now, I am studying at Newcastle University, and major is Advanced Computer Science💻.
 
