@@ -8,19 +8,19 @@ cover-img: [/assets/img/aboutme/aboutme1.JPG, /assets/img/aboutme/aboutme2.JPG, 
 👋🏼 **My English name is Rowan. I'm from Guangdong, China.**
 
 🚀 About Me
-- 🎯 Specialties: Cloud Computing / DevOps / Backend Development / Database Management / Data Visualization
-- 🏗 Current Role: Student of Newcastle University in UK
-- 🌱 Currently Exploring: Kubernetes / Azure / PostgreSQL / Cloud-Native Technologies
-- 🎨 Hobbies: Coding, Automation, Reading Tech Books, Fitness
+- 🎯 Specialties: Cloud Computing, **DevOps**, **Backend Development**, Database Management, Data Visualization
+- 🏗 Current Role: **Student of Newcastle University in UK**
+- 🌱 Currently Exploring: Kubernetes, Azure, PostgreSQL, Cloud-Native Technologies
+- 🎨 Hobbies: **Coding**, Automation, Reading Tech Books, Fitness
 
 🛠 Tech Stack
-- 💻 Programming Languages: Java / Python / Bash
-- ☁️Cloud Platforms: Azure / AWS / GCP
-- 🏗 DevOps & CI/CD: Kubernetes / Docker / Jenkins / GitHub Actions
-- 🗄 Databases: PostgreSQL / MySQL / Redis / MongoDB
+- 💻 Programming Languages: **Java**, Python, Bash
+- ☁️Cloud Platforms: **Azure**, AWS, GCP
+- 🏗 DevOps & CI/CD: **Kubernetes, Docker, Jenkins, GitHub Actions**
+- 🗄 Databases: PostgreSQL, **MySQL**, Redis, MongoDB
 
 📍 What kind of person am I:
-- 🏀 I enjoy playing **basketball** with my pals and travelling around ✈️.
+- 🏀 I enjoy playing **basketball** with my pals and **travelling** around ✈️.
 - 📚 I'm still learning English currently.
 - 👩🏻‍💻 I'm highly interested in coding and practicing.
 - 🌠 My MBTI is **INFJ**.
@@ -28,7 +28,7 @@ cover-img: [/assets/img/aboutme/aboutme1.JPG, /assets/img/aboutme/aboutme2.JPG, 
 📍 My experience:
 - ✅ 2018-2022: Study Software Engineering at Songtian College in China.
 - ✅ 2021-2024: Work at Guangdong Yitonglian Cloud Intelligent Information Co., LTD.
-- ✅ 2024-2025: Studying Advanced Computer Science at Newcastle University in UK.
+- ✅ 2024-2025: Studying Advanced Computer Science at Newcastle University in UK. **[NOW]**
 
 📌 My Blog
 - 📖 [My Tech Blog](https://hsoopyao.github.io/)
