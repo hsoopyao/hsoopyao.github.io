@@ -1,16 +1,15 @@
 ---
 layout: page
 title: About me
-subtitle: Why you'd want to go on a date with me
+subtitle: Introduce myself
 ---
 
-My name is Inigo Montoya. I have the following qualities:
+My English name is Rowan. I'm from Guangdong, China.
 
-- I rock a great mustache
-- I'm extremely loyal to my family
+I enjoy playing **basketball** with my pals and travelling around. I'm still learning English currently.
+I'm highly interested in coding and practicing.
 
-What else do you need?
+My MBTI is **INFJ**.
 
-### My story
+Now, I am studying at Newcastle University, and major is Advanced Computer Science💻.
 
-To be honest, I'm having some trouble remembering right now, so why don't you just watch [my movie](https://en.wikipedia.org/wiki/The_Princess_Bride_%28film%29) and it will answer **all** your questions.
