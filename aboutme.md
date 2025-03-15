@@ -30,8 +30,8 @@ cover-img: [/assets/img/aboutme/aboutme1.JPG, /assets/img/aboutme/aboutme2.JPG, 
 - ✅ 2021-2024: Work at Guangdong Yitonglian Cloud Intelligent Information Co., LTD.
 - ✅ 2024-2025: Studying Advanced Computer Science at Newcastle University in UK. **[NOW]**
 
-📌 My Blog
-- 📖 [My Tech Blog](https://hsoopyao.github.io/)
+📌 Projects
+- 📖 [My GitHub](https://github.com/hsoopyao)
 
 📫 Contact Me
 - 📧 Email: yiurowan11@outlook.com
