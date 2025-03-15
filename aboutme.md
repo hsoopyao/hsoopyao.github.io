@@ -2,7 +2,7 @@
 layout: page
 title: About me
 subtitle: Introduce myself
-cover-img: [/assets/imd/aboutme1.JPG, /assets/imd/aboutme2.JPG, /assets/imd/aboutme3.JPG, /assets/imd/aboutme4.JPG]
+cover-img: [/assets/img/aboutme1.JPG, /assets/img/aboutme2.JPG, /assets/img/aboutme3.JPG, /assets/img/aboutme4.JPG]
 ---
 
 👋🏼 **My English name is Rowan. I'm from Guangdong, China.**
