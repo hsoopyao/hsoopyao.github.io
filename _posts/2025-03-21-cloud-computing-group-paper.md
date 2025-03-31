@@ -4,7 +4,7 @@ title: DevOps Techniques in Bookstore Cloud Application
 subtitle: Cloud Computing Group Project
 gh-repo: hsoopyao/Group-Project-in-Cloud-Computing
 gh-badge: [star, follow]
-tags: [cloud, group, paper]
+tags: [cloud, group, paper, school]
 author: Aniket Thorat, Jiawen Yao, Rozana Almohammadi, Abhishek Pawar, Lonxing Li
 ---
 

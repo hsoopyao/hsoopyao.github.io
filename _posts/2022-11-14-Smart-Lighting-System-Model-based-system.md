@@ -2,7 +2,7 @@
 layout: post
 title: Smart Lighting System
 subtitle: Model-Based System Engineering
-tags: [model-based, SOS, ]
+tags: [model-based, SOS, paper, school]
 author: Jiawen Yao
 ---
 
@@ -36,11 +36,11 @@ The system's Device-Aware layer determines the devices by parameters such as a M
 
 These are coupled with smart lighting systems for flexible, adaptive, and responsive solutions that balance energy efficiency with user comfort. While it automatically optimizes lighting settings, it allows for personalization by users, hence permitting an interplay of manual control with advanced automation features.![图示
 
-![block-definition.png](../assets/img/model-based-system/block-definition.png)
+![bdd-structure.png](../assets/img/model-based-system/bdd-structure.png)
 
 **Internal Block Diagram**
 
-![internal-block.png](../assets/img/model-based-system/internal-block.png)
+![ibd-light-domain.png](../assets/img/model-based-system/ibd-light-domain.png)
 
 The physical environment plays a very crucial role in smart lighting systems to dynamically adjust indoor lighting. Sound sensors monitor environmental noise and adjust the lighting intensity according to that data to improve concentration or create a relaxing atmosphere. For example, in a noisy room, it increases brightness to focus on something; in a quiet environment, softer light can be used. This interaction between the level of sound and lighting means creating an environment that can adapt to work and leisure activities alike.
 
