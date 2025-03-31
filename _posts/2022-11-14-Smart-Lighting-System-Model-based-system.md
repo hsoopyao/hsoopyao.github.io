@@ -34,7 +34,7 @@ The environmental data module collects information in real time, such as weather
 
 The system's Device-Aware layer determines the devices by parameters such as a MAC address and an operating system, recorded at the time of network setup[4]. This ensures the uniqueness of each device that can be offered to the smart gateway for appropriate control. This layer ensures that the system will be able to adapt to a variety of devices and their surroundings for all devices to be compatible with the central operation of the system.
 
-These are coupled with smart lighting systems for flexible, adaptive, and responsive solutions that balance energy efficiency with user comfort. While it automatically optimizes lighting settings, it allows for personalization by users, hence permitting an interplay of manual control with advanced automation features.![图示
+These are coupled with smart lighting systems for flexible, adaptive, and responsive solutions that balance energy efficiency with user comfort. While it automatically optimizes lighting settings, it allows for personalization by users, hence permitting an interplay of manual control with advanced automation features.
 
 ![bdd-structure.png](../assets/img/model-based-system/bdd-structure.png)
 
