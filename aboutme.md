@@ -10,7 +10,7 @@ cover-img: [/assets/img/aboutme/aboutme1.JPG, /assets/img/aboutme/aboutme2.JPG, 
 🚀 About Me
 - 🎯 Specialties: Cloud Computing, **DevOps**, **Backend Development**, Database Management, Data Visualization
 - 🏗 Current Role: **Student of Newcastle University in UK**
-- 🌱 Currently Exploring: Kubernetes, Azure, PostgreSQL, Cloud-Native Technologies
+- 🌱 Currently Exploring: Object Detection, Complex Data Visualization, Kubernetes, Azure
 - 🎨 Hobbies: **Coding**, Automation, Reading Tech Books, Fitness
 
 🛠 Tech Stack
